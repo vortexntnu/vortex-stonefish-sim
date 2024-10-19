@@ -12,4 +12,4 @@ Launch a scenario:
 
 `ros2 launch vortex_stonefish_sim simulation.launch.py scenario_desc:=structure.scn`
 
-![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7/view?usp)
+![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7)
