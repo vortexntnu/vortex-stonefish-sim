@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>vortex_stonefish_sim</name>
+  <name>stonefish_sim</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Package for the vortex stonefish sim</description>
   <maintainer email="andeshog@stud.ntnu.no">vortex</maintainer>
-  <license>TODO: License declaration</license>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
