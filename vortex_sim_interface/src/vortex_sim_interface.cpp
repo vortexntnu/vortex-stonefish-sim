@@ -64,6 +64,10 @@ private:
 
         thrust_array_msg.data.resize(8); 
 
+        for (size_t i = 0; i < 8; ++i) {
+            thrust_array_msg.data[i] = msg->thrust[i];
+        }
+
         stonefish_thruster_pub_->publish(thrust_array_msg);
     }
 
