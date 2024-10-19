@@ -28,11 +28,11 @@
     </atmosphere>
   </environment>
 
-  <include file="$(find vortex_stonefish_sim)/metadata/materials.scn"/>
-  <include file="$(find vortex_stonefish_sim)/metadata/looks.scn"/>
+  <include file="$(find stonefish_sim)/metadata/materials.scn"/>
+  <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 
-  <include file="$(find vortex_stonefish_sim)/drones/orca.scn"/>
+  <include file="$(find stonefish_sim)/drones/orca.scn"/>
 
-  <include file="$(find vortex_stonefish_sim)/tasks/docking_task.scn"/>
+  <include file="$(find stonefish_sim)/tasks/docking_task.scn"/>
 
 </scenario>
