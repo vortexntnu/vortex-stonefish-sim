@@ -13,6 +13,7 @@
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h>
 
 
 class VortexSimInterface : public rclcpp::Node
@@ -27,6 +28,8 @@ public:
 
         odom_subscriber_ = this->create_subscription<nav_msgs::msg::Odometry>(
             "nucleus/odom", 10, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
+
+        odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", 10);
 
         tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
@@ -46,6 +49,8 @@ private:
     rclcpp::TimerBase::SharedPtr timer_;
 
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr stonefish_thruster_pub_;
+
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr odom_euler_pub_;
 
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
@@ -72,19 +77,37 @@ private:
     }
 
     
-    void odom_callback(const nav_msgs::msg::Odometry::SharedPtr odom_msg_nuw)
+    void odom_callback(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
     {
         geometry_msgs::msg::TransformStamped transform_stamped;
 
-        transform_stamped.header.stamp = odom_msg_nuw->header.stamp;
+        transform_stamped.header.stamp = odom_msg->header.stamp;
         transform_stamped.header.frame_id = "odom";
         transform_stamped.child_frame_id = "base_link";
 
-        transform_stamped.transform.translation.x = odom_msg_nuw->pose.pose.position.x;
-        transform_stamped.transform.translation.y = odom_msg_nuw->pose.pose.position.y;
-        transform_stamped.transform.translation.z = odom_msg_nuw->pose.pose.position.z;
+        transform_stamped.transform.translation.x = odom_msg->pose.pose.position.x;
+        transform_stamped.transform.translation.y = odom_msg->pose.pose.position.y;
+        transform_stamped.transform.translation.z = odom_msg->pose.pose.position.z;
 
-        transform_stamped.transform.rotation = odom_msg_nuw->pose.pose.orientation;
+        transform_stamped.transform.rotation = odom_msg->pose.pose.orientation;
+
+        // Convert quaternions to euler
+        tf2::Quaternion q;
+
+        q.setX(odom_msg->pose.pose.orientation.x);
+        q.setY(odom_msg->pose.pose.orientation.y);
+        q.setZ(odom_msg->pose.pose.orientation.z);
+        q.setW(odom_msg->pose.pose.orientation.w);
+
+        double roll, pitch, yaw;
+        tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
+
+        std_msgs::msg::Float64MultiArray euler_msg;
+        euler_msg.data.push_back(roll);
+        euler_msg.data.push_back(pitch);
+        euler_msg.data.push_back(yaw);
+
+        odom_euler_pub_->publish(euler_msg);
 
         tf_broadcaster_->sendTransform(transform_stamped);
     }
