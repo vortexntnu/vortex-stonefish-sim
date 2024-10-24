@@ -8,6 +8,9 @@
             <look name="Black" rgb="0.0 0.0 0.0" roughness="0.2"/>
             <look name="White" rgb="1.0 1.0 1.0" roughness="0.2"/>
             <look name="Aruco33" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-marker-ID=33.png"/>
+            <look name="Aruco19" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-19.png"/>
+            <look name="Aruco28" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-28.png"/>
+            <look name="Aruco7" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-7.png"/>
             <look name="Aruco96" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-96.png"/>
         </looks>
     </scenario>

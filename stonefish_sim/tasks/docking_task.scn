@@ -35,37 +35,37 @@
       <look name="White"/>
     </base_link>
 
-    <!-- <link name="1aruco96" type="box">
-      <dimensions xyz="0.2 0.2 0.002"/>
+    <link name="1aruco7" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
       <material name="Neutral"/>
-      <look name="Aruco96" uv_mode="1"/>
-      <origin xyz="0.299 -0.154 0.482" rpy="1.57 0 0"/>
+      <look name="Aruco7" uv_mode="1"/>
+      <origin xyz="0.295 -0.154 0.485" rpy="1.57 -1.57 0"/>
     </link>
 
-    <joint name="1aruco96_joint" type="fixed">
+    <joint name="1aruco7_joint" type="fixed">
       <parent name="dock_base"/>
-      <child name="1aruco96"/>
+      <child name="1aruco7"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
-    </joint> -->
+    </joint>
 
-    <!-- <link name="2aruco96" type="box">
-      <dimensions xyz="0.2 0.2 0.002"/>
+    <link name="2aruco19" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
       <material name="Neutral"/>
-      <look name="Aruco96" uv_mode="1"/>
-      <origin xyz="-0.299 -0.154 -0.482" rpy="1.57 0 0"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="-0.285 -0.154 -0.495" rpy="1.57 -1.57 0"/>
     </link>
 
-    <joint name="2aruco96_joint" type="fixed">
+    <joint name="2aruco19_joint" type="fixed">
       <parent name="dock_base"/>
-      <child name="2aruco96"/>
+      <child name="2aruco19"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
-    </joint> -->
+    </joint>
 
     <link name="3aruco96" type="box">
       <dimensions xyz="0.15 0.15 0.002"/>
       <material name="Neutral"/>
       <look name="Aruco96" uv_mode="1"/>
-      <origin xyz="0.299 -0.154 -0.495" rpy="1.57 -1.57 0"/>
+      <origin xyz="0.295 -0.154 -0.495" rpy="1.57 -1.57 0"/>
     </link>
 
     <joint name="3aruco96_joint" type="fixed">
@@ -74,18 +74,18 @@
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
     </joint>
 
-    <!-- <link name="4aruco33" type="box">
-      <dimensions xyz="0.2 0.2 0.002"/>
+    <link name="4aruco28" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
       <material name="Neutral"/>
-      <look name="Aruco33" uv_mode="1"/>
-      <origin xyz="-0.299 -0.154 0.482" rpy="1.57 0 0"/>
+      <look name="Aruco28" uv_mode="1"/>
+      <origin xyz="-0.285 -0.154 0.485" rpy="1.57 -1.57 0"/>
     </link>
 
-    <joint name="4aruco33_joint" type="fixed">
+    <joint name="4aruco28_joint" type="fixed">
       <parent name="dock_base"/>
-      <child name="4aruco33"/>
+      <child name="4aruco28"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
-    </joint> -->
+    </joint>
 
     <world_transform xyz="0.0 7.5 4" rpy="1.57 0.0 1.57"/>
   </robot>
