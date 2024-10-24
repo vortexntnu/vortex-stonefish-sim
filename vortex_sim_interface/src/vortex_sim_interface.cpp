@@ -4,7 +4,6 @@
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <nav_msgs/msg/path.hpp>
 #include <nav_msgs/msg/odometry.hpp>
-#include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <Eigen/Geometry>
 #include <vector>
@@ -12,6 +11,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 
@@ -30,6 +30,8 @@ public:
             "nucleus/odom", 10, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
 
         odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", 10);
+
+        pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/nucleus/pose", 10);
 
         tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
@@ -51,6 +53,8 @@ private:
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr stonefish_thruster_pub_;
 
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr odom_euler_pub_;
+
+    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
 
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
@@ -82,7 +86,7 @@ private:
         geometry_msgs::msg::TransformStamped transform_stamped;
 
         transform_stamped.header.stamp = odom_msg->header.stamp;
-        transform_stamped.header.frame_id = "odom";
+        transform_stamped.header.frame_id = "world_ned";
         transform_stamped.child_frame_id = "base_link";
 
         transform_stamped.transform.translation.x = odom_msg->pose.pose.position.x;
@@ -110,6 +114,13 @@ private:
         odom_euler_pub_->publish(euler_msg);
 
         tf_broadcaster_->sendTransform(transform_stamped);
+
+        geometry_msgs::msg::PoseStamped pose_msg;
+        pose_msg.header = odom_msg->header;
+        pose_msg.pose.position = odom_msg->pose.pose.position;
+        pose_msg.pose.orientation = odom_msg->pose.pose.orientation;
+
+        pose_pub_->publish(pose_msg);
     }
 
      void publish_camera_down_transform()
