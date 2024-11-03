@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<scenario>
+    <robot name="Freya" fixed="false" self_collisions="false">
+        <base_link name="Base" type="model" physics="floating">
+            <physical>
+                <mesh filename="freya/freya_mesh.obj" scale="1.0"/>
+                <origin rpy="0 0 0" xyz="2.0 0.0 0.0"/>
+            </physical>
+            <visual>
+                <mesh filename="freya/freya.obj" scale="1.0"/>
+                <origin rpy="0 0 0" xyz="2.0 0.0 0.0"/>
+            </visual>
+            <material name="Neutral"/>
+            <look name="Gray"/>
+            <mass value="60.5"/>
+        </base_link>
+
+        <world_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+    </robot>
+</scenario>
