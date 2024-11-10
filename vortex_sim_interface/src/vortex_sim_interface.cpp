@@ -25,19 +25,19 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos_sensor_data = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 1), qos_profile);
         subscription_ = this->create_subscription<vortex_msgs::msg::ThrusterForces>(
-            "thrust/thruster_forces", qos_sensor_data, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
+            "thrust/thruster_forces", 10, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
 
         stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", qos_sensor_data);
 
         odom_subscriber_ = this->create_subscription<nav_msgs::msg::Odometry>(
-            "nucleus/odom", qos_sensor_data, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
+            "nucleus/odom", 10, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
 
         odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", qos_sensor_data);
 
         pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/nucleus/pose", qos_sensor_data);
 
         dvl_subscriber_ = this->create_subscription<stonefish_ros2::msg::DVL>(
-            "dvl/sim", qos_sensor_data, std::bind(&VortexSimInterface::dvl_callback, this, std::placeholders::_1));
+            "/dvl/sim", 10, std::bind(&VortexSimInterface::dvl_callback, this, std::placeholders::_1));
 
         depth_pub_ = this->create_publisher<std_msgs::msg::Float64>("/dvl/depth", qos_sensor_data);
 
