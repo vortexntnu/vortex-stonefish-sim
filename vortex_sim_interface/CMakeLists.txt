@@ -14,6 +14,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(stonefish_ros2 REQUIRED)
 
 
 include_directories(
@@ -36,6 +37,7 @@ ament_target_dependencies(vortex_sim_interface
  nav_msgs
  geometry_msgs
  tf2_ros
+ stonefish_ros2
 )
 
 install(TARGETS 

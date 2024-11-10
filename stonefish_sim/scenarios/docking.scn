@@ -9,11 +9,11 @@
         <current type="uniform">
             <velocity xyz="0.0 0.0 0.0"/>
         </current>
-        <current type="jet">
+        <!-- <current type="jet">
             <center xyz="0.0 0.0 0.0"/>
             <outlet radius="1.2"/>
             <velocity xyz="10.0 10.0 10.0"/>
-        </current>
+        </current> -->
     </ocean>
     <atmosphere>
         <sun azimuth="-88.0" elevation="20.0"/>

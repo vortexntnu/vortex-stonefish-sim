@@ -36,7 +36,7 @@
         <!-- <damping value="2.0"/> -->
     </joint>
 
-    <world_transform xyz="1.81 -6.195 1.58" rpy="0.0 0.0 1.57"/>
+    <world_transform xyz="1.81 -6.195 2.08" rpy="0.0 0.0 1.57"/>
   </robot>
 
   <robot name="Valve2" fixed="true" self_collisions="false">
@@ -75,7 +75,7 @@
         <!-- <damping value="2.0"/> -->
     </joint>
 
-    <world_transform xyz="1.77 -5.65 2.03" rpy="0.0 1.57 1.57"/>
+    <world_transform xyz="1.77 -5.65 2.53" rpy="0.0 1.57 1.57"/>
   </robot>
 
   <static name="structure" type="model">
@@ -90,7 +90,7 @@
     </visual>
     <material name="Neutral"/>
     <look name="Yellow"/>
-    <world_transform xyz="0.0 -5.0 3.0" rpy="-1.57 0.0 -1.57"/>
+    <world_transform xyz="0.0 -5.0 3.5" rpy="-1.57 0.0 -1.57"/>
   </static>
 
   <static name="structure" type="model">
@@ -105,7 +105,21 @@
     </visual>
     <material name="Neutral"/>
     <look name="Yellow"/>
-    <world_transform xyz="0.0 -1.0 3.0" rpy="-1.57 0.0 -1.57"/>
+    <world_transform xyz="0.0 -1.0 3.5" rpy="-1.57 0.0 -1.57"/>
+  </static>
+
+  <static name="seafloor" type="model">
+    <physical>
+        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="Green"/>
+    <world_transform xyz="0.0 0.0 3.0" rpy="1.57 0.0 0.0"/>
   </static>
 
 </scenario>

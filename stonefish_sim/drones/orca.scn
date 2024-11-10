@@ -217,7 +217,8 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster6"/> -->
+            <!-- <ros_subscriber topic="/orca/cmd_th    setVelocity(velocity);
+}uster6"/> -->
         </actuator>
         <actuator name="Thruster7" type="thruster">
             <link name="Base"/>
@@ -263,20 +264,20 @@
         </actuator>
         <sensor name="camera_front" type="camera" rate="13.0">
 			<link name="Base"/>
-			<origin rpy="1.2 0.0 1.571" xyz="0.45 0.0 -0.1"/>
-			<specs resolution_x="1360" resolution_y="1024" horizontal_fov="90.0"/>
+			<origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
+			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
 			<ros_publisher topic="/cam"/>
 		</sensor>
         <sensor name="camera_down" type="camera" rate="13.0">
 			<link name="Base"/>
 			<origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
-			<specs resolution_x="1360" resolution_y="1024" horizontal_fov="90.0"/>
+			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
 			<ros_publisher topic="/cam_down"/>
 		</sensor>
         <sensor name="Dcam" rate="5.0" type="depthcamera">
-            <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.2" depth_max="2.5"/>
-            <noise depth="0.12"/>
-            <origin xyz="0.45 0.0 -0.1" rpy="1.2 0.0 1.57"/>
+            <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.4" depth_max="10.0"/>
+            <noise depth="0.01"/>
+            <origin xyz="0.45 0.0 -0.02" rpy="1.57 0.0 1.57"/>
             <link name="Base"/>
             <ros_publisher topic="/depth_cam"/>
         </sensor>
@@ -285,12 +286,47 @@
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <ros_publisher topic="/nucleus/odom"/>
         </sensor>
-        <light name="Spot">
-            <specs radius="0.03" cone_angle="35.0" illuminance="35000.0"/>
+        <sensor name="DVL" rate="10.0" type="dvl">
+            <specs beam_angle="30.0" beam_positive_z="true"/>
+            <range velocity="10.0 10.0 5.0" altitude_min="0.5" altitude_max="50.0"/>
+            <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
+            <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
+            <history samples="1"/>
+            <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
+            <link name="Base"/>
+            <ros_publisher topic="/dvl/sim"/>
+        </sensor>
+        <!-- <sensor name="Multibeam2" rate="2.0" type="multibeam2d">
+            <specs horizontal_fov="120.0" vertical_fov="45.0" resolution_x="100." resolution_y="50." range_min="0.5" range_max="20.0"/>
+            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
+            <link name="Base"/>
+            <ros_publisher topic="/multibeam2"/>
+        </sensor> -->
+        <!-- <sensor name="MSIS" type="msis">
+            <specs step="0.25" bins="500" horizontal_beam_width="2.0" vertical_beam_width="30.0"/>
+            <settings range_min="0.5" range_max="10.0" rotation_min="-50.0" rotation_max="50.0" gain="1.5"/>
+            <noise multiplicative="0.02" additive="0.03"/>
+            <display colormap="hot"/>
+            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
+            <link name="Base"/>
+            <ros_publisher topic="/msis"/>
+        </sensor> -->
+        <!-- <sensor name="FLS" type="fls">
+            <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
+            <settings range_min="0.5" range_max="10.0" gain="1.1"/>
+            <noise multiplicative="0.01" additive="0.02"/>
+            <display colormap="hot"/>
+            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
+            <link name="Base"/>
+            <ros_publisher topic="/fls"/>
+        </sensor> -->
+
+        <!-- <light name="Spot">
+            <specs radius="0.03" cone_angle="35.0" illuminance="2000.0"/>
             <color temperature="5600.0"/>
             <origin xyz="0.25 0.0 -0.075" rpy="-1.57 0.0 -1.57"/>
             <link name="Base"/>
-        </light>
+        </light> -->
         <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
 
         <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
