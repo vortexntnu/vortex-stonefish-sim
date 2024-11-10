@@ -27,7 +27,7 @@ public:
         subscription_ = this->create_subscription<vortex_msgs::msg::ThrusterForces>(
             "thrust/thruster_forces", 10, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
 
-        stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", qos_sensor_data);
+        stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", 10);
 
         odom_subscriber_ = this->create_subscription<nav_msgs::msg::Odometry>(
             "nucleus/odom", 10, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
