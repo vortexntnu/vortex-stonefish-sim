@@ -1,18 +1,49 @@
 <?xml version="1.0"?>
 <scenario>
     <robot name="Freya" fixed="false" self_collisions="false">
-        <base_link name="Base" type="model" physics="floating">
-            <physical>
-                <mesh filename="freya/freya_mesh2.obj" scale="1.0"/>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
-            </physical>
-            <visual>
-                <mesh filename="freya/freya_mesh2.obj" scale="1.0"/>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
-            </visual>
-            <material name="Neutral"/>
-            <look name="Gray"/>
-            <mass value="70.5"/>
+        <base_link name="Base" type="compound" physics="floating">
+            <external_part name="Base" type="model" physics="surface">
+                <physical>
+                    <mesh filename="freya/body.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/body.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="0.5"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+            <external_part name="Pontoon1" type="model" physics="floating" buoyant="true">
+                <physical>
+                    <mesh filename="freya/pontoon.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/pontoon.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="35.25"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+            <external_part name="Pontoon2" type="model" physics="floating" buoyant="true">
+                <physical>
+                    <mesh filename="freya/pontoon2.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/pontoon2.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="35.25"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
         </base_link>
 
         <actuator name="Thruster1" type="thruster">
