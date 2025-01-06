@@ -7,6 +7,7 @@
             <look name="Invisible" rgb="1 1 1" roughness="0.2" alpha="0.0"/>
             <look name="Black" rgb="0.0 0.0 0.0" roughness="0.2"/>
             <look name="White" rgb="1.0 1.0 1.0" roughness="0.2"/>
+            <look name="Brown" rgb="0.5 0.3 0.0" roughness="0.2"/>
             <look name="Aruco33" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-marker-ID=33.png"/>
             <look name="Aruco19" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-19.png"/>
             <look name="Aruco28" gray="1.0" roughness="0.2" texture="aruco_tags/aruco-28.png"/>
