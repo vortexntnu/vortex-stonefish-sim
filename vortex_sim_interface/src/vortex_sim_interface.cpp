@@ -5,6 +5,8 @@
 #include <nav_msgs/msg/path.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/pose_with_covariance_stamped.hpp>
+#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
 #include <Eigen/Geometry>
 #include <vector>
 
@@ -30,7 +32,12 @@ public:
         stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", 10);
 
         odom_subscriber_ = this->create_subscription<nav_msgs::msg::Odometry>(
-            "nucleus/odom", qos_sensor_data, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
+            "/orca/odom", qos_sensor_data, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
+
+        pose_publisher_ = this->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>(
+            "/dvl/pose", qos_sensor_data);
+        twist_publisher_ = this->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>(
+            "/dvl/twist", qos_sensor_data);
 
         odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", qos_sensor_data);
 
@@ -76,7 +83,7 @@ private:
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> static_tf_broadcaster_;
     std::shared_ptr<tf2_ros::TransformBroadcaster> odom_height_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> odom_tf_pub_;
-        std::shared_ptr<tf2_ros::StaticTransformBroadcaster> orca_cam_front_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> orca_cam_front_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> sonar_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> world_enu_tf_pub_;
 
@@ -89,6 +96,9 @@ private:
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr depth_pub_;
     rclcpp::Subscription<stonefish_ros2::msg::DVL>::SharedPtr dvl_subscriber_;
     rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
+
+    rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pose_publisher_;
+    rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr twist_publisher_;
 
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
@@ -139,6 +149,18 @@ private:
     
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
     {
+
+        geometry_msgs::msg::PoseWithCovarianceStamped posestamped_msg;
+        posestamped_msg.header = odom_msg->header;
+        posestamped_msg.pose = odom_msg->pose;
+
+        geometry_msgs::msg::TwistWithCovarianceStamped twist_msg;
+        twist_msg.header = odom_msg->header;
+        twist_msg.twist = odom_msg->twist;
+
+        pose_publisher_->publish(posestamped_msg);
+        twist_publisher_->publish(twist_msg);
+
         geometry_msgs::msg::TransformStamped transform_stamped;
 
         transform_stamped.header.stamp = odom_msg->header.stamp;
