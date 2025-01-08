@@ -284,7 +284,7 @@
         <sensor name="odom" type="odometry" rate="10.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-            <ros_publisher topic="/nucleus/odom"/>
+            <ros_publisher topic="/orca/odom"/>
         </sensor>
         <sensor name="DVL" rate="10.0" type="dvl">
             <specs beam_angle="30.0" beam_positive_z="true"/>
