@@ -8,12 +8,12 @@
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </physical>
                 <visual>
-                    <mesh filename="freya/body.obj" scale="1.0"/>
+                    <mesh filename="freya/freya_simple.obj" scale="1.0"/>
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </visual>
                 <material name="Neutral"/>
                 <look name="Gray"/>
-                <mass value="0.5"/>
+                <mass value="30.5"/>
                 <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             </external_part>
             <external_part name="Pontoon1" type="model" physics="floating" buoyant="true">
@@ -22,12 +22,12 @@
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </physical>
                 <visual>
-                    <mesh filename="freya/pontoon.obj" scale="1.0"/>
+                    <mesh filename="freya/pontoon.obj" scale="0.01"/>
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </visual>
                 <material name="Neutral"/>
                 <look name="Gray"/>
-                <mass value="35.25"/>
+                <mass value="25.25"/>
                 <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             </external_part>
             <external_part name="Pontoon2" type="model" physics="floating" buoyant="true">
@@ -36,12 +36,12 @@
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </physical>
                 <visual>
-                    <mesh filename="freya/pontoon2.obj" scale="1.0"/>
+                    <mesh filename="freya/pontoon2.obj" scale="0.01"/>
                     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 </visual>
                 <material name="Neutral"/>
                 <look name="Gray"/>
-                <mass value="35.25"/>
+                <mass value="25.25"/>
                 <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             </external_part>
         </base_link>
@@ -111,7 +111,7 @@
             </thrust_model>
         </actuator>
 
-        <world_transform xyz="2.0 0.0 0.0" rpy="1.57 0.0 0.0"/>
+        <world_transform xyz="2.0 0.0 0.05" rpy="1.57 0.0 0.0"/>
 
         <ros_subscriber thrusters="/freya/thrust/thruster_forces"/>
     </robot>
