@@ -3,7 +3,7 @@ This repository contains scenario files and models for simulation of the Vortex 
 
 ## Prerequisites
 - The [Stonefish](https://github.com/patrykcieslak/stonefish) library needs to be installed.
-- The [Vortex Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2) must be compiled.
+- The [Stonefish ROS 2 package](https://github.com/patrykcieslak/stonefish_ros2) must be compiled.
 
 ## Usage
 Clone this repository and build your workspace.
