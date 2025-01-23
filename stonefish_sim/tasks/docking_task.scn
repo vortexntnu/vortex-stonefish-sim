@@ -72,11 +72,11 @@
 
   <static name="pool" type="model">
     <physical>
-        <mesh filename="objects/pool.obj" scale="1.0"/>
+        <mesh filename="objects/pool_room.obj" scale="1.0"/>
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     </physical>
     <visual>
-        <mesh filename="objects/pool.obj" scale="1.0"/>
+        <mesh filename="objects/pool_room.obj" scale="1.0"/>
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     </visual>
     <material name="Steel"/>
