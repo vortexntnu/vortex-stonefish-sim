@@ -28,7 +28,7 @@
                 <material name="Rough"/>
                 <look name="Gray"/>
                 <mass value="0.1"/>
-                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="1.57 -1.8 3.14"/>
             </external_part>
             <external_part name="gripper_finger_2" type="model" physics="submerged">
                 <physical>
@@ -42,7 +42,7 @@
                 <material name="Rough"/>
                 <look name="Gray"/>
                 <mass value="0.1"/>
-                <compound_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 3.14"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="-1.57 1.8 3.14"/>
             </external_part>
             
             
