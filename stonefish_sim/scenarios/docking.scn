@@ -34,5 +34,6 @@
   <include file="$(find stonefish_sim)/drones/orca.scn"/>
 
   <include file="$(find stonefish_sim)/tasks/docking_task.scn"/>
+  <include file="$(find stonefish_sim)/drones/gripper.scn"/>
 
 </scenario>

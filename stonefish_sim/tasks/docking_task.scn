@@ -1,25 +1,5 @@
 <?xml version="1.0"?>
 <scenario>
-  <!-- <static name="structure" type="model">
-    <physical>
-        <mesh filename="objects/docking_station_mesh.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-        <mesh filename="objects/docking_station.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Steel"/>
-    <look name="White"/>
-    <world_transform xyz="0.0 -1.0 1.0" rpy="1.57 0.0 1.57"/>
-  </static>
-
-  <static name="aruco33" type="box">
-    <dimensions xyz="0.2 0.2 0.002"/>
-    <material name="Neutral"/>
-    <look name="Aruco33" uv_mode="1"/>
-    <world_transform xyz="0.482 -0.7 0.846" rpy="0.0 0.0 0"/>
-  </static> -->
 
   <robot name="Docking Station" fixed="true" self_collisions="false">
     <base_link name="dock_base" type="model" physics="submerged">

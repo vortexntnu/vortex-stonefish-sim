@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<scenario>
+ <static name="pipeline" type="model">
+    <physical>
+        <mesh filename="objects/pipe1.obj" scale="1.0"/>
+        <thickness value="0.01"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+        <mesh filename="objects/pipe1.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="Yellow"/>
+    <world_transform xyz="0.0 -1.0 3.5" rpy="-1.57 0.0 -1.57"/>
+  </static>
+
+  <static name="seafloor" type="model">
+    <physical>
+        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="Brown"/>
+    <world_transform xyz="0.0 0.0 3.0" rpy="1.57 0.0 0.0"/>
+  </static>
+
+</scenario>

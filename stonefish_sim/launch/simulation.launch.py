@@ -22,9 +22,9 @@ def generate_launch_description():
 
     scenario_desc_arg = DeclareLaunchArgument(
         'task',
-        default_value=PathJoinSubstitution([scenario_desc_default, 'demo_world.scn']),
+        default_value=PathJoinSubstitution(['orca_demo.scn']),
         description='Path to the scenario file',
-        choices=['docking.scn', 'structure.scn', 'demo_world.scn']
+        choices=['docking.scn', 'pipeline.scn', 'structure.scn', 'orca_demo.scn', 'freya_demo.scn', 'orca_freya_demo.scn']
     )
 
     window_res_x_arg = DeclareLaunchArgument(
