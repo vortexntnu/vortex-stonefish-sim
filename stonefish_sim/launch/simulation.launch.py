@@ -2,8 +2,16 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, TextSubstitution
+from launch.substitution import Substitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
+
+class ConcatenateSubstitutions(Substitution):
+    def __init__(self, *substitutions):
+        self.substitutions = substitutions
+
+    def perform(self, context):
+        return ''.join([sub.perform(context) for sub in self.substitutions])
 
 
 def generate_launch_description():
@@ -12,7 +20,6 @@ def generate_launch_description():
     stonefish_ros2_dir = get_package_share_directory('stonefish_ros2')
 
     simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, 'data'])
-    scenario_desc_default = PathJoinSubstitution([vortex_stonefish_sim_dir, 'scenarios'])
 
     simulation_data_arg = DeclareLaunchArgument(
         'simulation_data',
@@ -22,9 +29,9 @@ def generate_launch_description():
 
     scenario_desc_arg = DeclareLaunchArgument(
         'task',
-        default_value=PathJoinSubstitution(['orca_demo.scn']),
+        default_value=PathJoinSubstitution('orca_demo'),
         description='Path to the scenario file',
-        choices=['docking.scn', 'pipeline.scn', 'structure.scn', 'orca_demo.scn', 'freya_demo.scn', 'orca_freya_demo.scn']
+        choices=['docking', 'pipeline', 'structure', 'orca_demo', 'freya_demo', 'orca_freya_demo']
     )
 
     window_res_x_arg = DeclareLaunchArgument(
@@ -42,7 +49,7 @@ def generate_launch_description():
     scenario_desc_resolved = PathJoinSubstitution([
         vortex_stonefish_sim_dir, 
         'scenarios', 
-        LaunchConfiguration('task')
+        ConcatenateSubstitutions(LaunchConfiguration('task'), TextSubstitution(text='.scn'))
     ])
 
     include_stonefish_launch = IncludeLaunchDescription(
