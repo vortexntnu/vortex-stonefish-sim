@@ -40,7 +40,7 @@
         </joint>
 
         <actuator name="Shoulder_servo" type="servo">
-            <controller position_gain="0.35" velocity_gain="1.0" max_torque="1.0"/>
+            <controller position_gain="1.35" velocity_gain="1.0" max_torque="3.0"/>
             <joint name="Shoulder_joint"/>
         </actuator>
 
