@@ -545,7 +545,7 @@ private:
     bool camera_info_received_;
 
     // Publish LaserScan message
-    laserscan_publisher_->publish(*scan_msg);
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr laserscan_publisher_;
 
     double angle_min_;
     double angle_max_;
