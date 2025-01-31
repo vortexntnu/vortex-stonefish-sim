@@ -131,20 +131,20 @@ private:
         stonefish_thruster_pub_->publish(thrust_array_msg);
     }
 
-    void publish_odom_height_tf(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
-    {
-        geometry_msgs::msg::TransformStamped transform_stamped;
+    // void publish_odom_height_tf(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
+    // {
+    //     geometry_msgs::msg::TransformStamped transform_stamped;
 
-        transform_stamped.header.stamp = odom_msg->header.stamp;
-        transform_stamped.header.frame_id = "world_ned";
-        transform_stamped.child_frame_id = "odom_height";
+    //     transform_stamped.header.stamp = odom_msg->header.stamp;
+    //     transform_stamped.header.frame_id = "world_ned";
+    //     transform_stamped.child_frame_id = "odom_height";
 
-        transform_stamped.transform.translation.x = 0.0;
-        transform_stamped.transform.translation.y = 0.0;
-        transform_stamped.transform.translation.z = odom_msg->pose.pose.position.z + 2.0;
+    //     transform_stamped.transform.translation.x = 0.0;
+    //     transform_stamped.transform.translation.y = 0.0;
+    //     transform_stamped.transform.translation.z = odom_msg->pose.pose.position.z + 2.0;
 
-        odom_height_tf_pub_->sendTransform(transform_stamped);
-    }
+    //     odom_height_tf_pub_->sendTransform(transform_stamped);
+    // }
 
     
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
@@ -193,32 +193,32 @@ private:
 
         tf_broadcaster_->sendTransform(transform_stamped);
 
-        geometry_msgs::msg::TransformStamped transform_stamped1;
+        // geometry_msgs::msg::TransformStamped transform_stamped1;
 
-        transform_stamped1.header.stamp = odom_msg->header.stamp;
-        transform_stamped1.header.frame_id = "odom";
-        transform_stamped1.child_frame_id = "nvblox_height";
+        // transform_stamped1.header.stamp = odom_msg->header.stamp;
+        // transform_stamped1.header.frame_id = "odom";
+        // transform_stamped1.child_frame_id = "nvblox_height";
 
-        transform_stamped1.transform.translation.x = 0.0;
-        transform_stamped1.transform.translation.y = 0.0;
-        transform_stamped1.transform.translation.z = odom_msg->pose.pose.position.z;
+        // transform_stamped1.transform.translation.x = 0.0;
+        // transform_stamped1.transform.translation.y = 0.0;
+        // transform_stamped1.transform.translation.z = odom_msg->pose.pose.position.z;
 
-        tf2::Quaternion q1;
-        q1.setRPY(0.0, 0.0, 0.0);
-        transform_stamped1.transform.rotation.x = q1.x();
-        transform_stamped1.transform.rotation.y = q1.y();
-        transform_stamped1.transform.rotation.z = q1.z();
-        transform_stamped1.transform.rotation.w = q1.w();
+        // tf2::Quaternion q1;
+        // q1.setRPY(0.0, 0.0, 0.0);
+        // transform_stamped1.transform.rotation.x = q1.x();
+        // transform_stamped1.transform.rotation.y = q1.y();
+        // transform_stamped1.transform.rotation.z = q1.z();
+        // transform_stamped1.transform.rotation.w = q1.w();
 
 
-        odom_height_tf_pub_->sendTransform(transform_stamped1);
+        // odom_height_tf_pub_->sendTransform(transform_stamped1);
 
-        geometry_msgs::msg::PoseStamped pose_msg;
-        pose_msg.header = odom_msg->header;
-        pose_msg.pose.position = odom_msg->pose.pose.position;
-        pose_msg.pose.orientation = odom_msg->pose.pose.orientation;
+        // geometry_msgs::msg::PoseStamped pose_msg;
+        // pose_msg.header = odom_msg->header;
+        // pose_msg.pose.position = odom_msg->pose.pose.position;
+        // pose_msg.pose.orientation = odom_msg->pose.pose.orientation;
 
-        pose_pub_->publish(pose_msg);
+        // pose_pub_->publish(pose_msg);
     }
 
      void publish_camera_down_transform()
@@ -234,11 +234,11 @@ private:
         transform_stamped.transform.translation.z = 0.2;
 
         tf2::Quaternion q;
-        q.setRPY(0.0, 0.0, 1.571);
+        q.setRPY(0.0, -1.571, 3.14);
         transform_stamped.transform.rotation.x = q.x();
         transform_stamped.transform.rotation.y = q.y();
         transform_stamped.transform.rotation.z = q.z();
-        transform_stamped.transform.rotation.w = q.w();
+        transform_stamped.transform.rotation.w = q.w();                    
 
         static_tf_broadcaster_->sendTransform(transform_stamped);
 
