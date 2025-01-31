@@ -377,6 +377,17 @@ private:
 }
 
 
+    void cameraInfoCallback(const sensor_msgs::msg::CameraInfo::SharedPtr msg)
+    {
+        fx_ = msg->k[0]; // Focal length in x-axis
+        fy_ = msg->k[4]; // Focal length in y-axis
+        cx_ = msg->k[2]; // Principal point x-coordinate
+        cy_ = msg->k[5]; // Principal point y-coordinate
+        camera_info_received_ = true;
+        // RCLCPP_INFO(this->get_logger(), "Camera info received: fx=%f, fy=%f, cx=%f, cy=%f", fx_, fy_, cx_, cy_);
+    }
+
+
     void depthImageCallback(const sensor_msgs::msg::Image::ConstSharedPtr &msg)
         {
             if (!camera_info_received_)
