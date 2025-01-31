@@ -544,6 +544,15 @@ private:
     double fx_, fy_, cx_, cy_;
     bool camera_info_received_;
 
+    // Publish LaserScan message
+    laserscan_publisher_->publish(*scan_msg);
+
+    double angle_min_;
+    double angle_max_;
+    double angle_increment_;
+    double range_min_;
+    double range_max_;
+
 
 };
 
