@@ -16,6 +16,14 @@ find_package(sensor_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(stonefish_ros2 REQUIRED)
 
+find_package(sensor_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(OpenCV REQUIRED)
+
+find_package(PCL REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(image_transport REQUIRED)
+
 
 include_directories(
   include
@@ -38,6 +46,15 @@ ament_target_dependencies(vortex_sim_interface
  geometry_msgs
  tf2_ros
  stonefish_ros2
+ 
+ sensor_msgs 
+ cv_bridge 
+ OpenCV
+ 
+ image_transport
+ pcl_conversions 
+ PCL
+ 
 )
 
 install(TARGETS 
