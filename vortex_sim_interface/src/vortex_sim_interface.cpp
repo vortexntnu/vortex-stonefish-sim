@@ -46,7 +46,7 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos_sensor_data = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 1), qos_profile);
         subscription_ = this->create_subscription<vortex_msgs::msg::ThrusterForces>(
-            "thrust/thruster_forces", qos_sensor_data, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
+            "orca/thruster_forces", qos_sensor_data, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
 
         stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", 10);
 
@@ -69,9 +69,13 @@ public:
 
         tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
-        depth_cam_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+        depth_cam_frame_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
 
-        static_tf_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+        depth_cam_opt_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+
+        down_cam_opt_frame_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+
+        down_cam_frame_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
 
         odom_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
 
@@ -123,8 +127,10 @@ private:
 
     // Add Transform Broadcaster and Timer
     std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
-    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> depth_cam_tf_pub_;
-    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> static_tf_broadcaster_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> depth_cam_frame_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> depth_cam_opt_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> down_cam_opt_frame_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> down_cam_frame_tf_pub_;
     std::shared_ptr<tf2_ros::TransformBroadcaster> odom_height_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> odom_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> orca_cam_front_tf_pub_;
@@ -284,15 +290,41 @@ private:
         transform_stamped.transform.rotation.z = q.z();
         transform_stamped.transform.rotation.w = q.w();
 
-        static_tf_broadcaster_->sendTransform(transform_stamped);
+        down_cam_opt_frame_tf_pub_->sendTransform(transform_stamped);
+
+        tf2::Quaternion q1;
+        q1.setRPY(-1.571, -1.571, -1.571);
+        transform_stamped.transform.rotation.x = q1.x();
+        transform_stamped.transform.rotation.y = q1.y();
+        transform_stamped.transform.rotation.z = q1.z();
+        transform_stamped.transform.rotation.w = q1.w();
+        transform_stamped.child_frame_id = "Orca/camera_down_frame";
+
+        down_cam_frame_tf_pub_->sendTransform(transform_stamped);
 
     }
 
     void pubish_depth_cam_transform()
     {
         geometry_msgs::msg::TransformStamped transform_stamped;
-
         transform_stamped.header.stamp = this->get_clock()->now();
+        transform_stamped.header.frame_id = "base_link";
+        transform_stamped.child_frame_id = "Orca/Dcam_frame";
+
+        transform_stamped.transform.translation.x = 0.45;
+        transform_stamped.transform.translation.y = 0.0;
+        transform_stamped.transform.translation.z = -0.1;
+
+        tf2::Quaternion q1;
+        q1.setRPY(3.14, 0.0, 0.0);
+        transform_stamped.transform.rotation.x = q1.x();
+        transform_stamped.transform.rotation.y = q1.y();
+        transform_stamped.transform.rotation.z = q1.z();
+        transform_stamped.transform.rotation.w = q1.w();
+
+        depth_cam_frame_tf_pub_->sendTransform(transform_stamped);
+
+        
         transform_stamped.header.frame_id = "base_link";
         transform_stamped.child_frame_id = "Orca/Dcam";
 
@@ -307,7 +339,9 @@ private:
         transform_stamped.transform.rotation.z = q.z();
         transform_stamped.transform.rotation.w = q.w();
 
-        depth_cam_tf_pub_->sendTransform(transform_stamped);
+
+
+        depth_cam_opt_tf_pub_->sendTransform(transform_stamped);
         transform_stamped.child_frame_id = "Orca/camera_front";
         orca_cam_front_tf_pub_->sendTransform(transform_stamped);
     }
@@ -409,39 +443,39 @@ private:
             }
 
             // Create a PointCloud2 object
-            pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-            cloud->header.frame_id = "Orca/Dcam";
-            cloud->height = cv_ptr->image.rows;
-            cloud->width = cv_ptr->image.cols;
-            cloud->is_dense = false;
-            cloud->points.resize(cloud->height * cloud->width);
+            // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+            // cloud->header.frame_id = "Orca/Dcam";
+            // cloud->height = cv_ptr->image.rows;
+            // cloud->width = cv_ptr->image.cols;
+            // cloud->is_dense = false;
+            // cloud->points.resize(cloud->height * cloud->width);
 
-            // Populate the point cloud
-            for (int v = 0; v < cv_ptr->image.rows; ++v)
-            {
-                for (int u = 0; u < cv_ptr->image.cols; ++u)
-                {
-                    float depth = cv_ptr->image.at<float>(v, u);
-                    if (std::isnan(depth) || depth <= 0.0)
-                    {
-                        continue; // Skip invalid points
-                    }
+            // // Populate the point cloud
+            // for (int v = 0; v < cv_ptr->image.rows; ++v)
+            // {
+            //     for (int u = 0; u < cv_ptr->image.cols; ++u)
+            //     {
+            //         float depth = cv_ptr->image.at<float>(v, u);
+            //         if (std::isnan(depth) || depth <= 0.0)
+            //         {
+            //             continue; // Skip invalid points
+            //         }
 
-                    pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
-                    pt.x = (u - cx_) * depth / fx_;
-                    pt.y = (v - cy_) * depth / fy_;
-                    pt.z = depth;
-                }
-            }
+            //         pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
+            //         pt.x = (u - cx_) * depth / fx_;
+            //         pt.y = (v - cy_) * depth / fy_;
+            //         pt.z = depth;
+            //     }
+            // }
 
-            // Convert PCL PointCloud to ROS PointCloud2
-            sensor_msgs::msg::PointCloud2 output;
-            pcl::toROSMsg(*cloud, output);
-            output.header.stamp = msg->header.stamp;
-            output.header.frame_id = "Orca/Dcam";
+            // // Convert PCL PointCloud to ROS PointCloud2
+            // sensor_msgs::msg::PointCloud2 output;
+            // pcl::toROSMsg(*cloud, output);
+            // output.header.stamp = msg->header.stamp;
+            // output.header.frame_id = "Orca/Dcam";
 
-            // Publish the point cloud
-            point_cloud_publisher_->publish(output);
+            // // Publish the point cloud
+            // point_cloud_publisher_->publish(output);
 
             // // ---------------------------------------------
             // // Convert the point cloud to a LaserScan message
@@ -451,86 +485,46 @@ private:
             // LaserScan configuration
             double angle_min_ = -M_PI / 4;  
             double angle_max_ = M_PI / 4;   
-            double angle_increment_ = M_PI / 180.0; // 1-degree resolution
-            double range_min_ = 0.000002;
-            double range_max_ = 100000.0;
-            double min_z_ = -0.05; 
-            double max_z_ = 0.05;  
+            double angle_increment_ = angle_max_ - angle_min_ / cv_ptr->image.cols;
+            double range_min_ = 0.3;
+            double range_max_ = 7.0;
 
-
-
-
-
-            // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-            pcl::fromROSMsg(output, *cloud);
-
-
-
-            // if (cloud->points.empty())
-            // {
-            //     RCLCPP_WARN(this->get_logger(), "Converted PointCloud2 contains no valid points!");
-            //     return;
-            // }
-            // for (size_t i = 0; i < cloud->points.size(); ++i)
-            // {
-            //     const auto &point = cloud->points[i];
-
-            //     // Print only valid points where x, y, and z are above 0
-            //     if (point.x > 0.0 && point.y > 0.0 && point.z > 0.0)
-            //     {
-            //         RCLCPP_INFO(this->get_logger(), "Valid Point %ld: x=%.2f, y=%.2f, z=%.2f", 
-            //                     i, point.x, point.y, point.z);
-            //     }
-            // }
-
-            // for (size_t i = 0; i < output.data.size(); i += 16) // Each point has 16 bytes
-            // {
-            //     float* point = reinterpret_cast<float*>(&output.data[i]);
-
-            //     float x = point[0];  // x coordinate
-            //     float y = point[1];  // y coordinate
-            //     float z = point[2];  // z coordinate
-
-            //     // Print valid points where x, y, and z are above 0
-            //     if (x > 0.0 && y > 0.0 && z > 0.0)
-            //     {
-            //         RCLCPP_INFO(this->get_logger(), "cloud Valid Point %ld: x=%.2f, y=%.2f, z=%.2f", 
-            //                     i / 16, x, y, z);
-            //     }
-            // }
+            auto middle_row = cv_ptr->image.rows / 2;
 
             // Compute the number of rays
-            int num_rays = static_cast<int>((angle_max_ - angle_min_) / angle_increment_);
+            int num_rays = cv_ptr->image.cols;
             std::vector<float> ranges(num_rays, std::numeric_limits<float>::infinity());
 
-            for (const auto &point : cloud->points)
+            for (int u = 0; u < cv_ptr->image.cols; ++u)
             {
-                // if (point.z < min_z_ || point.z > max_z_) continue; // Filter by height
+                float depth = cv_ptr->image.at<float>(middle_row, u);
+                if (std::isnan(depth) || depth <= 0.0)
+                {
+                    continue; // Skip invalid points
+                }
+                auto x = (u - cx_) * depth / fx_;
+                auto z = depth;
 
-                double angle = atan2(point.y, point.x);
-                // if (angle < angle_min_ || angle > angle_max_) continue;
-
-                int index = static_cast<int>((angle - angle_min_) / angle_increment_);
-                double range = sqrt(point.x * point.x + point.y * point.y + point.z * point.z);
+                double range = sqrt(x * x + z * z);
 
                 if (range >= range_min_ && range <= range_max_)
                 {
-                    ranges[index] = std::min(ranges[index], static_cast<float>(range));
+
+                    ranges[num_rays - u] = static_cast<float>(range);
                 }
-                // ranges[index] = std::min(ranges[index], static_cast<float>(range));
+
             }
 
             // Fill LaserScan message
             auto scan_msg = std::make_shared<sensor_msgs::msg::LaserScan>();
             scan_msg->header = msg->header;
-            scan_msg->header.frame_id = "Orca/Dcam";
+            scan_msg->header.frame_id = "Orca/Dcam_frame";
             scan_msg->angle_min = angle_min_;
             scan_msg->angle_max = angle_max_;
             scan_msg->angle_increment = angle_increment_;
             scan_msg->range_min = range_min_;
             scan_msg->range_max = range_max_;
             scan_msg->ranges = ranges;
-
 
             laserscan_publisher_->publish(*scan_msg);
                  
