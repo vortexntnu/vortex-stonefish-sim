@@ -422,6 +422,118 @@ private:
     }
 
 
+    // void depthImageCallback(const sensor_msgs::msg::Image::ConstSharedPtr &msg)
+    //     {
+    //         if (!camera_info_received_)
+    //         {
+    //             RCLCPP_WARN(this->get_logger(), "Camera info not yet received. Skipping depth image processing.");
+    //             return;
+    //         }
+
+    //         // Convert ROS Image message to OpenCV format
+    //         cv_bridge::CvImagePtr cv_ptr;
+    //         try
+    //         {
+    //             cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::TYPE_32FC1);
+    //         }
+    //         catch (cv_bridge::Exception &e)
+    //         {
+    //             RCLCPP_ERROR(this->get_logger(), "cv_bridge exception: %s", e.what());
+    //             return;
+    //         }
+
+    //         // Create a PointCloud2 object
+    //         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+    //         cloud->header.frame_id = "base_link";
+    //         cloud->height = cv_ptr->image.rows;
+    //         cloud->width = cv_ptr->image.cols;
+    //         cloud->is_dense = false;
+    //         cloud->points.resize(cloud->height * cloud->width);
+
+    //         // Populate the point cloud
+    //         for (int v = 0; v < cv_ptr->image.rows; ++v)
+    //         {
+    //             for (int u = 0; u < cv_ptr->image.cols; ++u)
+    //             {
+    //                 float depth = cv_ptr->image.at<float>(v, u);
+    //                 if (std::isnan(depth) || depth <= 0.0)
+    //                 {
+    //                     continue; // Skip invalid points
+    //                 }
+
+    //                 pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
+    //                 pt.x = (u - cx_) * depth / fx_;
+    //                 pt.y = (v - cy_) * depth / fy_;
+    //                 pt.z = depth;
+    //             }
+    //         }
+
+    //         // Convert PCL PointCloud to ROS PointCloud2
+    //         sensor_msgs::msg::PointCloud2 output;
+    //         pcl::toROSMsg(*cloud, output);
+    //         output.header.stamp = msg->header.stamp;
+    //         output.header.frame_id = "base_link";
+
+    //         // Publish the point cloud
+    //         point_cloud_publisher_->publish(output);
+
+    //         // // ---------------------------------------------
+    //         // // Convert the point cloud to a LaserScan message
+    //         // // ---------------------------------------------
+
+
+    //         // LaserScan configuration
+    //         double angle_min_ = -M_PI / 4;  
+    //         double angle_max_ = M_PI / 4;   
+    //         double angle_increment_ = angle_max_ - angle_min_ / cv_ptr->image.cols;
+    //         double range_min_ = 0.3;
+    //         double range_max_ = 7.0;
+
+    //         auto middle_row = cv_ptr->image.rows / 2;
+
+    //         // Compute the number of rays
+    //         int num_rays = cv_ptr->image.cols;
+    //         std::vector<float> ranges(num_rays, std::numeric_limits<float>::infinity());
+
+    //         for (int u = 0; u < cv_ptr->image.cols; ++u)
+    //         {
+    //             float depth = cv_ptr->image.at<float>(middle_row, u);
+    //             if (std::isnan(depth) || depth <= 0.0)
+    //             {
+    //                 continue; // Skip invalid points
+    //             }
+    //             auto x = (u - cx_) * depth / fx_;
+    //             auto z = depth;
+
+    //             double range = sqrt(x * x + z * z);
+
+    //             if (range >= range_min_ && range <= range_max_)
+    //             {
+
+    //                 ranges[num_rays - u] = static_cast<float>(range);
+    //             }
+
+    //         }
+
+    //         // Fill LaserScan message
+    //         auto scan_msg = std::make_shared<sensor_msgs::msg::LaserScan>();
+    //         scan_msg->header = msg->header;
+    //         scan_msg->header.frame_id = "base_link";
+    //         scan_msg->angle_min = angle_min_;
+    //         scan_msg->angle_max = angle_max_;
+    //         scan_msg->angle_increment = angle_increment_;
+    //         scan_msg->range_min = range_min_;
+    //         scan_msg->range_max = range_max_;
+    //         scan_msg->ranges = ranges;
+
+    //         laserscan_publisher_->publish(*scan_msg);
+                 
+    //     }
+
+
+
+
+
     void depthImageCallback(const sensor_msgs::msg::Image::ConstSharedPtr &msg)
         {
             if (!camera_info_received_)
@@ -442,6 +554,11 @@ private:
                 return;
             }
 
+
+            int width = cv_ptr->image.cols;
+            int height = cv_ptr->image.rows;
+            int mid_row = height / 2; // Get middle row index
+
             // Create a PointCloud2 object
             pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
             cloud->header.frame_id = "base_link";
@@ -450,23 +567,24 @@ private:
             cloud->is_dense = false;
             cloud->points.resize(cloud->height * cloud->width);
 
-            // Populate the point cloud
-            for (int v = 0; v < cv_ptr->image.rows; ++v)
-            {
-                for (int u = 0; u < cv_ptr->image.cols; ++u)
-                {
-                    float depth = cv_ptr->image.at<float>(v, u);
-                    if (std::isnan(depth) || depth <= 0.0)
-                    {
-                        continue; // Skip invalid points
-                    }
 
-                    pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
-                    pt.x = (u - cx_) * depth / fx_;
-                    pt.y = (v - cy_) * depth / fy_;
-                    pt.z = depth;
+
+            // Extract points from the middle row and convert to LaserScan
+            for (int u = 0; u < width; ++u)
+            {
+                float depth = cv_ptr->image.at<float>(mid_row, u);
+                if (std::isnan(depth) || depth <= 0.0)
+                {
+                    continue; // Skip invalid points
                 }
+
+                pcl::PointXYZ &pt = cloud->points[u];
+                pt.x = (u - cx_) * depth / fx_;
+                pt.y = (mid_row - cy_) * depth / fy_;
+                pt.z = depth;
             }
+
+
 
             // Convert PCL PointCloud to ROS PointCloud2
             sensor_msgs::msg::PointCloud2 output;
@@ -482,37 +600,57 @@ private:
             // // ---------------------------------------------
 
 
-            // LaserScan configuration
-            double angle_min_ = -M_PI / 4;  
-            double angle_max_ = M_PI / 4;   
-            double angle_increment_ = angle_max_ - angle_min_ / cv_ptr->image.cols;
-            double range_min_ = 0.3;
-            double range_max_ = 7.0;
+            // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+            pcl::fromROSMsg(output, *cloud);
 
-            auto middle_row = cv_ptr->image.rows / 2;
+
+            // LaserScan configuration
+            double angle_min_ = -M_PI / 2;  
+            double angle_max_ = M_PI / 2;   
+            double angle_increment_ = M_PI / 180.0; // 1-degree resolution
+            double range_min_ = 0.02;
+            double range_max_ = 100.0;
+            double min_z_ = -0.05; 
+            double max_z_ = 0.05;  
+
+
+
+            // Create the LaserScan message
+            auto laser_scan = std::make_shared<sensor_msgs::msg::LaserScan>();
+            laser_scan->header.stamp = msg->header.stamp;
+            laser_scan->header.frame_id = "base_link";
+            laser_scan->angle_min = angle_min_;
+            laser_scan->angle_max = angle_max_;
+            laser_scan->angle_increment = (angle_max_ - angle_min_) / 179;
+            laser_scan->range_min = 0.1;
+            laser_scan->range_max = 10.0;
+            // laser_scan->ranges = scan_ranges;
+            laser_scan->ranges.clear();
+
 
             // Compute the number of rays
-            int num_rays = cv_ptr->image.cols;
+            int num_rays = static_cast<int>((angle_max_ - angle_min_) / angle_increment_);
             std::vector<float> ranges(num_rays, std::numeric_limits<float>::infinity());
 
-            for (int u = 0; u < cv_ptr->image.cols; ++u)
+            for (const auto &point : cloud->points)
             {
-                float depth = cv_ptr->image.at<float>(middle_row, u);
-                if (std::isnan(depth) || depth <= 0.0)
-                {
-                    continue; // Skip invalid points
-                }
-                auto x = (u - cx_) * depth / fx_;
-                auto z = depth;
+                
+                // if (point.z < min_z_ || point.z > max_z_) continue; // Filter by height
 
-                double range = sqrt(x * x + z * z);
+                // double angle = atan2(point.y, point.x);
+                double angle = atan2(point.x, point.z);
+                // if (angle < angle_min_ || angle > angle_max_) continue;
+
+                int index = static_cast<int>((angle - angle_min_) / angle_increment_);
+                double range = sqrt(point.x * point.x + point.z * point.z);
+                // if(range > 0.00) RCLCPP_INFO(this->get_logger(), "cloud Valid Point %.2f, angle: %.2f", point.x, point.z);
 
                 if (range >= range_min_ && range <= range_max_)
                 {
-
-                    ranges[num_rays - u] = static_cast<float>(range);
+                    ranges[index] = std::min(ranges[index], static_cast<float>(range));
                 }
-
+                // ranges[index] = std::min(ranges[index], static_cast<float>(range));
+                // ranges[index] = std::min(ranges[index], static_cast<float>(point.x/np.cos(angle)));
             }
 
             // Fill LaserScan message
@@ -524,11 +662,16 @@ private:
             scan_msg->angle_increment = angle_increment_;
             scan_msg->range_min = range_min_;
             scan_msg->range_max = range_max_;
-            scan_msg->ranges = ranges;
+            scan_msg->ranges = laser_scan->ranges;
 
-            laserscan_publisher_->publish(*scan_msg);
-                 
-        }
+            laser_scan->ranges = ranges;
+
+            // Publish LaserScan message
+            // scan_pub_->publish(*scan_msg);
+            laserscan_publisher_->publish(*laser_scan);
+            // RCLCPP_INFO(this->get_logger(), "Published LaserScan");
+             
+    }
 
 
     image_transport::Subscriber depth_subscriber_;
