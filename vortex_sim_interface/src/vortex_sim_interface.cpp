@@ -54,9 +54,9 @@ public:
             "/orca/odom", qos_sensor_data, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
 
         pose_publisher_ = this->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>(
-            "/dvl/pose", qos_sensor_data);
+            "/orca/pose", qos_sensor_data);
         twist_publisher_ = this->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>(
-            "/dvl/twist", qos_sensor_data);
+            "/orca/twist", qos_sensor_data);
 
         odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", qos_sensor_data);
 
@@ -443,39 +443,39 @@ private:
             }
 
             // Create a PointCloud2 object
-            // pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-            // cloud->header.frame_id = "Orca/Dcam";
-            // cloud->height = cv_ptr->image.rows;
-            // cloud->width = cv_ptr->image.cols;
-            // cloud->is_dense = false;
-            // cloud->points.resize(cloud->height * cloud->width);
+            pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+            cloud->header.frame_id = "base_link";
+            cloud->height = cv_ptr->image.rows;
+            cloud->width = cv_ptr->image.cols;
+            cloud->is_dense = false;
+            cloud->points.resize(cloud->height * cloud->width);
 
-            // // Populate the point cloud
-            // for (int v = 0; v < cv_ptr->image.rows; ++v)
-            // {
-            //     for (int u = 0; u < cv_ptr->image.cols; ++u)
-            //     {
-            //         float depth = cv_ptr->image.at<float>(v, u);
-            //         if (std::isnan(depth) || depth <= 0.0)
-            //         {
-            //             continue; // Skip invalid points
-            //         }
+            // Populate the point cloud
+            for (int v = 0; v < cv_ptr->image.rows; ++v)
+            {
+                for (int u = 0; u < cv_ptr->image.cols; ++u)
+                {
+                    float depth = cv_ptr->image.at<float>(v, u);
+                    if (std::isnan(depth) || depth <= 0.0)
+                    {
+                        continue; // Skip invalid points
+                    }
 
-            //         pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
-            //         pt.x = (u - cx_) * depth / fx_;
-            //         pt.y = (v - cy_) * depth / fy_;
-            //         pt.z = depth;
-            //     }
-            // }
+                    pcl::PointXYZ &pt = cloud->points[v * cv_ptr->image.cols + u];
+                    pt.x = (u - cx_) * depth / fx_;
+                    pt.y = (v - cy_) * depth / fy_;
+                    pt.z = depth;
+                }
+            }
 
-            // // Convert PCL PointCloud to ROS PointCloud2
-            // sensor_msgs::msg::PointCloud2 output;
-            // pcl::toROSMsg(*cloud, output);
-            // output.header.stamp = msg->header.stamp;
-            // output.header.frame_id = "Orca/Dcam";
+            // Convert PCL PointCloud to ROS PointCloud2
+            sensor_msgs::msg::PointCloud2 output;
+            pcl::toROSMsg(*cloud, output);
+            output.header.stamp = msg->header.stamp;
+            output.header.frame_id = "base_link";
 
-            // // Publish the point cloud
-            // point_cloud_publisher_->publish(output);
+            // Publish the point cloud
+            point_cloud_publisher_->publish(output);
 
             // // ---------------------------------------------
             // // Convert the point cloud to a LaserScan message
@@ -518,7 +518,7 @@ private:
             // Fill LaserScan message
             auto scan_msg = std::make_shared<sensor_msgs::msg::LaserScan>();
             scan_msg->header = msg->header;
-            scan_msg->header.frame_id = "Orca/Dcam_frame";
+            scan_msg->header.frame_id = "base_link";
             scan_msg->angle_min = angle_min_;
             scan_msg->angle_max = angle_max_;
             scan_msg->angle_increment = angle_increment_;
