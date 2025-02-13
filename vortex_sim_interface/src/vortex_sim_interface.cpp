@@ -27,7 +27,7 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos_sensor_data = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 1), qos_profile);
         subscription_ = this->create_subscription<vortex_msgs::msg::ThrusterForces>(
-            "thrust/thruster_forces", qos_sensor_data, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
+            "orca/thruster_forces", qos_sensor_data, std::bind(&VortexSimInterface::thruster_callback, this, std::placeholders::_1));
 
         stonefish_thruster_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/stonefish/thrusters", 10);
 
@@ -35,9 +35,9 @@ public:
             "/orca/odom", qos_sensor_data, std::bind(&VortexSimInterface::odom_callback, this, std::placeholders::_1));
 
         pose_publisher_ = this->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>(
-            "/dvl/pose", qos_sensor_data);
+            "/orca/pose", qos_sensor_data);
         twist_publisher_ = this->create_publisher<geometry_msgs::msg::TwistWithCovarianceStamped>(
-            "/dvl/twist", qos_sensor_data);
+            "/orca/twist", qos_sensor_data);
 
         odom_euler_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/nucleus/odom_euler", qos_sensor_data);
 
