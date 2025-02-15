@@ -31,10 +31,10 @@ def generate_launch_description():
         )
     )
 
-    thruster_allocator_launch = IncludeLaunchDescription(
+    thrust_allocator_asv_launch = IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
-            path.join(get_package_share_directory('thruster_allocator'),
-                      'launch','thruster_allocator.launch.py')
+            path.join(get_package_share_directory('thrust_allocator_asv'),
+                      'launch','thrust_allocator_asv.launch.py')
         )
     )
 
@@ -78,5 +78,5 @@ def generate_launch_description():
         set_warn_color,
         OpaqueFunction(function=include_joy_node),
         joystick_interface_launch,
-        thruster_allocator_launch
+        thrust_allocator_asv_launch
     ])
