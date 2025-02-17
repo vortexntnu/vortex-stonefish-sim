@@ -111,8 +111,14 @@
             </thrust_model>
         </actuator>
 
+        <sensor name="odom" type="odometry" rate="10.0">
+            <link name="Base"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <ros_publisher topic="/seapath/odom/ned"/>
+        </sensor>
+
         <world_transform xyz="2.0 0.0 0.05" rpy="1.57 0.0 0.0"/>
 
-        <ros_subscriber thrusters="/freya/thrust/thruster_forces"/>
+        <ros_subscriber thrusters="/freya/thruster_forces"/>
     </robot>
 </scenario>
