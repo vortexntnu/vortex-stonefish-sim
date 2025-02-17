@@ -29,9 +29,9 @@ def generate_launch_description():
 
     scenario_desc_arg = DeclareLaunchArgument(
         'task',
-        default_value=PathJoinSubstitution('no_gpu'),
+        default_value=PathJoinSubstitution('orca_no_gpu'),
         description='Path to the scenario file',
-        choices=['no_gpu']
+        choices=['orca_no_gpu', 'freya_no_gpu']
     )
     
     scenario_desc_resolved = PathJoinSubstitution([
