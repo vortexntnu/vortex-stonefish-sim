@@ -26,8 +26,8 @@ def generate_launch_description():
 
     joystick_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            path.join(get_package_share_directory('joystick_interface'),
-                      'launch','joystick_interface.launch.py')
+            path.join(get_package_share_directory('joystick_interface_asv'),
+                      'launch','joystick_interface_asv.launch.py')
         )
     )
 
