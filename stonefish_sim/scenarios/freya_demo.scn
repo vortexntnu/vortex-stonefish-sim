@@ -19,6 +19,34 @@
   <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 
   <include file="$(find stonefish_sim)/drones/freya.scn"/>
+
+  <dynamic name="Buoy1" type="model" physics="floating">
+      <physical>
+          <mesh filename="objects/buoy1.obj" scale="0.2"/>
+          <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </physical>
+      <visual>
+          <mesh filename="objects/buoy1.obj" scale="0.2"/>
+          <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </visual>
+      <material name="Neutral"/>
+      <look name="Red"/>
+      <world_transform xyz="0.0 2.0 -0.5" rpy="-1.57 0.0 0.0"/>
+  </dynamic>
+
+  <dynamic name="Buoy2" type="model" physics="floating">
+      <physical>
+          <mesh filename="objects/buoy1.obj" scale="0.2"/>
+          <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </physical>
+      <visual>
+          <mesh filename="objects/buoy1.obj" scale="0.2"/>
+          <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </visual>
+      <material name="Neutral"/>
+      <look name="LightGreen"/>
+      <world_transform xyz="0.0 -2.0 -0.5" rpy="-1.57 0.0 0.0"/>
+  </dynamic>
   
 
 </scenario>
