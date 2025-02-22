@@ -15,7 +15,7 @@
   <depend>vortex_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
-  <depend>Eigen3</depend>
+  <depend>eigen</depend>
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>stonefish_ros2</depend>

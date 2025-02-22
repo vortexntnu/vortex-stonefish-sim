@@ -23,6 +23,13 @@
     </atmosphere>
   </environment>
 
+    <static name="Wall" type="box">
+        <dimensions xyz="10.0 0.2 5.0"/>
+        <material name="Steel"/>
+        <look name="Gray"/>
+        <world_transform xyz="0.0 5.0 -2.0" rpy="0.0 0.0 0.0"/>
+    </static>
+
   <include file="$(find stonefish_sim)/metadata/materials.scn"/>
   <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 

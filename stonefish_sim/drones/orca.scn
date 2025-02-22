@@ -304,12 +304,14 @@
             <link name="Base"/>
             <ros_publisher topic="/dvl/sim"/>
         </sensor>
-        <!-- <sensor name="Multibeam2" rate="2.0" type="multibeam2d">
-            <specs horizontal_fov="120.0" vertical_fov="45.0" resolution_x="100." resolution_y="50." range_min="0.5" range_max="20.0"/>
-            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
+        <sensor name="LiDAR360" rate="2.0" type="lidar360">
+            <specs resolution="1000" layers="16"/>
+            <history samples="1"/>
+            <range range_min="1.0" range_max="100.0"/>
+            <origin xyz="0.45 0.0 -0.5" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
-            <ros_publisher topic="/multibeam2"/>
-        </sensor> -->
+            <ros_publisher topic="/lidar"/>
+        </sensor>
         <!-- <sensor name="MSIS" type="msis">
             <specs step="0.25" bins="500" horizontal_beam_width="2.0" vertical_beam_width="30.0"/>
             <settings range_min="0.5" range_max="10.0" rotation_min="-50.0" rotation_max="50.0" gain="1.5"/>

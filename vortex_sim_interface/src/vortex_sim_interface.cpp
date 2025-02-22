@@ -64,10 +64,13 @@ public:
 
         world_enu_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
 
+        lidar_tf_pub_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+
         pubish_depth_cam_transform();
         publish_camera_down_transform();
         publish_world_odom_tf();
         pubish_sonar_transform();
+        lidar_transform();
 
         
 
@@ -86,6 +89,7 @@ private:
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> orca_cam_front_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> sonar_tf_pub_;
     std::shared_ptr<tf2_ros::StaticTransformBroadcaster> world_enu_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> lidar_tf_pub_;
 
     rclcpp::TimerBase::SharedPtr timer_;
 
@@ -145,7 +149,27 @@ private:
 
     //     odom_height_tf_pub_->sendTransform(transform_stamped);
     // }
+    void lidar_transform()
+    {
+        geometry_msgs::msg::TransformStamped transform_stamped;
 
+        transform_stamped.header.stamp = this->get_clock()->now();
+        transform_stamped.header.frame_id = "base_link";
+        transform_stamped.child_frame_id = "Orca/LiDAR360";
+
+        transform_stamped.transform.translation.x = 0.0;
+        transform_stamped.transform.translation.y = 0.0;
+        transform_stamped.transform.translation.z = 0.3;
+
+        tf2::Quaternion q;
+        q.setRPY(1.571, 0.0, 0.0);
+        transform_stamped.transform.rotation.x = q.x();
+        transform_stamped.transform.rotation.y = q.y();
+        transform_stamped.transform.rotation.z = q.z();
+        transform_stamped.transform.rotation.w = q.w();
+
+        lidar_tf_pub_->sendTransform(transform_stamped);
+    }
     
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr odom_msg)
     {
