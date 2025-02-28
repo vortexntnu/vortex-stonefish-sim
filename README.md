@@ -10,6 +10,20 @@ Clone this repository and build your workspace.
 
 Launch a scenario:
 
-`ros2 launch stonefish_sim simulation.launch.py task:=structure`
+```bash
+ros2 launch stonefish_sim simulation.launch.py task:=structure
+```
 
 ![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7)
+
+If you have a less capable computer, other options are to use low rendering quality or turn off rendering completely. For low rendering quality use
+
+```bash
+ros2 launch stonefish_sim simulation.launch.py rendering_quality:=low
+```
+
+and for no rendering use
+
+```bash
+ros2 launch stonefish_sim simulation_nogpu.launch.py
+```
