@@ -16,6 +16,9 @@ ros2 launch stonefish_sim simulation.launch.py task:=structure
 
 ![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7)
 
+![Image](https://drive.google.com/uc?export=view&id=1elYr7ipYRVbe5FjxG1w3hYaTKhNYyyDH)
+
+
 If you have a less capable computer, other options are to use low rendering quality or turn off rendering completely. For low rendering quality use
 
 ```bash
