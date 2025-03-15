@@ -13,7 +13,7 @@
             <material name="Neutral"/>
             <look name="Black"/>
             <mass value="25.5"/>
-            <inertia xyz="0.4 1.6 1.7"/>
+            <inertia xyz="0.68 3.32 3.34"/>
             <hydrodynamics viscous_drag="0.06 0.17 0.17" quadratic_drag="0.2 0.2 0.2"/>
             <cg xyz="-0.06 0.0 0.01" rpy="0.0 0.0 0.0"/>
         </base_link>
