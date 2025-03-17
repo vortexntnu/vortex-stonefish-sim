@@ -19,5 +19,6 @@
   <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 
   <include file="$(find stonefish_sim)/drones/orca.scn"/>
+  <include file="$(find stonefish_sim)/drones/cyberfish.scn"/>
   
 </scenario>
