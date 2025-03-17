@@ -62,7 +62,7 @@
             </thrust_model>
         </actuator>
 
-        
+
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
             <origin rpy="0 0.78 0" xyz="-0.7 0.2 -0.625"/>

@@ -15,21 +15,21 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     num_drones_arg = DeclareLaunchArgument(
-        'num_drones', default_value='1', description='Number of drones to control'
+        "num_drones", default_value="1", description="Number of drones to control"
     )
 
     set_env_var = SetEnvironmentVariable(
-        name='ROSCONSOLE_FORMAT', value='[${severity}] [${time}] [${node}]: ${message}'
+        name="ROSCONSOLE_FORMAT", value="[${severity}] [${time}] [${node}]: ${message}"
     )
 
-    set_warn_color = SetEnvironmentVariable(name='RCUTILS_COLORIZED_OUTPUT', value='1')
+    set_warn_color = SetEnvironmentVariable(name="RCUTILS_COLORIZED_OUTPUT", value="1")
 
     thrust_allocator_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             path.join(
-                get_package_share_directory('thrust_allocator_auv'),
-                'launch',
-                'thrust_allocator_auv.launch.py',
+                get_package_share_directory("thrust_allocator_auv"),
+                "launch",
+                "thrust_allocator_auv.launch.py",
             )
         )
     )
@@ -37,9 +37,9 @@ def generate_launch_description():
     joystick_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             path.join(
-                get_package_share_directory('joystick_interface_auv'),
-                'launch',
-                'joystick_interface_auv.launch.py',
+                get_package_share_directory("joystick_interface_auv"),
+                "launch",
+                "joystick_interface_auv.launch.py",
             )
         )
     )
@@ -47,31 +47,31 @@ def generate_launch_description():
     vortex_sim_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             path.join(
-                get_package_share_directory('vortex_sim_interface'),
-                'launch',
-                'vortex_sim_interface.launch.py',
+                get_package_share_directory("vortex_sim_interface"),
+                "launch",
+                "vortex_sim_interface.launch.py",
             )
         )
     )
 
     def include_joy_node(context: LaunchContext):
-        num_drones = int(LaunchConfiguration('num_drones').perform(context))
+        num_drones = int(LaunchConfiguration("num_drones").perform(context))
 
         if num_drones != 2:
             return [
                 Node(
-                    package='joy',
-                    executable='joy_node',
-                    name='joystick_driver',
-                    output='screen',
+                    package="joy",
+                    executable="joy_node",
+                    name="joystick_driver",
+                    output="screen",
                     parameters=[
                         {
-                            'deadzone': 0.15,
-                            'autorepeat_rate': 100.0,
+                            "deadzone": 0.15,
+                            "autorepeat_rate": 100.0,
                         }
                     ],
                     remappings=[
-                        ('/joy', '/orca/joy'),
+                        ("/joy", "/orca/joy"),
                     ],
                 )
             ]
@@ -79,19 +79,19 @@ def generate_launch_description():
         elif num_drones == 2:
             return [
                 Node(
-                    package='joy',
-                    executable='joy_node',
-                    name='joystick_driver1',
-                    output='screen',
+                    package="joy",
+                    executable="joy_node",
+                    name="joystick_driver1",
+                    output="screen",
                     parameters=[
                         {
-                            'deadzone': 0.15,
-                            'autorepeat_rate': 100.0,
-                            'device_name': 'Xbox Series X Controller',
+                            "deadzone": 0.15,
+                            "autorepeat_rate": 100.0,
+                            "device_name": "Xbox Series X Controller",
                         }
                     ],
                     remappings=[
-                        ('/joy', '/orca/joy'),
+                        ("/joy", "/orca/joy"),
                     ],
                 )
             ]

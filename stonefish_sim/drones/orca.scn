@@ -137,7 +137,7 @@
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
             <!-- <ros_subscriber topic="/orca/cmd_thruster1"/> -->
-        </actuator> 
+        </actuator>
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
             <origin rpy="0 -1.5707963268 0" xyz="0.284 0.163 0.082"/>

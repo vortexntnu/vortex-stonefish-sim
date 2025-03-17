@@ -22,7 +22,7 @@ include_directories(
   ${EIGEN3_INCLUDE_DIRS}
 )
 
-add_executable(vortex_sim_interface 
+add_executable(vortex_sim_interface
   src/vortex_sim_interface.cpp
 )
 
@@ -31,7 +31,7 @@ target_include_directories(vortex_sim_interface PUBLIC
   $<INSTALL_INTERFACE:include>)
 
 ament_target_dependencies(vortex_sim_interface
- rclcpp 
+ rclcpp
  std_msgs
  vortex_msgs
  nav_msgs
@@ -40,14 +40,14 @@ ament_target_dependencies(vortex_sim_interface
  stonefish_ros2
 )
 
-install(TARGETS 
+install(TARGETS
   vortex_sim_interface
   DESTINATION lib/${PROJECT_NAME})
 
 target_link_libraries(vortex_sim_interface Eigen3::Eigen)
 
-install(DIRECTORY 
-  launch 
+install(DIRECTORY
+  launch
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()

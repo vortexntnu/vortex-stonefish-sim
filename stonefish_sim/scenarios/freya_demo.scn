@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <scenario>
   <environment>
-    <ned latitude="63.446827" longitude="10.421906"/> 
+    <ned latitude="63.446827" longitude="10.421906"/>
     <ocean>
         <water density="1031.0" jerlov="0.20"/>
         <waves height="0.0"/>
@@ -47,6 +47,6 @@
       <look name="LightGreen"/>
       <world_transform xyz="0.0 -2.0 -0.5" rpy="-1.57 0.0 0.0"/>
   </dynamic>
-  
+
 
 </scenario>
