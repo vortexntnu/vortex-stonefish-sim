@@ -253,7 +253,7 @@ private:
     transform_stamped.transform.translation.z = 0.2;
 
     tf2::Quaternion q;
-    q.setRPY(0.0, -1.571, 3.14);
+    q.setRPY(0.0, 0.0, 1.571);
     transform_stamped.transform.rotation.x = q.x();
     transform_stamped.transform.rotation.y = q.y();
     transform_stamped.transform.rotation.z = q.z();
@@ -274,7 +274,7 @@ private:
     transform_stamped.transform.translation.z = -0.1;
 
     tf2::Quaternion q;
-    q.setRPY(1.57, 0.0, 1.571);
+    q.setRPY(0.0, 0.0, 1.571);
     transform_stamped.transform.rotation.x = q.x();
     transform_stamped.transform.rotation.y = q.y();
     transform_stamped.transform.rotation.z = q.z();
