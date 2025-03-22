@@ -57,7 +57,7 @@ public:
                   std::placeholders::_1));
 
     depth_pub_ = this->create_publisher<std_msgs::msg::Float64>(
-        "/dvl/depth", qos_sensor_data);
+        "/dvl/altitude", qos_sensor_data);
 
     tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
@@ -81,7 +81,7 @@ public:
 
     pubish_depth_cam_transform();
     publish_camera_down_transform();
-    publish_world_odom_tf();
+    // publish_world_odom_tf();
     pubish_sonar_transform();
 
     RCLCPP_INFO(this->get_logger(), "VortexSimInterface has been started.");
