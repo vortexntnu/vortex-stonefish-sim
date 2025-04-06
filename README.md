@@ -14,6 +14,8 @@ Launch a scenario:
 ros2 launch stonefish_sim simulation.launch.py task:=structure
 ```
 
+Available scenarios are docking, pipeline, structure, orca_demo, freya_demo, orca_freya_demo.
+
 ![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7)
 
 ![Image](https://drive.google.com/uc?export=view&id=1elYr7ipYRVbe5FjxG1w3hYaTKhNYyyDH)
