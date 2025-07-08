@@ -33,7 +33,7 @@ def generate_launch_description():
 
     scenario_desc_arg = DeclareLaunchArgument(
         "task",
-        default_value=PathJoinSubstitution("default"),
+        default_value="default",
         description="Path to the scenario file",
         choices=[
             "default",
