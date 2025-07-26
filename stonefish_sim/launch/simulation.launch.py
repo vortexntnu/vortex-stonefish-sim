@@ -1,13 +1,30 @@
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.substitution import Substitution
 from launch.substitutions import (
     LaunchConfiguration,
     PathJoinSubstitution,
     TextSubstitution,
 )
+from launch_ros.actions import Node
+
+vortex_stonefish_sim_dir = get_package_share_directory("stonefish_sim")
+simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, "data"])
+
+gpu_tasks = [
+    "default",
+    "docking",
+    "pipeline",
+    "structure",
+    "orca_demo",
+    "freya_demo",
+    "orca_freya_demo",
+]
+no_gpu_tasks = [
+    "orca_no_gpu",
+    "freya_no_gpu",
+]
 
 
 class ConcatenateSubstitutions(Substitution):
@@ -18,77 +35,102 @@ class ConcatenateSubstitutions(Substitution):
         return "".join([sub.perform(context) for sub in self.substitutions])
 
 
+def launch_setup(context, *args, **kwargs):
+    rendering_enabled = LaunchConfiguration("rendering").perform(context).lower() in (
+        "true",
+        "1",
+        "yes",
+    )
+
+    task_arg = LaunchConfiguration("task").perform(context)
+    if task_arg == "auto":
+        task_val = "default" if rendering_enabled else "orca_no_gpu"
+    else:
+        task_val = task_arg
+
+    if rendering_enabled and task_val not in gpu_tasks:
+        raise RuntimeError(
+            f"Task '{task_val}' requires GPU rendering to be disabled. "
+            f"Choose one of: {', '.join(gpu_tasks)}"
+        )
+    if not rendering_enabled and task_val not in no_gpu_tasks:
+        raise RuntimeError(
+            f"Task '{task_val}' requires GPU rendering to be enabled. "
+            f"Choose one of: {', '.join(no_gpu_tasks)}"
+        )
+
+    sim_data = LaunchConfiguration("simulation_data")
+    sim_rate = LaunchConfiguration("simulation_rate")
+    win_x = LaunchConfiguration("window_res_x")
+    win_y = LaunchConfiguration("window_res_y")
+    rend_qual = LaunchConfiguration("rendering_quality")
+
+    stonefish_dir = get_package_share_directory("stonefish_sim")
+    scenario = PathJoinSubstitution(
+        [stonefish_dir, "scenarios", TextSubstitution(text=f"{task_val}.scn")]
+    )
+
+    if rendering_enabled:
+        exe = "stonefish_simulator"
+        node_args = [sim_data, scenario, sim_rate, win_x, win_y, rend_qual]
+        node_name = "stonefish_simulator"
+    else:
+        exe = "stonefish_simulator_nogpu"
+        node_args = [sim_data, scenario, sim_rate]
+        node_name = "stonefish_simulator_nogpu"
+
+    node = Node(
+        package="stonefish_ros2",
+        executable=exe,
+        namespace="stonefish_ros2",
+        name=node_name,
+        arguments=node_args,
+        output="screen",
+    )
+
+    return [node]
+
+
 def generate_launch_description():
-    # Get the directories of the involved packages
-    vortex_stonefish_sim_dir = get_package_share_directory("stonefish_sim")
-    stonefish_ros2_dir = get_package_share_directory("stonefish_ros2")
-
-    simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, "data"])
-
-    simulation_data_arg = DeclareLaunchArgument(
-        "simulation_data",
-        default_value=simulation_data_default,
-        description="Path to the simulation data folder",
-    )
-
-    scenario_desc_arg = DeclareLaunchArgument(
-        "task",
-        default_value="default",
-        description="Path to the scenario file",
-        choices=[
-            "default",
-            "docking",
-            "pipeline",
-            "structure",
-            "orca_demo",
-            "freya_demo",
-            "orca_freya_demo",
-        ],
-    )
-
-    window_res_x_arg = DeclareLaunchArgument(
-        "window_res_x", default_value="2460", description="Window resolution width"
-    )
-
-    window_res_y_arg = DeclareLaunchArgument(
-        "window_res_y", default_value="1340", description="Window resolution height"
-    )
-
-    quality_arg = DeclareLaunchArgument(
-        "rendering_quality",
-        default_value="high",
-    )
-
-    scenario_desc_resolved = PathJoinSubstitution(
-        [
-            vortex_stonefish_sim_dir,
-            "scenarios",
-            ConcatenateSubstitutions(
-                LaunchConfiguration("task"), TextSubstitution(text=".scn")
-            ),
-        ]
-    )
-
-    include_stonefish_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [stonefish_ros2_dir, "/launch/stonefish_simulator.launch.py"]
-        ),
-        launch_arguments={
-            "simulation_data": LaunchConfiguration("simulation_data"),
-            "scenario_desc": scenario_desc_resolved,
-            "window_res_x": LaunchConfiguration("window_res_x"),
-            "window_res_y": LaunchConfiguration("window_res_y"),
-            "rendering_quality": LaunchConfiguration("rendering_quality"),
-        }.items(),
-    )
+    stonefish_dir = get_package_share_directory("stonefish_sim")
 
     return LaunchDescription(
         [
-            simulation_data_arg,
-            scenario_desc_arg,
-            window_res_x_arg,
-            window_res_y_arg,
-            quality_arg,
-            include_stonefish_launch,
+            DeclareLaunchArgument(
+                "rendering",
+                default_value="true",
+                description="Enable GPU rendering (true/false)",
+            ),
+            DeclareLaunchArgument(
+                "task",
+                default_value="auto",
+                description=(
+                    "Scenario to load. Use one of "
+                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'auto' "
+                    "to choose automatically."
+                ),
+            ),
+            DeclareLaunchArgument(
+                "simulation_data",
+                default_value=PathJoinSubstitution([stonefish_dir, "data"]),
+                description="Path to the simulation data folder",
+            ),
+            DeclareLaunchArgument(
+                "simulation_rate",
+                default_value="100.0",
+                description="Physics update rate [Hz]",
+            ),
+            DeclareLaunchArgument(
+                "window_res_x", default_value="2460", description="Render window width"
+            ),
+            DeclareLaunchArgument(
+                "window_res_y", default_value="1340", description="Render window height"
+            ),
+            DeclareLaunchArgument(
+                "rendering_quality",
+                default_value="high",
+                description="Rendering quality (high/med/low)",
+            ),
+            OpaqueFunction(function=launch_setup),
         ]
     )
