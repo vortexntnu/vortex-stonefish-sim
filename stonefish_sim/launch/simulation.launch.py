@@ -26,6 +26,9 @@ no_gpu_tasks = [
     "freya_no_gpu",
 ]
 
+drone_starting_position = "0.0 0.0 0.0"
+drone_starting_orientation = "0.0 0.0 0.0"
+
 
 class ConcatenateSubstitutions(Substitution):
     def __init__(self, *substitutions):
@@ -83,6 +86,12 @@ def launch_setup(context, *args, **kwargs):
         namespace="stonefish_ros2",
         name=node_name,
         arguments=node_args,
+        parameters=[
+            {
+                "position": drone_starting_position,
+                "orientation": drone_starting_orientation,
+            }
+        ],
         output="screen",
     )
 
