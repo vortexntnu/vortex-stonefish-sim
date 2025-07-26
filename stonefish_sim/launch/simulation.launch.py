@@ -36,10 +36,8 @@ class ConcatenateSubstitutions(Substitution):
 
 
 def launch_setup(context, *args, **kwargs):
-    rendering_enabled = LaunchConfiguration("rendering").perform(context).lower() in (
-        "true",
-        "1",
-        "yes",
+    rendering_enabled = (
+        LaunchConfiguration("rendering").perform(context).lower() == "true"
     )
 
     task_arg = LaunchConfiguration("task").perform(context)
