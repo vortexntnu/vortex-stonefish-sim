@@ -27,7 +27,7 @@ no_gpu_tasks = [
 ]
 
 drone_starting_position = "0.0 0.0 0.0"
-drone_starting_orientation = "0.0 0.0 0.0"
+drone_starting_orientation = "-1.57 0.0 0.0"
 
 
 class ConcatenateSubstitutions(Substitution):
