@@ -1,4 +1,5 @@
-"""
+"""Testing Template for Stonefish Simulation.
+
 This file serves as a template for setting up tests in Stonefish with
 varying varying starting parameters.
 
@@ -7,6 +8,8 @@ varying varying starting parameters.
 3. Add them to the node parameters section and make sure the names match the parameters in the scenario file(s).
    In scenario file: "$(param <your_parameter_name>)". Look at the defaults for examples.
 """
+
+import random
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -18,7 +21,6 @@ from launch.substitutions import (
     TextSubstitution,
 )
 from launch_ros.actions import Node
-import random
 
 vortex_stonefish_sim_dir = get_package_share_directory("stonefish_sim")
 simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, "data"])
@@ -32,6 +34,7 @@ no_gpu_tasks = [
 ]
 #########################################
 
+
 def generate_random_position():
     """Example function to generate a random starting position."""
     x = random.uniform(-10.0, 10.0)
@@ -39,11 +42,13 @@ def generate_random_position():
     z = random.uniform(0.0, 2.0)
     return f"{x} {y} {z}"
 
+
 ### 2. Your custom parameters ###
 drone_starting_position = generate_random_position()
 drone_starting_orientation = "0.0 0.0 0.0"
 
 #################################
+
 
 class ConcatenateSubstitutions(Substitution):
     def __init__(self, *substitutions):
@@ -103,10 +108,12 @@ def launch_setup(context, *args, **kwargs):
         arguments=node_args,
         ### 3. Add parameters to the node ###
         ### NB: Name (the string) must match the parameter name in the .scn file ###
-        parameters=[{
-            "position": drone_starting_position,
-            "orientation": drone_starting_orientation,
-        }],
+        parameters=[
+            {
+                "position": drone_starting_position,
+                "orientation": drone_starting_orientation,
+            }
+        ],
         ############################################################################
         output="screen",
     )
