@@ -38,7 +38,8 @@ class ConcatenateSubstitutions(Substitution):
         return "".join([sub.perform(context) for sub in self.substitutions])
 
 
-def launch_setup(context, *args, **kwargs):
+def get_task_and_rendering_value(context):
+    """Determine the task and rendering value."""
     rendering_enabled = (
         LaunchConfiguration("rendering").perform(context).lower() == "true"
     )
@@ -60,6 +61,10 @@ def launch_setup(context, *args, **kwargs):
             f"Choose one of: {', '.join(no_gpu_tasks)}"
         )
 
+    return task_val, rendering_enabled
+
+
+def get_node_details(task_val, rendering_enabled):
     sim_data = LaunchConfiguration("simulation_data")
     sim_rate = LaunchConfiguration("simulation_rate")
     win_x = LaunchConfiguration("window_res_x")
@@ -80,9 +85,17 @@ def launch_setup(context, *args, **kwargs):
         node_args = [sim_data, scenario, sim_rate]
         node_name = "stonefish_simulator_nogpu"
 
+    return exe, node_args, node_name
+
+
+def launch_setup(context, *args, **kwargs):
+    task_val, rendering_enabled = get_task_and_rendering_value(context)
+
+    executable, node_args, node_name = get_node_details(task_val, rendering_enabled)
+
     node = Node(
         package="stonefish_ros2",
-        executable=exe,
+        executable=executable,
         namespace="stonefish_ros2",
         name=node_name,
         arguments=node_args,
