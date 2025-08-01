@@ -1,7 +1,7 @@
 """Testing Template for Stonefish Simulation.
 
 This file serves as a template for setting up tests in Stonefish with
-varying varying starting parameters.
+varying starting parameters.
 
 1. Add your custom scenario to the appropriate task list.
 2. Define any custom parameters you need for the scenario.
