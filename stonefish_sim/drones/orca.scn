@@ -136,7 +136,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster1"/> -->
         </actuator>
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
@@ -152,8 +151,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-
-            <!-- <ros_subscriber topic="/orca/cmd_thruster2"/> -->
         </actuator>
         <actuator name="Thruster3" type="thruster">
             <link name="Base"/>
@@ -169,7 +166,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster3"/> -->
         </actuator>
         <actuator name="Thruster4" type="thruster">
             <link name="Base"/>
@@ -185,7 +181,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster4"/> -->
         </actuator>
         <actuator name="Thruster5" type="thruster">
             <link name="Base"/>
@@ -201,7 +196,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster5"/> -->
         </actuator>
         <actuator name="Thruster6" type="thruster">
             <link name="Base"/>
@@ -217,8 +211,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_th    setVelocity(velocity);
-}uster6"/> -->
         </actuator>
         <actuator name="Thruster7" type="thruster">
             <link name="Base"/>
@@ -234,7 +226,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <ros_subscriber topic="/orca/cmd_thruster7"/> -->
         </actuator>
         <actuator name="Thruster8" type="thruster">
             <link name="Base"/>
@@ -250,17 +241,6 @@
                 <input value="-40.0 -20.0 0.0 20.0 40.0"/>
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
-            <!-- <rotor_dynamics type="mechanical_pi">
-                <propeller_inertia value="1.0"/>
-                <kp value="10.0"/>
-                <ki value="5.0"/>
-                <ilimit value="5.0"/>
-            </rotor_dynamics>
-            <thrust_model type="fluid_dynamics">
-                <thrust_coeff forward="0.88" reverse="0.48"/>
-                <torque_coeff value="0.05"/>
-            </thrust_model> -->
-            <!-- <ros_subscriber topic="/orca/cmd_thruster8"/> -->
         </actuator>
         <sensor name="camera_front" type="camera" rate="13.0">
 			<link name="Base"/>
@@ -335,7 +315,9 @@
             <origin xyz="0.25 0.0 -0.075" rpy="-1.57 0.0 -1.57"/>
             <link name="Base"/>
         </light> -->
-        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+
+        <!-- Drone starting pose from launch file -->
+        <world_transform xyz="$(param position)" rpy="$(param orientation)"/>
 
         <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
         <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>

@@ -30,5 +30,5 @@ ros2 launch stonefish_sim simulation.launch.py rendering_quality:=low
 and for no rendering use
 
 ```bash
-ros2 launch stonefish_sim simulation_nogpu.launch.py
+ros2 launch stonefish_sim simulation.launch.py rendering:=false
 ```
