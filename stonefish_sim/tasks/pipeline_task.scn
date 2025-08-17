@@ -93,14 +93,5 @@
     <world_transform xyz="1.85 0.0 5.65" rpy="-0.14 0.175 0.0"/>
   </robot>
 
-  <static name="seafloor" type="model">
-    <physical>
-      <mesh filename="objects/tacc_seafloor/tacc_seafloor.obj" scale="1.0"/>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </physical>
-    <material name="Neutral"/>
-    <look name="rocks"/>
-    <world_transform xyz="0.0 0.0 3.0" rpy="1.57 0.0 0.0"/>
-  </static>
 
 </scenario>
