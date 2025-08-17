@@ -111,6 +111,6 @@
     </joint>
 
     <!-- World pose of the whole assembly (from the original 'structure' static) -->
-    <world_transform xyz="0.0 -5.0 3.5" rpy="-1.57 0.0 -1.57"/>
+    <world_transform xyz="1.0 -18.0 8.1" rpy="-1.57 0.0 -1.57"/>
   </robot>
 </scenario>

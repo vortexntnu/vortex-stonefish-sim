@@ -92,6 +92,4 @@
 
     <world_transform xyz="1.85 0.0 5.65" rpy="-0.14 0.175 0.0"/>
   </robot>
-
-
 </scenario>

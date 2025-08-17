@@ -39,6 +39,7 @@
 </static>
 
 <include file="$(find stonefish_sim)/tasks/pipeline_task.scn"/>
+<include file="$(find stonefish_sim)/tasks/structure_task.scn"/>
 
 
 </scenario>
