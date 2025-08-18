@@ -1,116 +1,109 @@
 <?xml version="1.0"?>
 <scenario>
-  <robot name="structure_with_valves" fixed="true" self_collisions="false">
+  <!-- ===========================================
+       Static structure (stable concave collisions)
+       =========================================== -->
+  <static name="structure_with_valves_base" type="model">
+    <physical>
+      <mesh filename="objects/structure_mesh.obj" scale="1.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </physical>
+    <visual>
+      <mesh filename="objects/structure.obj" scale="1.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="Yellow"/>
+    <world_transform xyz="1.0 -18.0 8.1" rpy="-1.57 0.0 -1.57"/>
+  </static>
 
-    <!-- Base of the whole assembly -->
-    <base_link name="structure_base" type="model" physics="submerged">
-      <physical>
-        <mesh filename="objects/structure_mesh.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-      </physical>
-      <visual>
-        <mesh filename="objects/structure.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-      </visual>
-      <material name="Neutral"/>
-      <look name="Yellow"/>
-    </base_link>
-
-    <!-- =========================
-         Valve 1 (child of structure)
-         ========================= -->
-    <link name="valve1_base" type="model" physics="submerged">
+  <!-- =========================
+       Valve 1 as its own robot
+       ========================= -->
+  <robot name="valve1" fixed="true" self_collisions="false">
+    <base_link name="valve1_base" type="model" physics="submerged">
       <physical>
         <mesh filename="objects/valve_base_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </physical>
       <visual>
         <mesh filename="objects/valve_base.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
-      <look name="Yellow"/>
       <material name="Steel"/>
-    </link>
-
-    <!-- Pose of Valve1 base relative to structure base (computed from the original world_transforms) -->
-    <joint name="valve1_mount" type="fixed">
-      <parent name="structure_base"/>
-      <child name="valve1_base"/>
-      <!-- xyz:  [ 1.196441,  1.421440,  1.807916]
-           rpy:  [ 1.57,      0.001593, -3.141591] -->
-      <origin xyz="1.196441 1.42144 1.807916" rpy="0.0 0.0 1.570796"/>
-    </joint>
+      <look name="Yellow"/>
+    </base_link>
 
     <link name="valve1_turnable" type="model" physics="submerged">
       <physical>
         <mesh filename="objects/valve_turnable_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </physical>
       <visual>
         <mesh filename="objects/valve_turnable.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </visual>
-      <look name="Yellow"/>
       <material name="Steel"/>
+      <look name="Yellow"/>
     </link>
 
     <joint name="valve1_joint" type="revolute">
       <parent name="valve1_base"/>
       <child name="valve1_turnable"/>
-      <axis xyz="0.0 1.0 0.0"/>
+      <axis xyz="0 1 0"/>
       <limits min="0.0" max="1.57"/>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <!-- <damping value="2.0"/> -->
     </joint>
 
-    <!-- =========================
-         Valve 2 (child of structure)
-         ========================= -->
-    <link name="valve2_base" type="model" physics="submerged">
+    <!-- Composed world pose for valve 1 -->
+    <world_transform
+      xyz="2.80999954 -19.19500003 6.68000014"
+      rpy="0.0 0.0 1.57079632"/>
+  </robot>
+
+  <!-- =========================
+       Valve 2 as its own robot
+       ========================= -->
+  <robot name="valve2" fixed="true" self_collisions="false">
+    <base_link name="valve2_base" type="model" physics="submerged">
       <physical>
         <mesh filename="objects/valve_base_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </physical>
       <visual>
         <mesh filename="objects/valve_base.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
-      <look name="Yellow"/>
       <material name="Steel"/>
-    </link>
-
-    <!-- Pose of Valve2 base relative to structure base (computed from the original world_transforms) -->
-    <joint name="valve2_mount" type="fixed">
-      <parent name="structure_base"/>
-      <child name="valve2_base"/>
-      <!-- xyz:  [ 0.651409,  0.971409,  1.768709]
-           rpy:  [ 1.569203, -0.000795, -1.571593] -->
-      <origin xyz="0.651409 0.971409 1.768709" rpy="0 0.0 0"/>
-    </joint>
+      <look name="Yellow"/>
+    </base_link>
 
     <link name="valve2_turnable" type="model" physics="submerged">
       <physical>
         <mesh filename="objects/valve_turnable_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </physical>
       <visual>
         <mesh filename="objects/valve_turnable.obj" scale="1.0"/>
-        <origin rpy="-1.57 0.0 1.57" xyz="0.0 0.0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </visual>
-      <look name="Yellow"/>
       <material name="Steel"/>
+      <look name="Yellow"/>
     </link>
 
     <joint name="valve2_joint" type="revolute">
       <parent name="valve2_base"/>
       <child name="valve2_turnable"/>
-      <axis xyz="0.0 1.0 0.0"/>
+      <axis xyz="0 1 0"/>
       <limits min="0.0" max="1.57"/>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <!-- <damping value="2.0"/> -->
     </joint>
 
-    <!-- World pose of the whole assembly (from the original 'structure' static) -->
-    <world_transform xyz="1.0 -18.0 8.1" rpy="-1.57 0.0 -1.57"/>
+    <!-- Composed world pose for valve 2 -->
+    <world_transform
+      xyz="2.77000017 -18.64999971 7.15"
+      rpy="0 1.57079632 1.57079632"/>
   </robot>
 </scenario>
