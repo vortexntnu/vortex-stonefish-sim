@@ -8,9 +8,8 @@ from launch.substitutions import (
     TextSubstitution,
 )
 from launch_ros.actions import Node
-
-vortex_stonefish_sim_dir = get_package_share_directory("stonefish_sim")
-simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, "data"])
+import os
+import yaml
 
 gpu_tasks = [
     "default",
@@ -25,9 +24,6 @@ no_gpu_tasks = [
     "orca_no_gpu",
     "freya_no_gpu",
 ]
-
-drone_starting_position = "0.0 0.0 0.0"
-drone_starting_orientation = "-1.57 0.0 0.0"
 
 
 class ConcatenateSubstitutions(Substitution):
@@ -93,6 +89,17 @@ def launch_setup(context, *args, **kwargs):
 
     executable, node_args, node_name = get_node_details(task_val, rendering_enabled)
 
+    config_file_path = os.path.join(
+        get_package_share_directory("stonefish_sim"),"config",
+        task_val + "_config.yaml",
+    )
+
+    if not os.path.exists(config_file_path):
+        raise FileNotFoundError(f"Configuration file not found: {config_file_path}")
+
+    with open(config_file_path, 'r') as file:
+        yaml_params = yaml.safe_load(file)
+
     node = Node(
         package="stonefish_ros2",
         executable=executable,
@@ -100,10 +107,7 @@ def launch_setup(context, *args, **kwargs):
         name=node_name,
         arguments=node_args,
         parameters=[
-            {
-                "position": drone_starting_position,
-                "orientation": drone_starting_orientation,
-            }
+            yaml_params
         ],
         output="screen",
     )
@@ -141,10 +145,10 @@ def generate_launch_description():
                 description="Physics update rate [Hz]",
             ),
             DeclareLaunchArgument(
-                "window_res_x", default_value="2460", description="Render window width"
+                "window_res_x", default_value="1920", description="Render window width"
             ),
             DeclareLaunchArgument(
-                "window_res_y", default_value="1340", description="Render window height"
+                "window_res_y", default_value="1080", description="Render window height"
             ),
             DeclareLaunchArgument(
                 "rendering_quality",

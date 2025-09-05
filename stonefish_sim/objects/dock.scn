@@ -4,11 +4,11 @@
   <robot name="Docking Station" fixed="true" self_collisions="false">
     <base_link name="dock_base" type="model" physics="submerged">
       <physical>
-          <mesh filename="objects/docking_station_mesh.obj" scale="1.0"/>
+          <mesh filename="object_files/docking_station_mesh.obj" scale="1.0"/>
           <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
       </physical>
       <visual>
-          <mesh filename="objects/docking_station.obj" scale="1.0"/>
+          <mesh filename="object_files/docking_station.obj" scale="1.0"/>
           <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
       </visual>
       <material name="Steel"/>
@@ -67,20 +67,7 @@
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
     </joint>
 
-    <world_transform xyz="0.0 7.5 4" rpy="1.57 0.0 1.57"/>
+    <world_transform xyz="$(param docking_station_position)" rpy="$(param docking_station_orientation)"/>
   </robot>
 
-  <static name="pool" type="model">
-    <physical>
-        <mesh filename="objects/pool_room.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-        <mesh filename="objects/pool_room.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Steel"/>
-    <look name="White"/>
-    <world_transform xyz="0.0 3.0 -0.2" rpy="-1.57 0.0 0.0"/>
-  </static>
 </scenario>
