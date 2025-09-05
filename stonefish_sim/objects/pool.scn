@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<scenario>
+<static name="pool" type="model">
+    <physical>
+        <mesh filename="object_files/pool_room.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+        <mesh filename="object_files/pool_room.obj" scale="1.0"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Steel"/>
+    <look name="White"/>
+    <world_transform xyz="$(param pool_position)" rpy="$(param pool_orientation)"/>
+  </static>
+
+</scenario>
