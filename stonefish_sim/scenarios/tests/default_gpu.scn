@@ -20,11 +20,11 @@
 
   <static name="seafloor" type="model">
     <physical>
-        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <mesh filename="object_files/seafloor.obj" scale="1.0"/>
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     </physical>
     <visual>
-        <mesh filename="objects/seafloor.obj" scale="1.0"/>
+        <mesh filename="object_files/seafloor.obj" scale="1.0"/>
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     </visual>
     <material name="Neutral"/>
