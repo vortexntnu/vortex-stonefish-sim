@@ -1,5 +1,6 @@
 drone_position: "0.0 7.5 0.0"
 drone_orientation: "-1.57 0.0 0.0"
+water_jerlow: "0.20"
 docking_station_position: "0.0 7.5 4.0"
 docking_station_orientation: "1.57 0.0 1.57"
 pool_position: "0.0 3.0 -0.2"

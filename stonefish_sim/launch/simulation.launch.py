@@ -19,23 +19,12 @@ gpu_tasks = [
     "orca_demo",
     "freya_demo",
     "orca_freya_demo",
+    "tacc",
 ]
 no_gpu_tasks = [
     "orca_no_gpu",
     "freya_no_gpu",
 ]
-
-
-def validate_task(task_val, rendering_enabled):
-    if rendering_enabled and task_val not in gpu_tasks:
-        raise RuntimeError(
-            f"Task '{task_val}' requires rendering to be disabled. Valid GPU tasks: {gpu_tasks}"
-        )
-    if not rendering_enabled and task_val not in no_gpu_tasks:
-        raise RuntimeError(
-            f"Task '{task_val}' requires rendering to be enabled. Valid no-GPU tasks: {no_gpu_tasks}"
-        )
-
 
 def load_scenario_config(task_val):
     config_path = os.path.join(
@@ -54,8 +43,6 @@ def load_scenario_config(task_val):
 def get_sim_node(context, scenario_config=None):
     task_val = LaunchConfiguration("task").perform(context)
     rendering_enabled = LaunchConfiguration("rendering").perform(context).lower() == "true"
-
-    validate_task(task_val, rendering_enabled)
 
     if scenario_config is None:
         scenario_config = load_scenario_config(task_val)
@@ -114,10 +101,10 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "task",
-                default_value="auto",
+                default_value="default",
                 description=(
                     "Scenario to load. Use one of "
-                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'auto' "
+                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'default' "
                     "to choose automatically."
                 ),
             ),

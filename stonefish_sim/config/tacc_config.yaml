@@ -1,0 +1,7 @@
+drone_position: "0.0 0.0 0.0"
+drone_orientation: "-1.57 0.0 0.0"
+water_jerlow: "0.20"
+seafloor_position: "0.0 0.0 3.0"
+seafloor_orientation: "1.57 0.0 0.0"
+pipeline_position: "1.85 0.0 5.65"
+pipeline_orientation: "-0.14 0.175 0.0"
