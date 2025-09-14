@@ -8,9 +8,8 @@ from launch.substitutions import (
     TextSubstitution,
 )
 from launch_ros.actions import Node
-
-vortex_stonefish_sim_dir = get_package_share_directory("stonefish_sim")
-simulation_data_default = PathJoinSubstitution([vortex_stonefish_sim_dir, "data"])
+import os
+import yaml
 
 gpu_tasks = [
     "default",
@@ -20,51 +19,34 @@ gpu_tasks = [
     "orca_demo",
     "freya_demo",
     "orca_freya_demo",
+    "tacc",
 ]
 no_gpu_tasks = [
     "orca_no_gpu",
     "freya_no_gpu",
 ]
 
-drone_starting_position = "0.0 0.0 0.0"
-drone_starting_orientation = "-1.57 0.0 0.0"
-
-
-class ConcatenateSubstitutions(Substitution):
-    def __init__(self, *substitutions):
-        self.substitutions = substitutions
-
-    def perform(self, context):
-        return "".join([sub.perform(context) for sub in self.substitutions])
-
-
-def get_task_and_rendering_value(context):
-    """Determine the task and rendering value."""
-    rendering_enabled = (
-        LaunchConfiguration("rendering").perform(context).lower() == "true"
+def load_scenario_config(task_val):
+    config_path = os.path.join(
+        get_package_share_directory("stonefish_sim"), "config", f"{task_val}_config.yaml"
     )
 
-    task_arg = LaunchConfiguration("task").perform(context)
-    if task_arg == "auto":
-        task_val = "default" if rendering_enabled else "orca_no_gpu"
-    else:
-        task_val = task_arg
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Missing scenario config: {config_path}")
 
-    if rendering_enabled and task_val not in gpu_tasks:
-        raise RuntimeError(
-            f"Task '{task_val}' requires GPU rendering to be disabled. "
-            f"Choose one of: {', '.join(gpu_tasks)}"
-        )
-    if not rendering_enabled and task_val not in no_gpu_tasks:
-        raise RuntimeError(
-            f"Task '{task_val}' requires GPU rendering to be enabled. "
-            f"Choose one of: {', '.join(no_gpu_tasks)}"
-        )
+    with open(config_path, "r") as f:
+        config = yaml.safe_load(f)
 
-    return task_val, rendering_enabled
+    return config
 
 
-def get_node_details(task_val, rendering_enabled):
+def get_sim_node(context, scenario_config=None):
+    task_val = LaunchConfiguration("task").perform(context)
+    rendering_enabled = LaunchConfiguration("rendering").perform(context).lower() == "true"
+
+    if scenario_config is None:
+        scenario_config = load_scenario_config(task_val)
+
     sim_data = LaunchConfiguration("simulation_data")
     sim_rate = LaunchConfiguration("simulation_rate")
     win_x = LaunchConfiguration("window_res_x")
@@ -72,43 +54,39 @@ def get_node_details(task_val, rendering_enabled):
     rend_qual = LaunchConfiguration("rendering_quality")
 
     stonefish_dir = get_package_share_directory("stonefish_sim")
-    scenario = PathJoinSubstitution(
-        [stonefish_dir, "scenarios", TextSubstitution(text=f"{task_val}.scn")]
-    )
+    scenario_file = PathJoinSubstitution([
+        stonefish_dir, "scenarios", TextSubstitution(text=f"{task_val}.scn")
+    ])
 
     if rendering_enabled:
-        exe = "stonefish_simulator"
-        node_args = [sim_data, scenario, sim_rate, win_x, win_y, rend_qual]
-        node_name = "stonefish_simulator"
+        exec_name = "stonefish_simulator"
+        args = [sim_data, scenario_file, sim_rate, win_x, win_y, rend_qual]
     else:
-        exe = "stonefish_simulator_nogpu"
-        node_args = [sim_data, scenario, sim_rate]
-        node_name = "stonefish_simulator_nogpu"
+        exec_name = "stonefish_simulator_nogpu"
+        args = [sim_data, scenario_file, sim_rate]
 
-    return exe, node_args, node_name
+    return Node(
+        package="stonefish_ros2",
+        executable=exec_name,
+        namespace="stonefish_ros2",
+        name=exec_name,
+        arguments=args,
+        parameters=[scenario_config],
+        output="screen"
+    )
 
 
 def launch_setup(context, *args, **kwargs):
-    task_val, rendering_enabled = get_task_and_rendering_value(context)
+    task_val = LaunchConfiguration("task").perform(context)
+    override_path = LaunchConfiguration("scenario_config_override").perform(context)
 
-    executable, node_args, node_name = get_node_details(task_val, rendering_enabled)
+    if override_path and os.path.exists(override_path):
+        with open(override_path, 'r') as f:
+            scenario_config = yaml.safe_load(f)
+    else:
+        scenario_config = None
 
-    node = Node(
-        package="stonefish_ros2",
-        executable=executable,
-        namespace="stonefish_ros2",
-        name=node_name,
-        arguments=node_args,
-        parameters=[
-            {
-                "position": drone_starting_position,
-                "orientation": drone_starting_orientation,
-            }
-        ],
-        output="screen",
-    )
-
-    return [node]
+    return [get_sim_node(context, scenario_config=scenario_config)]
 
 
 def generate_launch_description():
@@ -123,10 +101,10 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "task",
-                default_value="auto",
+                default_value="default",
                 description=(
                     "Scenario to load. Use one of "
-                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'auto' "
+                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'default' "
                     "to choose automatically."
                 ),
             ),
@@ -141,15 +119,20 @@ def generate_launch_description():
                 description="Physics update rate [Hz]",
             ),
             DeclareLaunchArgument(
-                "window_res_x", default_value="2460", description="Render window width"
+                "window_res_x", default_value="1920", description="Render window width"
             ),
             DeclareLaunchArgument(
-                "window_res_y", default_value="1340", description="Render window height"
+                "window_res_y", default_value="1080", description="Render window height"
             ),
             DeclareLaunchArgument(
                 "rendering_quality",
                 default_value="high",
                 description="Rendering quality (high/med/low)",
+            ),
+            DeclareLaunchArgument(
+            "scenario_config_override",
+            default_value="",
+            description="Path to override scenario config YAML"
             ),
             OpaqueFunction(function=launch_setup),
         ]

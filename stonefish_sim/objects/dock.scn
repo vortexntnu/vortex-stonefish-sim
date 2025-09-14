@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<scenario>
+
+  <robot name="Docking Station" fixed="true" self_collisions="false">
+    <base_link name="dock_base" type="model" physics="submerged">
+      <physical>
+          <mesh filename="object_files/docking_station_mesh.obj" scale="1.0"/>
+          <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </physical>
+      <visual>
+          <mesh filename="object_files/docking_station.obj" scale="1.0"/>
+          <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </visual>
+      <material name="Steel"/>
+      <look name="White"/>
+    </base_link>
+
+    <link name="1aruco7" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco7" uv_mode="1"/>
+      <origin xyz="0.295 -0.154 0.485" rpy="1.57 -1.57 0"/>
+    </link>
+
+    <joint name="1aruco7_joint" type="fixed">
+      <parent name="dock_base"/>
+      <child name="1aruco7"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
+    </joint>
+
+    <link name="2aruco19" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="-0.285 -0.154 -0.495" rpy="1.57 -1.57 0"/>
+    </link>
+
+    <joint name="2aruco19_joint" type="fixed">
+      <parent name="dock_base"/>
+      <child name="2aruco19"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
+    </joint>
+
+    <link name="3aruco96" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco96" uv_mode="1"/>
+      <origin xyz="0.295 -0.154 -0.495" rpy="1.57 -1.57 0"/>
+    </link>
+
+    <joint name="3aruco96_joint" type="fixed">
+      <parent name="dock_base"/>
+      <child name="3aruco96"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
+    </joint>
+
+    <link name="4aruco28" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco28" uv_mode="1"/>
+      <origin xyz="-0.285 -0.154 0.485" rpy="1.57 -1.57 0"/>
+    </link>
+
+    <joint name="4aruco28_joint" type="fixed">
+      <parent name="dock_base"/>
+      <child name="4aruco28"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0"/>
+    </joint>
+
+    <world_transform xyz="$(param docking_station_position)" rpy="$(param docking_station_orientation)"/>
+  </robot>
+
+</scenario>

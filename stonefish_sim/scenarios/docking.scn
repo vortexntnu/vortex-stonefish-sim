@@ -3,7 +3,7 @@
   <environment>
     <ned latitude="63.446827" longitude="10.421906"/>
     <ocean>
-        <water density="1031.0" jerlov="0.20"/>
+        <water density="1031.0" jerlov="$(param water_jerlow)"/>
         <waves height="0.0"/>
         <particles enabled="true"/>
         <current type="uniform">
@@ -33,7 +33,8 @@
 
   <include file="$(find stonefish_sim)/drones/orca.scn"/>
 
-  <include file="$(find stonefish_sim)/tasks/docking_task.scn"/>
+  <include file="$(find stonefish_sim)/objects/dock.scn"/>
+  <include file="$(find stonefish_sim)/objects/pool.scn"/>
   <include file="$(find stonefish_sim)/drones/gripper.scn"/>
 
 </scenario>

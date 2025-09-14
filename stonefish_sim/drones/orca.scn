@@ -12,7 +12,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="Black"/>
-            <mass value="25.5"/>
+            <mass value="27.0"/>
             <inertia xyz="0.68 3.32 3.34"/>
             <hydrodynamics viscous_drag="0.06 0.17 0.17" quadratic_drag="0.2 0.2 0.2"/>
             <cg xyz="-0.06 0.0 0.01" rpy="0.0 0.0 0.0"/>
@@ -37,6 +37,7 @@
             <child name="Shoulder"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.31 -0.02 0.16"/>
             <axis xyz="0.0 1.0 0.0"/>
+            <limits min="-1.57" max="0.3"/>
         </joint>
 
         <actuator name="Shoulder_servo" type="servo">
@@ -89,6 +90,7 @@
             <child name="Finger1"/>
             <origin xyz="-0.15 0 0" rpy="0 -1.57 3.14"/>
             <axis xyz="0.0 1.0 0.0"/>
+            <limits min="0.0" max="1.57"/>
         </joint>
 
         <actuator name="Finger_servo1" type="servo">
@@ -115,6 +117,7 @@
             <child name="Finger2"/>
             <origin xyz="-0.15 0 0" rpy="0 1.57 0"/>
             <axis xyz="0.0 1.0 0.0"/>
+            <limits min="0.0" max="1.57"/>
         </joint>
 
         <actuator name="Finger_servo2" type="servo">
@@ -254,13 +257,13 @@
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
 			<ros_publisher topic="/cam_down"/>
 		</sensor>
-        <sensor name="Dcam" rate="5.0" type="depthcamera">
+        <!-- <sensor name="Dcam" rate="5.0" type="depthcamera">
             <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.4" depth_max="10.0"/>
             <noise depth="0.01"/>
             <origin xyz="0.45 0.0 -0.02" rpy="1.57 0.0 1.57"/>
             <link name="Base"/>
             <ros_publisher topic="/depth_cam"/>
-        </sensor>
+        </sensor> -->
         <sensor name="IMU" rate="20.0" type="imu">
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
@@ -317,7 +320,7 @@
         </light> -->
 
         <!-- Drone starting pose from launch file -->
-        <world_transform xyz="$(param position)" rpy="$(param orientation)"/>
+        <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
         <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
         <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>
