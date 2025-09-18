@@ -18,19 +18,7 @@
   <include file="$(find stonefish_sim)/metadata/materials.scn"/>
   <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 
-  <static name="seafloor" type="model">
-    <physical>
-        <mesh filename="object_files/seafloor.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-        <mesh filename="object_files/seafloor.obj" scale="1.0"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="Brown"/>
-    <world_transform xyz="0.0 0.0 3.0" rpy="1.57 0.0 0.0"/>
-  </static>
+  <include file="$(find stonefish_sim)/objects/default_seafloor.scn"/>
 
   <include file="$(find stonefish_sim)/drones/orca.scn"/>
 
