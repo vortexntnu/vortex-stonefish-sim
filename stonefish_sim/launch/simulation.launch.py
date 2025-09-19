@@ -11,7 +11,7 @@ from launch_ros.actions import Node
 import os
 import yaml
 
-gpu_tasks = [
+gpu_scenarios = [
     "default",
     "docking",
     "pipeline",
@@ -21,18 +21,21 @@ gpu_tasks = [
     "orca_freya_demo",
     "tacc",
 ]
-no_gpu_tasks = [
+no_gpu_scenarios = [
     "orca_no_gpu",
     "freya_no_gpu",
 ]
 
-def load_scenario_config(task_val):
+def load_scenario_config(scenario_val):
     config_path = os.path.join(
-        get_package_share_directory("stonefish_sim"), "config", f"{task_val}_config.yaml"
+        get_package_share_directory("stonefish_sim"), "config", f"{scenario_val}_config.yaml"
     )
 
     if not os.path.exists(config_path):
-        raise FileNotFoundError(f"Missing scenario config: {config_path}")
+        print(f"Warning: Scenario config not found for scenario '{scenario_val}'. Using default config.")
+        config_path = os.path.join(
+            get_package_share_directory("stonefish_sim"), "config", "default_config.yaml"
+        )
 
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
@@ -41,11 +44,11 @@ def load_scenario_config(task_val):
 
 
 def get_sim_node(context, scenario_config=None):
-    task_val = LaunchConfiguration("task").perform(context)
+    scenario_val = LaunchConfiguration("scenario").perform(context)
     rendering_enabled = LaunchConfiguration("rendering").perform(context).lower() == "true"
 
     if scenario_config is None:
-        scenario_config = load_scenario_config(task_val)
+        scenario_config = load_scenario_config(scenario_val)
 
     sim_data = LaunchConfiguration("simulation_data")
     sim_rate = LaunchConfiguration("simulation_rate")
@@ -55,7 +58,7 @@ def get_sim_node(context, scenario_config=None):
 
     stonefish_dir = get_package_share_directory("stonefish_sim")
     scenario_file = PathJoinSubstitution([
-        stonefish_dir, "scenarios", TextSubstitution(text=f"{task_val}.scn")
+        stonefish_dir, "scenarios", TextSubstitution(text=f"{scenario_val}.scn")
     ])
 
     if rendering_enabled:
@@ -77,12 +80,14 @@ def get_sim_node(context, scenario_config=None):
 
 
 def launch_setup(context, *args, **kwargs):
-    task_val = LaunchConfiguration("task").perform(context)
+    scenario_val = LaunchConfiguration("scenario").perform(context)
     override_path = LaunchConfiguration("scenario_config_override").perform(context)
 
     if override_path and os.path.exists(override_path):
         with open(override_path, 'r') as f:
             scenario_config = yaml.safe_load(f)
+    elif scenario_val in gpu_scenarios + no_gpu_scenarios:
+        scenario_config = load_scenario_config(scenario_val)
     else:
         scenario_config = None
 
@@ -100,11 +105,11 @@ def generate_launch_description():
                 description="Enable GPU rendering (true/false)",
             ),
             DeclareLaunchArgument(
-                "task",
+                "scenario",
                 default_value="default",
                 description=(
                     "Scenario to load. Use one of "
-                    f"{gpu_tasks + no_gpu_tasks}, or leave as 'default' "
+                    f"{gpu_scenarios + no_gpu_scenarios}, or leave as 'default' "
                     "to choose automatically."
                 ),
             ),

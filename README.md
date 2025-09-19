@@ -11,10 +11,10 @@ Clone this repository and build your workspace.
 Launch a scenario:
 
 ```bash
-ros2 launch stonefish_sim simulation.launch.py task:=structure
+ros2 launch stonefish_sim simulation.launch.py scenario:=tacc
 ```
 
-Available scenarios are docking, pipeline, structure, orca_demo, freya_demo, orca_freya_demo.
+Available scenarios are tacc, docking, pipeline, structure, orca_demo, freya_demo, orca_freya_demo.
 
 ![Image](https://drive.google.com/uc?export=view&id=1Mdg5cXCWC3h63GH70mxJqeO6YI-iAcV7)
 

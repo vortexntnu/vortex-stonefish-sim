@@ -267,7 +267,7 @@
         </sensor>
 
         <!-- Drone starting pose from launch file -->
-        <world_transform xyz="$(param position)" rpy="$(param orientation)"/>
+        <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
         <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
         <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>
