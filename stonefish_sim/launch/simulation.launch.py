@@ -64,6 +64,13 @@ def get_sim_node(context, scenario_config=None):
     if rendering_enabled:
         exec_name = "stonefish_simulator"
         args = [sim_data, scenario_file, sim_rate, win_x, win_y, rend_qual]
+    elif not rendering_enabled and scenario_val not in no_gpu_scenarios:
+        # Default to orca_no_gpu.scn
+        scenario_file = PathJoinSubstitution([
+            stonefish_dir, "scenarios", TextSubstitution(text=f"orca_no_gpu.scn")
+        ])
+        exec_name = "stonefish_simulator_nogpu"
+        args = [sim_data, scenario_file, sim_rate]
     else:
         exec_name = "stonefish_simulator_nogpu"
         args = [sim_data, scenario_file, sim_rate]
