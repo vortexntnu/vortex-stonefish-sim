@@ -13,16 +13,16 @@ sudo apt update && sudo apt install -y libglm-dev libsdl2-dev libfreetype6-dev
 Clone Stonefish
 ```bash
 cd /opt
-git clone https://github.com/patrykcieslak/stonefish.git
-sed -i '30i#include <cstdint>' stonefish/Library/include/sensors/Sample.h
+sudo git clone https://github.com/patrykcieslak/stonefish.git
+sudo sed -i '30i#include <cstdint>' stonefish/Library/include/sensors/Sample.h
 ```
 Build
 ```bash
 cd stonefish
-mkdir build
+sudo mkdir build
 cd build
-cmake ..
-make -j4
+sudo cmake ..
+sudo make -j4
 sudo make install
 ```
 
