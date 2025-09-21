@@ -27,7 +27,23 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ```
 
 ## ROS 2 package
-Clone and build the [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2) in your workspace.
+Clone the 2 packages in cd /ros2_ws/src. Which means your ROS 2 workspace inside the src folder.
+- [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2)
+- [Vortex Stonefish package](https://github.com/vortexntnu/vortex-stonefish-sim/tree/docs/add-install-docs)
+
+Go back to /ros2_ws, and colcon build. 
+
+Basically, just copy what is underneath. Remeber your ros2_ws might not be the same name, change it.
+
+```bash
+cd
+cd ros2_ws/src
+git clone https://github.com/vortexntnu/stonefish_ros2.git
+git clone https://github.com/vortexntnu/vortex-stonefish-sim.git
+cd ..
+colcon build
+source install/setup.bash
+```
 
 ## Usage
 Clone this repository and build your workspace.
