@@ -3,7 +3,28 @@ This repository contains scenario files and models for simulation of the Vortex 
 
 ## Prerequisites
 - The [Stonefish](https://github.com/patrykcieslak/stonefish) library needs to be installed.
-- The [Stonefish ROS 2 package](https://github.com/patrykcieslak/stonefish_ros2) must be compiled.
+- The [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2) must be compiled.
+
+## Installation
+Dependencies
+```bash
+sudo apt update && sudo apt install -y libglm-dev libsdl2-dev libfreetype6-dev
+```
+Clone Stonefish
+```bash
+cd /opt
+git clone https://github.com/patrykcieslak/stonefish.git
+sed -i '30i#include <cstdint>' stonefish/Library/include/sensors/Sample.h
+```
+Build
+```bash
+cd stonefish
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+```
 
 ## Usage
 Clone this repository and build your workspace.
