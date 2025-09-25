@@ -9,7 +9,7 @@ sudo apt update && sudo apt install -y libglm-dev libsdl2-dev libfreetype6-dev
 Clone Stonefish
 ```bash
 cd /opt
-sudo git clone https://github.com/patrykcieslak/stonefish.git
+sudo git clone https://github.com/vortexntnu/stonefish.git
 sudo sed -i '30i#include <cstdint>' stonefish/Library/include/sensors/Sample.h
 ```
 Build
@@ -26,27 +26,13 @@ Ensure correct path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ```
 
-## ROS 2 package
-Clone the 2 packages in cd /ros2_ws/src. Which means your ROS 2 workspace inside the src folder.
-- [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2)
-- [Vortex Stonefish package](https://github.com/vortexntnu/vortex-stonefish-sim/tree/docs/add-install-docs)
-
-Go back to /ros2_ws, and colcon build. 
-
-Basically, just copy what is underneath. Remeber your ros2_ws might not be the same name, change it.
-
-```bash
-cd
-cd ros2_ws/src
-git clone https://github.com/vortexntnu/stonefish_ros2.git
-git clone https://github.com/vortexntnu/vortex-stonefish-sim.git
-cd ..
-colcon build
-source install/setup.bash
-```
+## ROS 2 packages
+These are the relevant ROS 2 packages for simulation.
+- [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2) (Required)
+- [Vortex Stonefish Sim package](https://github.com/vortexntnu/vortex-stonefish-sim) (Required)
+- [Stonefish Interface package](https://github.com/vortexntnu/vortex-stonefish-interface) (Optional)
 
 ## Usage
-Clone this repository and build your workspace.
 
 Launch a scenario:
 
