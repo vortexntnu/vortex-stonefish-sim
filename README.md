@@ -1,12 +1,38 @@
 # Vortex Stonefish Sim
 This repository contains scenario files and models for simulation of the Vortex NTNU drones.
 
-## Prerequisites
-- The [Stonefish](https://github.com/patrykcieslak/stonefish) library needs to be installed.
-- The [Stonefish ROS 2 package](https://github.com/patrykcieslak/stonefish_ros2) must be compiled.
+## Installation
+Dependencies
+```bash
+sudo apt update && sudo apt install -y libglm-dev libsdl2-dev libfreetype6-dev
+```
+Clone Stonefish
+```bash
+cd /opt
+sudo git clone https://github.com/vortexntnu/stonefish.git
+sudo sed -i '30i#include <cstdint>' stonefish/Library/include/sensors/Sample.h
+```
+Build
+```bash
+cd stonefish
+sudo mkdir build
+cd build
+sudo cmake ..
+sudo make -j4
+sudo make install
+```
+Ensure correct path
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+```
+
+## ROS 2 packages
+These are the relevant ROS 2 packages for simulation.
+- [Stonefish ROS 2 package](https://github.com/vortexntnu/stonefish_ros2) (Required)
+- [Vortex Stonefish Sim package](https://github.com/vortexntnu/vortex-stonefish-sim) (Required)
+- [Stonefish Interface package](https://github.com/vortexntnu/vortex-stonefish-interface) (Optional)
 
 ## Usage
-Clone this repository and build your workspace.
 
 Launch a scenario:
 
