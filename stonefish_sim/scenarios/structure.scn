@@ -3,8 +3,8 @@
   <environment>
     <ned latitude="63.446827" longitude="10.421906"/>
     <ocean>
-        <water density="1031.0" jerlov="0.60"/>
-        <waves height="0.0"/>
+        <water density="1031.0" jerlov="$(param water_jerlow)"/>
+        <waves height="10.0"/>
         <particles enabled="true"/>
         <current type="uniform">
             <velocity xyz="0.1 0.1 0.0"/>
@@ -28,8 +28,9 @@
 
   <include file="$(find stonefish_sim)/drones/orca.scn"/>
 
+  <include file="$(find stonefish_sim)/objects/tacc_seafloor.scn"/>
+
   <include file="$(find stonefish_sim)/objects/structure.scn"/>
 
-  <include file="$(find stonefish_sim)/objects/default_seafloor.scn"/>
 
 </scenario>

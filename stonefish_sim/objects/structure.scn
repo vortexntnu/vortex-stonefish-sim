@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <scenario>
-  <!-- ===========================================
-       Static structure (stable concave collisions)
-       =========================================== -->
   <static name="structure_with_valves_base" type="model">
     <physical>
       <mesh filename="object_files/structure_mesh.obj" scale="1.0"/>
@@ -14,14 +11,19 @@
     </visual>
     <material name="Neutral"/>
     <look name="Yellow"/>
-    <world_transform xyz="1.0 -18.0 8.1" rpy="-1.57 0.0 -1.57"/>
+    <world_transform
+      xyz="$(param structure_position)"
+      rpy="$(param structure_orientation)"/>
   </static>
 
-  <!-- =========================
-       Valve 1 as its own robot
-       ========================= -->
   <robot name="valve1" fixed="true" self_collisions="false">
-    <base_link name="valve1_base" type="model" physics="submerged">
+    <base_link name="valve1_frame" type="box" physics="submerged">
+      <dimensions xyz="0.001 0.001 0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="Neutral"/><look name="Orange"/>
+    </base_link>
+
+    <link name="valve1_base" type="model" physics="submerged">
       <physical>
         <mesh filename="object_files/valve_base_mesh.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
@@ -30,9 +32,16 @@
         <mesh filename="object_files/valve_base.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
-      <material name="Steel"/>
-      <look name="Yellow"/>
-    </base_link>
+      <material name="Steel"/><look name="Orange"/>
+    </link>
+
+    <joint name="valve1_mount" type="fixed">
+      <parent name="valve1_frame"/>
+      <child name="valve1_base"/>
+      <origin
+        xyz="1.196441 1.42144 1.807916"
+        rpy="0.0 0.0 1.57"/>
+    </joint>
 
     <link name="valve1_turnable" type="model" physics="submerged">
       <physical>
@@ -43,8 +52,7 @@
         <mesh filename="object_files/valve_turnable.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </visual>
-      <material name="Steel"/>
-      <look name="Yellow"/>
+      <material name="Steel"/><look name="Orange"/>
     </link>
 
     <joint name="valve1_joint" type="revolute">
@@ -53,20 +61,21 @@
       <axis xyz="0 1 0"/>
       <limits min="0.0" max="1.57"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <!-- <damping value="2.0"/> -->
     </joint>
 
-    <!-- Composed world pose for valve 1 -->
     <world_transform
-      xyz="2.80999954 -19.19500003 6.68000014"
-      rpy="0.0 0.0 1.57079632"/>
+      xyz="$(param structure_position)"
+      rpy="$(param structure_orientation)"/>
   </robot>
 
-  <!-- =========================
-       Valve 2 as its own robot
-       ========================= -->
   <robot name="valve2" fixed="true" self_collisions="false">
-    <base_link name="valve2_base" type="model" physics="submerged">
+    <base_link name="valve2_frame" type="box" physics="submerged">
+      <dimensions xyz="0.001 0.001 0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="Neutral"/><look name="Orange"/>
+    </base_link>
+
+    <link name="valve2_base" type="model" physics="submerged">
       <physical>
         <mesh filename="object_files/valve_base_mesh.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
@@ -75,9 +84,16 @@
         <mesh filename="object_files/valve_base.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
-      <material name="Steel"/>
-      <look name="Yellow"/>
-    </base_link>
+      <material name="Steel"/><look name="Orange"/>
+    </link>
+
+    <joint name="valve2_mount" type="fixed">
+      <parent name="valve2_frame"/>
+      <child name="valve2_base"/>
+      <origin
+        xyz="0.665 0.95140878 1.76872493"
+        rpy="0.0 0.0 0.0"/>
+    </joint>
 
     <link name="valve2_turnable" type="model" physics="submerged">
       <physical>
@@ -88,8 +104,7 @@
         <mesh filename="object_files/valve_turnable.obj" scale="1.0"/>
         <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
       </visual>
-      <material name="Steel"/>
-      <look name="Yellow"/>
+      <material name="Steel"/><look name="Orange"/>
     </link>
 
     <joint name="valve2_joint" type="revolute">
@@ -98,12 +113,48 @@
       <axis xyz="0 1 0"/>
       <limits min="0.0" max="1.57"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <!-- <damping value="2.0"/> -->
     </joint>
 
-    <!-- Composed world pose for valve 2 -->
     <world_transform
-      xyz="2.77000017 -18.64999971 7.15"
-      rpy="0 1.57079632 1.57079632"/>
+      xyz="$(param structure_position)"
+      rpy="$(param structure_orientation)"/>
+  </robot>
+
+  <robot name="structure_markers" fixed="true" self_collisions="false">
+    <base_link name="markers_frame" type="box" physics="submerged">
+      <dimensions xyz="0.001 0.001 0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="Neutral"/><look name="Invisible"/>
+    </base_link>
+
+    <link name="aruco_structure_01" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="1.29 1.32144 0.25" rpy="-1.57 0.0 1.57"/>
+    </link>
+
+    <joint name="aruco_structure_01_joint" type="fixed">
+      <parent name="markers_frame"/>
+      <child name="aruco_structure_01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_structure_02" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco28" uv_mode="1"/>
+      <origin xyz="0.05 0.975 0.65" rpy="1.57 0.0 1.57"/>
+    </link>
+
+    <joint name="aruco_structure_02_joint" type="fixed">
+      <parent name="markers_frame"/>
+      <child name="aruco_structure_02"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <world_transform
+      xyz="$(param structure_position)"
+      rpy="$(param structure_orientation)"/>
   </robot>
 </scenario>
