@@ -76,9 +76,5 @@ To create your own scenario file, follow these steps:
    - Typical files in `data/object_files` are `.png` textures and `.obj` files.
 
 4. **Define the Scenario Config**
-    - Additionaly you have to create a config file in the `config` directory that defines transformations for components.
+    - Additionally you have to create a config file in the `config` directory that defines transformations for components.
     - This step allows easy configuration of scenario parameters that will be useful for testing purposes.
-
-
-
-
