@@ -20,6 +20,6 @@
 
   <include file="$(find stonefish_sim)/objects/default_seafloor.scn"/>
 
-  <include file="$(find stonefish_sim)/drones/orca.scn"/>
+  <include file="$(find stonefish_sim)/drones/$(param drone_file)"/>
 
 </scenario>

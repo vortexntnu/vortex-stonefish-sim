@@ -42,6 +42,18 @@ def load_scenario_config(scenario_val):
 
     return config
 
+def load_drone_config():
+    drone_config_path = os.path.join(
+        get_package_share_directory("stonefish_sim"),
+        "config",
+        "drone.yaml"
+    )
+    if not os.path.exists(drone_config_path):
+        print(f"Warning: No drone.yaml found at {drone_config_path}, defaulting to orca.scn")
+        return {"drone_file": "orca.scn"}
+
+    with open(drone_config_path, "r") as f:
+        return yaml.safe_load(f)
 
 def get_sim_node(context, scenario_config=None):
     scenario_val = LaunchConfiguration("scenario").perform(context)
@@ -96,9 +108,12 @@ def launch_setup(context, *args, **kwargs):
     elif scenario_val in gpu_scenarios + no_gpu_scenarios:
         scenario_config = load_scenario_config(scenario_val)
     else:
-        scenario_config = None
+        scenario_config = {}
 
-    return [get_sim_node(context, scenario_config=scenario_config)]
+    drone_config = load_drone_config()
+    merged_config = {**scenario_config, **drone_config}
+
+    return [get_sim_node(context, scenario_config=merged_config)]
 
 
 def generate_launch_description():
