@@ -246,29 +246,29 @@
             </thrust_model>
         </actuator>
         <sensor name="camera_front" type="camera" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam"/>
-		</sensor>
+            <link name="Base"/>
+            <origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/cam"/>
+        </sensor>
         <sensor name="segmentation_camera_front" type="segmentation" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/segmentation_cam"/>
-		</sensor>
+            <link name="Base"/>
+            <origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/segmentation_cam"/>
+        </sensor>
         <sensor name="camera_down" type="camera" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam_down"/>
-		</sensor>
+            <link name="Base"/>
+            <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/cam_down"/>
+        </sensor>
         <sensor name="segmentation_camera_down" type="segmentation" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/segmentation_cam_down"/>
-		</sensor>
+            <link name="Base"/>
+            <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/segmentation_cam_down"/>
+        </sensor>
         <!-- <sensor name="Dcam" rate="5.0" type="depthcamera">
             <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.4" depth_max="10.0"/>
             <noise depth="0.01"/>
