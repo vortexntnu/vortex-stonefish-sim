@@ -7,7 +7,7 @@
                 <material name="Steel"/>
                 <look name="Green"/>
             </base_link>
-        
+
         <sensor name="front_camera" type="camera" rate="60.0">
 			<link name="Base"/>
 			<origin rpy="1.571 0.0 1.571" xyz="0.0 0.0 0.0"/>
@@ -46,7 +46,7 @@
             <noise position="0.00" velocity="0.00" angle="0.00" angular_velocity="0.00"/>
             <ros_publisher topic="/odom"/>
         </sensor>
-       
+
 
         <!-- Drone starting pose from launch file -->
         <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
