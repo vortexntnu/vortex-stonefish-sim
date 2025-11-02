@@ -50,20 +50,6 @@ def load_scenario_config(scenario_val):
     return config
 
 
-def load_drone_config():
-    drone_config_path = os.path.join(
-        get_package_share_directory("stonefish_sim"), "config", "drone.yaml"
-    )
-    if not os.path.exists(drone_config_path):
-        print(
-            f"Warning: No drone.yaml found at {drone_config_path}, defaulting to orca.scn"
-        )
-        return {"drone_file": "orca.scn"}
-
-    with open(drone_config_path) as f:
-        return yaml.safe_load(f)
-
-
 def get_sim_node(context, scenario_config=None):
     scenario_val = LaunchConfiguration("scenario").perform(context)
     rendering_enabled = (
@@ -112,6 +98,7 @@ def get_sim_node(context, scenario_config=None):
 def launch_setup(context, *args, **kwargs):
     scenario_val = LaunchConfiguration("scenario").perform(context)
     override_path = LaunchConfiguration("scenario_config_override").perform(context)
+    drone_val = LaunchConfiguration("drone").perform(context)
 
     if override_path and os.path.exists(override_path):
         with open(override_path) as f:
@@ -121,7 +108,7 @@ def launch_setup(context, *args, **kwargs):
     else:
         scenario_config = {}
 
-    drone_config = load_drone_config()
+    drone_config = {"drone_file": f"{drone_val}.scn"}
     merged_config = {**scenario_config, **drone_config}
 
     return [get_sim_node(context, scenario_config=merged_config)]
@@ -145,6 +132,11 @@ def generate_launch_description():
                     f"{gpu_scenarios + no_gpu_scenarios}, or leave as 'default' "
                     "to choose automatically."
                 ),
+            ),
+            DeclareLaunchArgument(
+                "drone",
+                default_value="orca",
+                description="drone.scn file to use",
             ),
             DeclareLaunchArgument(
                 "simulation_data",
