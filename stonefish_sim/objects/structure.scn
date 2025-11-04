@@ -124,8 +124,8 @@
     <base_link name="markers_frame" type="box" physics="submerged">
       <dimensions xyz="0.001 0.001 0.001"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-<material name="Neutral"/>
-<look name="Invisible"/>
+      <material name="Neutral"/>
+      <look name="Invisible"/>
     </base_link>
 
     <link name="aruco_structure_01" type="box">
