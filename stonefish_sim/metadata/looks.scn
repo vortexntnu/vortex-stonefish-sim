@@ -2,6 +2,7 @@
     <scenario>
         <looks>
             <look name="Yellow" rgb="1.0 0.9 0.0" roughness="0.3"/>
+            <look name="Orange" rgb="1.0 0.55 0.0" roughness="0.3"/>
             <look name="Gray" gray="0.1" roughness="0.4" metalness="0.5"/>
             <look name="Green" rgb="0.0 0.2 0.0" roughness="0.9"/>
             <look name="Red" rgb="0.8 0.0 0.0" roughness="0.9"/>
