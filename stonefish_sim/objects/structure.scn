@@ -35,13 +35,34 @@
       <material name="Steel"/><look name="Orange"/>
     </link>
 
-    <joint name="valve1_mount" type="fixed">
+    <joint name="valve1_base_joint" type="fixed">
       <parent name="valve1_frame"/>
       <child name="valve1_base"/>
       <origin
         xyz="1.196441 1.42144 1.807916"
         rpy="0.0 0.0 1.57"/>
     </joint>
+
+    <link name="valve1_front_face" type="model" physics="submerged">
+      <physical>
+        <mesh filename="object_files/valve_base_mesh.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
+      </physical>
+      <visual>
+        <mesh filename="object_files/valve_front_face.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
+      </visual>
+      <material name="Steel"/><look name="Orange"/>
+    </link>
+
+    <joint name="valve1_front_face_joint" type="fixed">
+      <parent name="valve1_frame"/>
+      <child name="valve1_front_face"/>
+      <origin
+        xyz="1.196441 1.42144 1.807916"
+        rpy="0.0 0.0 1.57"/>
+    </joint>
+
 
     <link name="valve1_turnable" type="model" physics="submerged">
       <physical>
@@ -55,7 +76,7 @@
       <material name="Steel"/><look name="Orange"/>
     </link>
 
-    <joint name="valve1_joint" type="revolute">
+    <joint name="valve1_turnable_joint" type="revolute">
       <parent name="valve1_base"/>
       <child name="valve1_turnable"/>
       <axis xyz="0 1 0"/>
@@ -87,9 +108,29 @@
       <material name="Steel"/><look name="Orange"/>
     </link>
 
-    <joint name="valve2_mount" type="fixed">
+    <joint name="valve2_base_join" type="fixed">
       <parent name="valve2_frame"/>
       <child name="valve2_base"/>
+      <origin
+        xyz="0.665 0.95140878 1.76872493"
+        rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <link name="valve2_front_face" type="model" physics="submerged">
+      <physical>
+        <mesh filename="object_files/valve_base_mesh.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
+      </physical>
+      <visual>
+        <mesh filename="object_files/valve_front_face.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
+      </visual>
+      <material name="Steel"/><look name="Orange"/>
+    </link>
+
+    <joint name="valve2_front_face_joint" type="fixed">
+      <parent name="valve2_frame"/>
+      <child name="valve2_front_face"/>
       <origin
         xyz="0.665 0.95140878 1.76872493"
         rpy="0.0 0.0 0.0"/>
@@ -107,7 +148,7 @@
       <material name="Steel"/><look name="Orange"/>
     </link>
 
-    <joint name="valve2_joint" type="revolute">
+    <joint name="valve2_turnable_joint" type="revolute">
       <parent name="valve2_base"/>
       <child name="valve2_turnable"/>
       <axis xyz="0 1 0"/>
