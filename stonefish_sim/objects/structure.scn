@@ -156,6 +156,27 @@
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
+        <link name="valve2_turnable_base" type="model" physics="submerged">
+      <physical>
+        <mesh filename="object_files/valve_turnable_mesh.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+      </physical>
+      <visual>
+        <mesh filename="object_files/valve_turnable_base.obj" scale="1.0"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+      </visual>
+      <material name="Steel"/><look name="Orange"/>
+    </link>
+
+    <joint name="valve2_turnable_base_joint" type="revolute">
+      <parent name="valve2_base"/>
+      <child name="valve2_turnable_base"/>
+      <axis xyz="0 1 0"/>
+      <limits min="0.0" max="1.57"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
     <world_transform
       xyz="$(param structure_position)"
       rpy="$(param structure_orientation)"/>
