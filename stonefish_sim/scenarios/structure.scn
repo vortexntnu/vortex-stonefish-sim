@@ -26,7 +26,7 @@
   <include file="$(find stonefish_sim)/metadata/materials.scn"/>
   <include file="$(find stonefish_sim)/metadata/looks.scn"/>
 
-  <include file="$(find stonefish_sim)/drones/orca.scn"/>
+  <include file="$(find stonefish_sim)/drones/$(param drone_file)"/>
 
   <include file="$(find stonefish_sim)/objects/tacc_seafloor.scn"/>
 
