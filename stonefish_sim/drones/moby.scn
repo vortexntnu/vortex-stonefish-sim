@@ -15,16 +15,16 @@
 
             <material name="Neutral"/>
             <look name="Grey"/>
-            <!-- TODO: update these constants for moby -->
+            <!-- TODO: find more accurate constants for moby -->
             <mass value="53.7"/>
-            <inertia xyz="12.92 24.97 26.24"/>
+            <inertia xyz="11.06 23.11 26.24"/>
             <hydrodynamics viscous_drag="0.3 0.8 0.8" quadratic_drag="0.4 0.4 0.4"/>
-            <cg xyz="-0.00577 0.00000 0.013140" rpy="0.0 0.0 0.0"/>
+            <cg xyz="-0.01 0.0 0.15" rpy="0.0 0.0 0.0"/>
         </base_link>
 
         <actuator name="Thruster1" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.43 -0.3 -0.115" rpy="0 0 -0.7853981634"/>
+            <origin xyz="0.4139 -0.3130 0.0217" rpy="0 0 0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -42,7 +42,7 @@
 
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.15 -0.3 -0.115" rpy="0 1.570796327 0"/>
+            <origin xyz="0.140 -0.313 0.0217" rpy="0 1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -60,7 +60,7 @@
 
         <actuator name="Thruster3" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.15 -0.3 -0.115" rpy="0 1.570796327 0"/>
+            <origin xyz="-0.1639 -0.313 0.0217" rpy="0 1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -78,7 +78,7 @@
 
         <actuator name="Thruster4" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.43 -0.3 -0.115" rpy="0 0 2.356194490"/>
+            <origin xyz="-0.4139 -0.313 0.0217" rpy="0 0 2.356194490"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -96,7 +96,7 @@
 
         <actuator name="Thruster5" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.43 0.3 -0.115" rpy="0 0 -2.356194490"/>
+            <origin xyz="-0.4139 0.313 0.0217" rpy="0 0 -2.356194490"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -114,7 +114,7 @@
 
         <actuator name="Thruster6" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.15 0.3 -0.115" rpy="0 1.570796327 0"/>
+            <origin xyz="-0.1639 0.313 0.0217" rpy="0 1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -132,7 +132,7 @@
 
         <actuator name="Thruster7" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.15 0.3 -0.115" rpy="0 1.570796327 0"/>
+            <origin xyz="0.140 0.313 0.0217" rpy="0 1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -150,7 +150,7 @@
 
         <actuator name="Thruster8" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.43 0.3 -0.115" rpy="0 0 0.7853981634"/>
+            <origin xyz="0.4139 0.313 0.0217" rpy="0 0 -0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -166,17 +166,25 @@
             </thrust_model>
         </actuator>
 
-        <!-- TODO: Add the sensors at the correct place in the drone -->
+        <!-- TODO: perception needs to align sensors -->
         <sensor name="camera_front" type="camera" rate="13.0">
 			<link name="Base"/>
-			<origin rpy="0.0 1.571 0.0" xyz="0.4 0.0 -0.175"/>
+			<origin rpy="0.0 1.571 0.0" xyz="0.364 0.0 0.2340"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
 			<ros_publisher topic="/cam"/>
 		</sensor>
 
+        <!--TODO: make this into a sonar -->
+        <sensor name="camera_front" type="camera" rate="13.0">
+			<link name="Base"/>
+			<origin rpy="0.0 1.571 0.0" xyz="0.2717 0.0 -0.2034"/>
+			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+			<ros_publisher topic="/cam"/>
+		</sensor>
+		
         <sensor name="camera_down" type="camera" rate="13.0">
 			<link name="Base"/>
-			<origin rpy="0.0 0.0 0.0" xyz="0.305 -0.085 0.028"/>
+			<origin rpy="0.0 0.0 0.0" xyz="0.3574 -0.1550 0.1258"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
 			<ros_publisher topic="/cam_down"/>
 		</sensor>
@@ -185,7 +193,7 @@
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
             <history samples="1"/>
-            <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0057 0.0 0.0827" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
             <ros_publisher topic="/imu/data_raw"/>
         </sensor>
@@ -202,7 +210,7 @@
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
             <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
             <history samples="1"/>
-            <origin rpy="0.0 0.0 0.0" xyz="-0.118 -0.005 0.1"/>
+            <origin rpy="0.0 0.0 0.0" xyz="-0.1223 -0.0 0.2414"/>
             <link name="Base"/>
             <ros_publisher topic="/dvl/sim"/>
         </sensor>
