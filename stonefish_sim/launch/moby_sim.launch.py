@@ -34,6 +34,16 @@ def generate_launch_description():
         )
     )
 
+    operation_mode_manager_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            path.join(
+                get_package_share_directory("operation_mode_manager"),
+                "launch",
+                "operation_mode_manager.launch.py",
+            )
+        )
+    )
+
     joystick_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             path.join(
@@ -103,6 +113,7 @@ def generate_launch_description():
             set_warn_color,
             thrust_allocator_launch,
             OpaqueFunction(function=include_joy_node),
+            operation_mode_manager_launch,
             joystick_interface_launch,
             vortex_sim_interface_launch,
         ]

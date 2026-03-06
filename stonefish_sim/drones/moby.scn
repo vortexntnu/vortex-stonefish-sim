@@ -18,13 +18,14 @@
             <!-- TODO: find more accurate constants for moby -->
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
-            <hydrodynamics viscous_drag="0.3 0.8 0.8" quadratic_drag="0.4 0.4 0.4"/>
-            <cg xyz="-0.01 0.0 0.15" rpy="0.0 0.0 0.0"/>
+            <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
+            <cg xyz="-0.03 0.0 0.03" rpy="0.0 0.0 0.0"/>
         </base_link>
 
+        <!-- TODO: ask mech / electro if the know bollad pull constant, or directly if they know max rpm of thruster -->
         <actuator name="Thruster1" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.4139 -0.3130 0.0217" rpy="0 0 0.7853981634"/>
+            <origin xyz="0.4139 0.3130 0.0217" rpy="0 0 -0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -35,14 +36,14 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.140 -0.313 0.0217" rpy="0 1.570796327 0"/>
+            <origin xyz="0.140 0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -53,14 +54,14 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster3" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.1639 -0.313 0.0217" rpy="0 1.570796327 0"/>
+            <origin xyz="-0.1639 0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -71,30 +72,12 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster4" type="thruster">
-            <link name="Base"/>
-            <origin xyz="-0.4139 -0.313 0.0217" rpy="0 0 2.356194490"/>
-            <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
-            <propeller diameter="0.075" right="true">
-                <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
-                <material name="robot_material"/>
-                <look name="Grey"/>
-            </propeller>
-            <rotor_dynamics type="first_order">
-                <time_constant value="0.05"/>
-            </rotor_dynamics>
-            <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
-            </thrust_model>
-        </actuator>
-
-        <actuator name="Thruster5" type="thruster">
             <link name="Base"/>
             <origin xyz="-0.4139 0.313 0.0217" rpy="0 0 -2.356194490"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
@@ -107,14 +90,32 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+            </thrust_model>
+        </actuator>
+
+        <actuator name="Thruster5" type="thruster">
+            <link name="Base"/>
+            <origin xyz="-0.4139 -0.313 0.0217" rpy="0 0 2.356194490"/>
+            <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
+            <propeller diameter="0.075" right="true">
+                <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
+                <material name="robot_material"/>
+                <look name="Grey"/>
+            </propeller>
+            <rotor_dynamics type="first_order">
+                <time_constant value="0.05"/>
+            </rotor_dynamics>
+            <thrust_model type="linear_interpolation">
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster6" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.1639 0.313 0.0217" rpy="0 1.570796327 0"/>
+            <origin xyz="-0.1639 -0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -125,14 +126,14 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster7" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.140 0.313 0.0217" rpy="0 1.570796327 0"/>
+            <origin xyz="0.140 -0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -143,14 +144,14 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
         <actuator name="Thruster8" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.4139 0.313 0.0217" rpy="0 0 -0.7853981634"/>
+            <origin xyz="0.4139 -0.313 0.0217" rpy="0 0 0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -161,8 +162,8 @@
                 <time_constant value="0.05"/>
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
-                <input value="-100.0 -75.0 -50.0 -25.0 0.0 25.0 50.0 75.0 100.0"/>
-                <output value="-45.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 37.0"/>
+                <input value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
             </thrust_model>
         </actuator>
 
@@ -201,7 +202,7 @@
         <sensor name="odom" type="odometry" rate="5.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-            <ros_publisher topic="/orca/odom"/>
+            <ros_publisher topic="/moby/odom"/>
         </sensor>
 
         <sensor name="DVL" rate="5.0" type="dvl">
