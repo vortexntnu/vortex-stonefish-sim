@@ -19,7 +19,7 @@
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
             <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
-            <cg xyz="-0.03 0.0 0.03" rpy="0.0 0.0 0.0"/>
+            <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         </base_link>
 
         <!-- TODO: ask mech / electro if the know bollad pull constant, or directly if they know max rpm of thruster -->
@@ -37,7 +37,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -55,7 +55,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -73,7 +73,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -91,7 +91,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -109,7 +109,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -127,7 +127,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -145,7 +145,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
@@ -163,7 +163,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-350.0 -175.0 0.0 175.0 350.0"/>
+                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
             </thrust_model>
         </actuator>
 
