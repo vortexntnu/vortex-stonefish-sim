@@ -167,28 +167,47 @@
             </thrust_model>
         </actuator>
 
-        <!-- TODO: perception needs to align sensors -->
-        <sensor name="camera_front" type="camera" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="0.0 1.571 0.0" xyz="0.364 0.0 0.2340"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam"/>
-		</sensor>
-
-        <!--TODO: make this into a sonar -->
-        <sensor name="camera_front" type="camera" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="0.0 1.571 0.0" xyz="0.2717 0.0 -0.2034"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam"/>
-		</sensor>
 		
-        <sensor name="camera_down" type="camera" rate="13.0">
-			<link name="Base"/>
-			<origin rpy="0.0 0.0 0.0" xyz="0.3574 -0.1550 0.1258"/>
-			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam_down"/>
-		</sensor>
+        <sensor name="camera_down" type="camera" rate="20.0">
+            <link name="Base"/>
+            <!-- Aligned to FLIR Blackfly S optical frame.
+                 Calculated from flir_blackfly_s macro with mount origin
+                 xyz="0.283615 -0.085021 0.094186" rpy="0 0 1.5708" and
+                 lens+optical offsets (0.02685,0,0.01425) + lens_h=0.04.
+            -->
+            <origin rpy="-1.5708 0 0" xyz="0.283615 -0.018171 0.108436"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/cam_down"/>
+        </sensor>
+
+       <!-- RealSense D555: depth and color cameras.
+           Positions/rotations are calculated from the realsense_d555 xacro when
+           invoked with frame="realsense" and the mount origin used in
+           drone.urdf.xacro (xyz="0.36362 0.0 -0.023395", rpy="3.14159 0 0").
+           The depth and color optical frames are offset from the mount by the
+           nominal D455-style offsets and rotated into the global frame.
+       -->
+       <sensor name="stereo_camera" type="camera" rate="20.0">
+          <link name="Base"/>
+          <!-- computed mount + depth offsets rotated by mount rpy(pi,0,0):
+              depth optical position ~= (0.37477, -0.0475, -0.037895)
+              combined rpy (mount + optical) ~= (1.5708, 0, -1.5708)
+          -->
+          <origin rpy="1.5708 0 -1.5708" xyz="0.37477 -0.0475 -0.037895"/>
+          <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0"/>
+          <ros_publisher topic="/realsense/depth/image_raw"/>
+       </sensor>
+
+       <sensor name="front_camera" type="camera" rate="20.0">
+          <link name="Base"/>
+          <!-- computed mount + color offsets rotated by mount rpy(pi,0,0):
+              color optical position ~= (0.37477, 0.0115, -0.037895)
+              combined rpy (mount + optical) ~= (1.5708, 0, -1.5708)
+          -->
+          <origin rpy="1.5708 0 -1.5708" xyz="0.37477 0.0115 -0.037895"/>
+          <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
+          <ros_publisher topic="/realsense/color/image_raw"/>
+       </sensor>
 
         <sensor name="IMU" rate="20.0" type="imu">
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
@@ -211,20 +230,23 @@
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
             <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
             <history samples="1"/>
-            <origin rpy="0.0 0.0 0.0" xyz="-0.1223 -0.0 0.2414"/>
+            <origin rpy="0.0 0.0 0.0" xyz="-0.130 0.003 0.2414"/>
             <link name="Base"/>
             <ros_publisher topic="/dvl/sim"/>
         </sensor>
 
-        <!--  <light name="Spot"> -->
-        <!--     <specs radius="0.03" cone_angle="35.0" illuminance="2000.0"/> -->
-        <!--     <color temperature="5600.0"/> -->
-        <!--     <origin xyz="0.25 0.0 -0.075" rpy="-1.57 0.0 -1.57"/> -->
-        <!--     <link name="Base"/> -->
-        <!-- </light> -->
+        <sensor name="FLS" type="fls">
+            <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
+            <settings range_min="0.5" range_max="10.0" gain="1.1"/>
+            <noise multiplicative="0.01" additive="0.02"/>
+            <display colormap="hot"/>
+            <origin xyz="0.271721 0.0 -0.203397" rpy="1.57 0.0 1.57"/>
+            <link name="Base"/>
+            <ros_publisher topic="/fls_image"/>
+        </sensor>
 
         <!-- Drone starting pose from launch file -->
-        <world_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
         <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
         <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>
