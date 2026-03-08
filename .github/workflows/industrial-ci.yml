@@ -1,0 +1,16 @@
+name: Industrial CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *' # Runs daily to check for dependency issues or flaking tests
+jobs:
+  industrial-ci:
+    uses: vortexntnu/vortex-ci/.github/workflows/reusable-industrial-ci.yml@main
+    with:
+      ros_repo: '["testing", "main"]'
