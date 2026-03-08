@@ -1,4 +1,8 @@
 # Vortex Stonefish Sim
+[![Industrial CI](https://github.com/vortexntnu/vortex-stonefish-sim/actions/workflows/industrial-ci.yml/badge.svg)](https://github.com/vortexntnu/vortex-stonefish-sim/actions/workflows/industrial-ci.yml)
+[![pre-commit](https://github.com/vortexntnu/vortex-stonefish-sim/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/vortexntnu/vortex-stonefish-sim/actions/workflows/pre-commit.yml)
+[![codecov](https://codecov.io/gh/vortexntnu/vortex-stonefish-sim/graph/badge.svg?token=uVESkiKR7y)](https://codecov.io/gh/vortexntnu/vortex-stonefish-sim)
+
 This repository contains scenario files and models for simulation of the Vortex NTNU drones.
 
 ## Installation
