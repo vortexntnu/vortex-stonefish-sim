@@ -1,0 +1,17 @@
+coverage:
+  precision: 2
+  round: down
+  status:
+    project:
+      default:
+        informational: true
+        flags:
+          - unittests
+    patch: off
+comment:
+  layout: "diff, flags, files"
+  behavior: default
+flags:
+  unittests:
+    paths:
+      - "**"

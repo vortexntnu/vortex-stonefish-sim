@@ -1,0 +1,9 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  semantic-release:
+    uses: vortexntnu/vortex-ci/.github/workflows/reusable-semantic-release.yml@main

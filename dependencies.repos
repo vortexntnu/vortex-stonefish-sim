@@ -1,0 +1,7 @@
+repositories:
+  vortex-msgs:
+    type: git
+    url: https://github.com/vortexntnu/vortex-msgs.git
+  stonefish_ros2:
+    type: git
+    url: https://github.com/vortexntnu/stonefish_ros2.git
