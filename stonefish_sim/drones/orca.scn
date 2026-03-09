@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <scenario>
-    <robot name="Orca" fixed="false" self_collisions="false">
+    <robot name="$(param robot_name)" fixed="false" self_collisions="false">
         <base_link name="Base" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/orca_mesh.obj" scale="1.0"/>
@@ -249,35 +249,29 @@
 			<link name="Base"/>
 			<origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam"/>
+			<ros_publisher topic="/$(param robot_name)/front_camera"/>
 		</sensor>
         <sensor name="camera_down" type="camera" rate="13.0">
 			<link name="Base"/>
 			<origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/cam_down"/>
+			<ros_publisher topic="/$(param robot_name)/down_camera"/>
 		</sensor>
-        <!-- <sensor name="Dcam" rate="5.0" type="depthcamera">
-            <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.4" depth_max="10.0"/>
-            <noise depth="0.01"/>
-            <origin xyz="0.45 0.0 -0.02" rpy="1.57 0.0 1.57"/>
-            <link name="Base"/>
-            <ros_publisher topic="/depth_cam"/>
-        </sensor> -->
-        <sensor name="IMU" rate="20.0" type="imu">
+
+        <sensor name="imu_link" rate="20.0" type="imu">
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
             <history samples="1"/>
             <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
-            <ros_publisher topic="/imu/data_raw"/>
+            <ros_publisher topic="/$(param robot_name)/imu/data_raw"/>
         </sensor>
         <sensor name="odom" type="odometry" rate="5.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-            <ros_publisher topic="/orca/odom"/>
+            <ros_publisher topic="/$(param robot_name)/odom"/>
         </sensor>
-        <sensor name="DVL" rate="5.0" type="dvl">
+        <sensor name="dvl_link" rate="5.0" type="dvl">
             <specs beam_angle="30.0" beam_positive_z="true"/>
             <range velocity="10.0 10.0 5.0" altitude_min="0.5" altitude_max="50.0"/>
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
@@ -285,44 +279,13 @@
             <history samples="1"/>
             <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
             <link name="Base"/>
-            <ros_publisher topic="/dvl/sim"/>
+            <ros_publisher topic="/$(param robot_name)/dvl/sim"/>
         </sensor>
-        <!-- <sensor name="Multibeam2" rate="2.0" type="multibeam2d">
-            <specs horizontal_fov="120.0" vertical_fov="45.0" resolution_x="100." resolution_y="50." range_min="0.5" range_max="20.0"/>
-            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
-            <link name="Base"/>
-            <ros_publisher topic="/multibeam2"/>
-        </sensor> -->
-        <!-- <sensor name="MSIS" type="msis">
-            <specs step="0.25" bins="500" horizontal_beam_width="2.0" vertical_beam_width="30.0"/>
-            <settings range_min="0.5" range_max="10.0" rotation_min="-50.0" rotation_max="50.0" gain="1.5"/>
-            <noise multiplicative="0.02" additive="0.03"/>
-            <display colormap="hot"/>
-            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
-            <link name="Base"/>
-            <ros_publisher topic="/msis"/>
-        </sensor> -->
-        <!-- <sensor name="FLS" type="fls">
-            <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
-            <settings range_min="0.5" range_max="10.0" gain="1.1"/>
-            <noise multiplicative="0.01" additive="0.02"/>
-            <display colormap="hot"/>
-            <origin xyz="0.45 0.0 -0.1" rpy="1.57 0.0 1.57"/>
-            <link name="Base"/>
-            <ros_publisher topic="/fls"/>
-        </sensor> -->
-
-        <!-- <light name="Spot">
-            <specs radius="0.03" cone_angle="35.0" illuminance="2000.0"/>
-            <color temperature="5600.0"/>
-            <origin xyz="0.25 0.0 -0.075" rpy="-1.57 0.0 -1.57"/>
-            <link name="Base"/>
-        </light> -->
 
         <!-- Drone starting pose from launch file -->
         <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
-        <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
-        <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>
+        <ros_subscriber thrusters="/$(param robot_name)/stonefish/thrusters" servos="/$(param robot_name)/stonefish/servos"/>
+        <ros_publisher thrusters="/$(param robot_name)/thruster_state" servos="/$(param robot_name)/servo_state"/>
     </robot>
 </scenario>
