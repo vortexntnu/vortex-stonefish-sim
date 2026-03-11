@@ -162,6 +162,9 @@ void VortexSimInterface::dvl_callback(
     twist_msg.twist.twist.linear.x = dvl_msg->velocity.x;
     twist_msg.twist.twist.linear.y = dvl_msg->velocity.y;
     twist_msg.twist.twist.linear.z = dvl_msg->velocity.z;
+    twist_msg.twist.covariance[0] = dvl_msg->velocity_covariance[0];
+    twist_msg.twist.covariance[7] = dvl_msg->velocity_covariance[4];
+    twist_msg.twist.covariance[14] = dvl_msg->velocity_covariance[8];
     dvl_twist_pub_->publish(twist_msg);
 
     vortex_msgs::msg::DVLAltitude altitude_msg;
