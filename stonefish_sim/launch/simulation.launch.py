@@ -124,7 +124,7 @@ def launch_setup(context, *args, **kwargs):
 
     drone_config = {
         "drone_file": f"{drone}.scn",
-        "robot_name": namespace,
+        f"{drone}_namespace": namespace,
     }
     merged_config = {**scenario_config, **drone_config}
 
