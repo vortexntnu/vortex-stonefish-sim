@@ -6,7 +6,12 @@ from auv_setup.launch_arg_common import (
     resolve_drone_and_namespace,
 )
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.actions import (
+    DeclareLaunchArgument,
+    IncludeLaunchDescription,
+    OpaqueFunction,
+)
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -22,6 +27,12 @@ def launch_setup(context, *args, **kwargs):
         f"{drone}.yaml",
     )
 
+    drone_description_launch = os.path.join(
+        get_package_share_directory("auv_setup"),
+        "launch",
+        "drone_description.launch.py",
+    )
+
     remappings = []
     if not mock_odom:
         remappings = [
@@ -31,6 +42,13 @@ def launch_setup(context, *args, **kwargs):
         ]
 
     return [
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(drone_description_launch),
+            launch_arguments={
+                "drone": drone,
+                "namespace": namespace,
+            }.items(),
+        ),
         Node(
             package="vortex_sim_interface",
             executable="vortex_sim_interface",
@@ -45,7 +63,7 @@ def launch_setup(context, *args, **kwargs):
                 drone_params,
             ],
             remappings=remappings,
-        )
+        ),
     ]
 
 
