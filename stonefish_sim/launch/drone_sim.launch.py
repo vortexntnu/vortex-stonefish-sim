@@ -1,6 +1,10 @@
 from os import path
 
 from ament_index_python.packages import get_package_share_directory
+from auv_setup.launch_arg_common import (
+    declare_drone_and_namespace_args,
+    resolve_drone_and_namespace,
+)
 from launch import LaunchContext, LaunchDescription
 from launch.actions import (
     IncludeLaunchDescription,
@@ -8,11 +12,7 @@ from launch.actions import (
     SetEnvironmentVariable,
 )
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-
-from auv_setup.launch_arg_common import (
-    declare_drone_and_namespace_args,
-    resolve_drone_and_namespace,
-)
+from launch_ros.actions import Node
 
 
 def launch_setup(context: LaunchContext, *args, **kwargs):
@@ -67,11 +67,28 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         launch_arguments=common_launch_args,
     )
 
+    joy_node = Node(
+        package="joy",
+        executable="joy_node",
+        name="joystick_driver",
+        output="screen",
+        parameters=[
+            {
+                "deadzone": 0.15,
+                "autorepeat_rate": 100.0,
+            }
+        ],
+        remappings=[
+            ("/joy", f"/{namespace}/joy"),
+        ],
+    )
+
     return [
         thrust_allocator_launch,
         joystick_interface_launch,
         operation_mode_manager_launch,
         stonefish_sim_interface_launch,
+        joy_node,
     ]
 
 
