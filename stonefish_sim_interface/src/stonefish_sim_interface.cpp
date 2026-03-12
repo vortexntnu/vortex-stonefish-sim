@@ -1,11 +1,11 @@
-#include "vortex_sim_interface/vortex_sim_interface.hpp"
+#include "stonefish_sim_interface/stonefish_sim_interface.hpp"
 #include <spdlog/spdlog.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
-VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
-    : Node("vortex_sim_interface", options) {
+StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
+    : Node("stonefish_sim_interface", options) {
     rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
     auto qos_sensor_data = rclcpp::QoS(
         rclcpp::QoSInitialization(qos_profile.history, 1), qos_profile);
@@ -15,7 +15,7 @@ VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
     drone_thruster_sub_ =
         this->create_subscription<vortex_msgs::msg::ThrusterForces>(
             drone_thruster_topic, qos_sensor_data,
-            std::bind(&VortexSimInterface::thruster_callback, this,
+            std::bind(&StonefishSimInterface::thruster_callback, this,
                       std::placeholders::_1));
 
     stonefish_thruster_pub_ =
@@ -31,7 +31,7 @@ VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
 
     odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
         odom_topic, qos_sensor_data,
-        std::bind(&VortexSimInterface::odom_callback, this,
+        std::bind(&StonefishSimInterface::odom_callback, this,
                   std::placeholders::_1));
 
     pose_pub_ =
@@ -43,7 +43,7 @@ VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
 
     dvl_sub_ = this->create_subscription<stonefish_ros2::msg::DVL>(
         "dvl/sim", qos_sensor_data,
-        std::bind(&VortexSimInterface::dvl_callback, this,
+        std::bind(&StonefishSimInterface::dvl_callback, this,
                   std::placeholders::_1));
     std::string dvl_twist_topic =
         this->declare_parameter<std::string>("topics.dvl_twist");
@@ -64,7 +64,7 @@ VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
         sonar_info_stonefish_sub_ =
             this->create_subscription<stonefish_ros2::msg::SonarInfo>(
                 stonefish_sonar_info_topic, qos_sensor_data,
-                std::bind(&VortexSimInterface::sonar_info_callback, this,
+                std::bind(&StonefishSimInterface::sonar_info_callback, this,
                           std::placeholders::_1));
 
         sonar_info_vortex_pub_ =
@@ -88,7 +88,7 @@ VortexSimInterface::VortexSimInterface(const rclcpp::NodeOptions& options)
     }
 }
 
-void VortexSimInterface::thruster_callback(
+void StonefishSimInterface::thruster_callback(
     const vortex_msgs::msg::ThrusterForces::SharedPtr msg) {
     if (msg->thrust.size() != 8) {
         spdlog::error(
@@ -113,7 +113,7 @@ void VortexSimInterface::thruster_callback(
     stonefish_thruster_pub_->publish(thrust_array_msg);
 }
 
-void VortexSimInterface::odom_callback(
+void StonefishSimInterface::odom_callback(
     const nav_msgs::msg::Odometry::SharedPtr odom_msg) {
     geometry_msgs::msg::PoseWithCovarianceStamped posestamped_msg;
     posestamped_msg.header = odom_msg->header;
@@ -155,7 +155,7 @@ void VortexSimInterface::odom_callback(
     }
 }
 
-void VortexSimInterface::dvl_callback(
+void StonefishSimInterface::dvl_callback(
     const stonefish_ros2::msg::DVL::SharedPtr dvl_msg) {
     geometry_msgs::msg::TwistWithCovarianceStamped twist_msg;
     twist_msg.header = dvl_msg->header;
@@ -173,7 +173,7 @@ void VortexSimInterface::dvl_callback(
     dvl_altitude_pub_->publish(altitude_msg);
 }
 
-void VortexSimInterface::sonar_info_callback(
+void StonefishSimInterface::sonar_info_callback(
     const stonefish_ros2::msg::SonarInfo::SharedPtr sonar_msg) {
     vortex_msgs::msg::SonarInfo vortex_sonar_msg;
 
@@ -191,7 +191,7 @@ void VortexSimInterface::sonar_info_callback(
 
 int main(int argc, char* argv[]) {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<VortexSimInterface>());
+    rclcpp::spin(std::make_shared<StonefishSimInterface>());
     rclcpp::shutdown();
     return 0;
 }

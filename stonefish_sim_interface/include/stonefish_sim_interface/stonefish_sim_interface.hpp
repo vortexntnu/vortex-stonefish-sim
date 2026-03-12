@@ -1,5 +1,5 @@
-#ifndef VORTEX_SIM_INTERFACE__VORTEX_SIM_INTERFACE_HPP_
-#define VORTEX_SIM_INTERFACE__VORTEX_SIM_INTERFACE_HPP_
+#ifndef STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
+#define STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
 
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/pose_stamped.hpp>
@@ -18,9 +18,9 @@
 #include <vortex_msgs/msg/sonar_info.hpp>
 #include <vortex_msgs/msg/thruster_forces.hpp>
 
-class VortexSimInterface : public rclcpp::Node {
+class StonefishSimInterface : public rclcpp::Node {
    public:
-    explicit VortexSimInterface(
+    explicit StonefishSimInterface(
         const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
 
    private:
@@ -58,4 +58,4 @@ class VortexSimInterface : public rclcpp::Node {
     std::string tf_name_prefix_;
 };
 
-#endif  // VORTEX_SIM_INTERFACE__VORTEX_SIM_INTERFACE_HPP_
+#endif  // STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_

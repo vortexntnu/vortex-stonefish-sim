@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(vortex_sim_interface)
+project(stonefish_sim_interface)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-Wall -Wextra -Wpedantic)
@@ -24,17 +24,17 @@ include_directories(
     ${EIGEN3_INCLUDE_DIRS}
 )
 
-add_executable(vortex_sim_interface
-    src/vortex_sim_interface.cpp
+add_executable(stonefish_sim_interface
+    src/stonefish_sim_interface.cpp
 )
 
-target_include_directories(vortex_sim_interface PUBLIC
+target_include_directories(stonefish_sim_interface PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
-target_link_libraries(vortex_sim_interface spdlog::spdlog fmt::fmt)
+target_link_libraries(stonefish_sim_interface spdlog::spdlog fmt::fmt)
 
-ament_target_dependencies(vortex_sim_interface
+ament_target_dependencies(stonefish_sim_interface
   rclcpp
   std_msgs
   vortex_msgs
@@ -45,10 +45,10 @@ ament_target_dependencies(vortex_sim_interface
 )
 
 install(TARGETS
-    vortex_sim_interface
+    stonefish_sim_interface
     DESTINATION lib/${PROJECT_NAME})
 
-target_link_libraries(vortex_sim_interface Eigen3::Eigen)
+target_link_libraries(stonefish_sim_interface Eigen3::Eigen)
 
 install(DIRECTORY
     launch

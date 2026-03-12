@@ -50,9 +50,9 @@ def launch_setup(context, *args, **kwargs):
             }.items(),
         ),
         Node(
-            package="vortex_sim_interface",
-            executable="vortex_sim_interface",
-            name="vortex_sim_interface",
+            package="stonefish_sim_interface",
+            executable="stonefish_sim_interface",
+            name="stonefish_sim_interface",
             namespace=namespace,
             output="screen",
             emulate_tty=True,
