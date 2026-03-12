@@ -122,13 +122,17 @@ def launch_setup(context, *args, **kwargs):
     else:
         scenario_config = {}
 
-    if "drone_position" in scenario_config:
-        scenario_config[f"{drone}_position"] = scenario_config.pop("drone_position")
+    if (
+        "drone_position" in scenario_config
+        and f"{drone}_position" not in scenario_config
+    ):
+        scenario_config[f"{drone}_position"] = scenario_config["drone_position"]
 
-    if "drone_orientation" in scenario_config:
-        scenario_config[f"{drone}_orientation"] = scenario_config.pop(
-            "drone_orientation"
-        )
+    if (
+        "drone_orientation" in scenario_config
+        and f"{drone}_orientation" not in scenario_config
+    ):
+        scenario_config[f"{drone}_orientation"] = scenario_config["drone_orientation"]
 
     drone_config = {
         "drone_file": f"{drone}.scn",
