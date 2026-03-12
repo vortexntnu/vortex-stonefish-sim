@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <scenario>
-    <robot name="$(param orca_namespace)" fixed="false" self_collisions="false">
+    <robot name="orca" fixed="false" self_collisions="false">
         <base_link name="Base" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/orca_mesh.obj" scale="1.0"/>
@@ -249,13 +249,13 @@
 			<link name="Base"/>
 			<origin rpy="1.571 0.0 1.571" xyz="0.45 0.0 -0.02"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/$(param orca_namespace)/front_camera"/>
+			<ros_publisher topic="/orca/front_camera"/>
 		</sensor>
         <sensor name="downwards_camera_optical" type="camera" rate="13.0">
 			<link name="Base"/>
 			<origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
 			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
-			<ros_publisher topic="/$(param orca_namespace)/down_camera"/>
+			<ros_publisher topic="/orca/down_camera"/>
 		</sensor>
 
         <sensor name="imu_link" rate="20.0" type="imu">
@@ -264,12 +264,12 @@
             <history samples="1"/>
             <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
-            <ros_publisher topic="/$(param orca_namespace)/imu/data_raw"/>
+            <ros_publisher topic="/orca/imu/data_raw"/>
         </sensor>
         <sensor name="odom" type="odometry" rate="5.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-            <ros_publisher topic="/$(param orca_namespace)/odom"/>
+            <ros_publisher topic="/orca/odom"/>
         </sensor>
         <sensor name="dvl_link" rate="5.0" type="dvl">
             <specs beam_angle="30.0" beam_positive_z="true"/>
@@ -279,13 +279,13 @@
             <history samples="1"/>
             <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
             <link name="Base"/>
-            <ros_publisher topic="/$(param orca_namespace)/dvl/sim"/>
+            <ros_publisher topic="/orca/dvl/sim"/>
         </sensor>
 
         <!-- Drone starting pose from launch file -->
-        <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
+        <world_transform xyz="$(param orca_position)" rpy="$(param orca_orientation)"/>
 
-        <ros_subscriber thrusters="/$(param orca_namespace)/stonefish/thrusters" servos="/$(param orca_namespace)/stonefish/servos"/>
-        <ros_publisher thrusters="/$(param orca_namespace)/thruster_state" servos="/$(param orca_namespace)/servo_state"/>
+        <ros_subscriber thrusters="/orca/stonefish/thrusters" servos="/orca/stonefish/servos"/>
+        <ros_publisher thrusters="/orca/thruster_state" servos="/orca/servo_state"/>
     </robot>
 </scenario>
