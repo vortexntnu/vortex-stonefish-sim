@@ -122,10 +122,18 @@ def launch_setup(context, *args, **kwargs):
     else:
         scenario_config = {}
 
+    if "drone_position" in scenario_config:
+        scenario_config[f"{drone}_position"] = scenario_config.pop("drone_position")
+
+    if "drone_orientation" in scenario_config:
+        scenario_config[f"{drone}_orientation"] = scenario_config.pop(
+            "drone_orientation"
+        )
+
     drone_config = {
         "drone_file": f"{drone}.scn",
-        f"{drone}_namespace": namespace,
     }
+
     merged_config = {**scenario_config, **drone_config}
 
     return [get_sim_node(context, scenario_config=merged_config)]
