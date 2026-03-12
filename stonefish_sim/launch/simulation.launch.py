@@ -55,6 +55,11 @@ def get_sim_node(context, scenario_config=None):
     rendering_enabled = (
         LaunchConfiguration("rendering").perform(context).lower() == "true"
     )
+    drone = LaunchConfiguration("drone").perform(context)
+    namespace = LaunchConfiguration("namespace").perform(context)
+    if not namespace:
+        namespace = drone
+    mock_odom = LaunchConfiguration("mock_odom").perform(context).lower() == "true"
 
     if scenario_config is None:
         scenario_config = load_scenario_config(scenario_val)
@@ -84,6 +89,11 @@ def get_sim_node(context, scenario_config=None):
         exec_name = "stonefish_simulator_nogpu"
         args = [sim_data, scenario_file, sim_rate]
 
+    remappings = []
+    remappings.append(("/stonefish/thrusters", f"/{namespace}/stonefish/thrusters"))
+    if not mock_odom:
+        remappings.append((f"/{namespace}/odom", f"/{namespace}/odom/stonefish"))
+
     return Node(
         package="stonefish_ros2",
         executable=exec_name,
@@ -91,6 +101,7 @@ def get_sim_node(context, scenario_config=None):
         name=exec_name,
         arguments=args,
         parameters=[scenario_config],
+        remappings=remappings,
         output="screen",
     )
 
@@ -98,7 +109,10 @@ def get_sim_node(context, scenario_config=None):
 def launch_setup(context, *args, **kwargs):
     scenario_val = LaunchConfiguration("scenario").perform(context)
     override_path = LaunchConfiguration("scenario_config_override").perform(context)
-    drone_val = LaunchConfiguration("drone").perform(context)
+    drone = LaunchConfiguration("drone").perform(context)
+    namespace = LaunchConfiguration("namespace").perform(context)
+    if not namespace:
+        namespace = drone
 
     if override_path and os.path.exists(override_path):
         with open(override_path) as f:
@@ -108,7 +122,10 @@ def launch_setup(context, *args, **kwargs):
     else:
         scenario_config = {}
 
-    drone_config = {"drone_file": f"{drone_val}.scn"}
+    drone_config = {
+        "drone_file": f"{drone}.scn",
+        f"{drone}_namespace": namespace,
+    }
     merged_config = {**scenario_config, **drone_config}
 
     return [get_sim_node(context, scenario_config=merged_config)]
@@ -137,6 +154,16 @@ def generate_launch_description():
                 "drone",
                 default_value="orca",
                 description="drone.scn file to use",
+            ),
+            DeclareLaunchArgument(
+                "namespace",
+                default_value="",
+                description="ROS namespace to use for the drone. If empty, drone name will be used.",
+            ),
+            DeclareLaunchArgument(
+                "mock_odom",
+                default_value="true",
+                description="If true, the sim will publish odometry and corresponding tf2 transform. Only set to false if using an external localization system.",
             ),
             DeclareLaunchArgument(
                 "simulation_data",
