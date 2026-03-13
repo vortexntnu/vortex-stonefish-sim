@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <scenario>
-    <robot name="Orca" fixed="false" self_collisions="false">
+    <robot name="orca" fixed="false" self_collisions="false">
         <base_link name="Base" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/orca_mesh.obj" scale="1.0"/>
@@ -242,20 +242,20 @@
                 <output value="-40.0 -20.0 0.0 20.0 40.0"/>
             </thrust_model>
         </actuator>
-        <sensor name="IMU" rate="20.0" type="imu">
+        <sensor name="imu_link" rate="20.0" type="imu">
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
             <history samples="1"/>
             <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
-            <ros_publisher topic="/imu/data_raw"/>
+            <ros_publisher topic="/orca/imu/data_raw"/>
         </sensor>
         <sensor name="odom" type="odometry" rate="5.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <ros_publisher topic="/orca/odom"/>
         </sensor>
-        <sensor name="DVL" rate="5.0" type="dvl">
+        <sensor name="dvl_link" rate="5.0" type="dvl">
             <specs beam_angle="30.0" beam_positive_z="true"/>
             <range velocity="10.0 10.0 5.0" altitude_min="0.5" altitude_max="50.0"/>
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
@@ -263,13 +263,13 @@
             <history samples="1"/>
             <origin rpy="0.0 0.0 1.571" xyz="0.4 0.0 0.2"/>
             <link name="Base"/>
-            <ros_publisher topic="/dvl/sim"/>
+            <ros_publisher topic="/orca/dvl/sim"/>
         </sensor>
 
         <!-- Drone starting pose from launch file -->
         <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
-        <ros_subscriber thrusters="/stonefish/thrusters" servos="/stonefish/servos"/>
-        <ros_publisher thrusters="/thruster_state" servos="/servo_state"/>
+        <ros_subscriber thrusters="/orca/stonefish/thrusters" servos="/orca/stonefish/servos"/>
+        <ros_publisher thrusters="/orca/thruster_state" servos="/orca/servo_state"/>
     </robot>
 </scenario>
