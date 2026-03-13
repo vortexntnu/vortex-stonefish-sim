@@ -170,7 +170,7 @@
         <sensor name="odom" type="odometry" rate="5.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-            <ros_publisher topic="/moby/odom/stonefish"/>
+            <ros_publisher topic="/moby/odom"/>
         </sensor>
 
         <sensor name="imu_link" rate="20.0" type="imu">
