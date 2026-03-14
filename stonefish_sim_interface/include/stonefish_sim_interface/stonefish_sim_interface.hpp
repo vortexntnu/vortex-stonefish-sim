@@ -1,6 +1,7 @@
 #ifndef STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
 #define STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
 
+#include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/pose_with_covariance_stamped.hpp>
@@ -42,6 +43,7 @@ class StonefishSimInterface : public rclcpp::Node {
     rclcpp::Publisher<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr
         twist_pub_;
     std::shared_ptr<tf2_ros::TransformBroadcaster> odom_tf_pub_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> odom_enu_tf_pub_;
 
     rclcpp::Subscription<stonefish_ros2::msg::DVL>::SharedPtr dvl_sub_;
     rclcpp::Publisher<vortex_msgs::msg::DVLAltitude>::SharedPtr

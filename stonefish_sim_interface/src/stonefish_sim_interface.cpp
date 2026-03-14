@@ -2,6 +2,7 @@
 #include <spdlog/spdlog.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <cmath>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
 StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
@@ -86,6 +87,24 @@ StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
             "frames will be published with prefix '{}'",
             tf_name_prefix_);
     }
+    // Publish a static transform from odom (NED) to odom_enu (ENU)
+    // so Foxglove 3D panel can display a top-down view.
+    // NED to ENU rotation: 180° around the axis (1,1,0)/√2
+    // Quaternion: w=0, x=√2/2, y=√2/2, z=0
+    odom_enu_tf_pub_ =
+        std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+    geometry_msgs::msg::TransformStamped odom_enu_transform;
+    odom_enu_transform.header.stamp = this->now();
+    odom_enu_transform.header.frame_id = tf_name_prefix_ + "/odom";
+    odom_enu_transform.child_frame_id = tf_name_prefix_ + "/odom_enu";
+    odom_enu_transform.transform.translation.x = 0.0;
+    odom_enu_transform.transform.translation.y = 0.0;
+    odom_enu_transform.transform.translation.z = 0.0;
+    odom_enu_transform.transform.rotation.x = M_SQRT1_2;
+    odom_enu_transform.transform.rotation.y = M_SQRT1_2;
+    odom_enu_transform.transform.rotation.z = 0.0;
+    odom_enu_transform.transform.rotation.w = 0.0;
+    odom_enu_tf_pub_->sendTransform(odom_enu_transform);
 }
 
 void StonefishSimInterface::thruster_callback(
