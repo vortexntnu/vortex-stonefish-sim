@@ -22,6 +22,107 @@
             <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         </base_link>
 
+        <!-- Gripper -->
+        <link name="shoulder" type="model" physics="submerged">
+            <physical>
+                <mesh filename="moby/gripper_shoulder_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </physical>
+            <visual>
+                <mesh filename="moby/gripper_shoulder_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </visual>
+            <material name="Neutral"/>
+            <look name="Grey"/>
+            <mass value="2.8"/>
+        </link>
+
+        <joint name="shoulder_joint" type="fixed">
+            <parent name="Base"/>
+            <child name="shoulder"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.282589 0.07822 0.115803"/>
+        </joint>
+
+        <link name="arm" type="model" physics="submerged">
+            <physical>
+                <mesh filename="moby/gripper_arm_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </physical>
+            <visual>
+                <mesh filename="moby/gripper_arm_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </visual>
+            <material name="Neutral"/>
+            <look name="Grey"/>
+            <mass value="0.6"/>
+        </link>
+
+        <joint name="arm_joint" type="revolute">
+            <parent name="shoulder"/>
+            <child name="arm"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <axis xyz="1.0 0.0 0.0"/>
+        </joint>
+
+        <actuator name="arm_servo" type="servo">
+            <controller position_gain="1.2" velocity_gain="1.0" max_torque="10.0"/>
+            <joint name="arm_joint"/>
+        </actuator>
+
+        <link name="finger1" type="model" physics="submerged">
+            <physical>
+                <mesh filename="moby/gripper_finger_left_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </physical>
+            <visual>
+                <mesh filename="moby/gripper_finger_left_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </visual>
+            <material name="Neutral"/>
+            <look name="White"/>
+            <mass value="0.1"/>
+        </link>
+
+        <joint name="finger_joint1" type="prismatic">
+            <parent name="arm"/>
+            <child name="finger1"/>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0.70711 0.70711 0.0"/>
+            <limits min="-0.033" max="0.0"/>
+        </joint>
+
+        <actuator name="finger_servo1" type="servo">
+            <controller position_gain="0.2" velocity_gain="1.0" max_torque="1.0"/>
+            <joint name="finger_joint1"/>
+        </actuator>
+
+        <link name="finger2" type="model" physics="submerged">
+            <physical>
+                <mesh filename="moby/gripper_finger_right_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </physical>
+            <visual>
+                <mesh filename="moby/gripper_finger_right_collision.obj" scale="1.0"/>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </visual>
+            <material name="Neutral"/>
+            <look name="White"/>
+            <mass value="0.1"/>
+        </link>
+
+        <joint name="finger_joint2" type="prismatic">
+            <parent name="arm"/>
+            <child name="finger2"/>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0.70711 -0.70711 0.0"/>
+            <limits min="-0.033" max="0.0"/>
+        </joint>
+
+        <actuator name="finger_servo2" type="servo">
+            <controller position_gain="0.2" velocity_gain="1.0" max_torque="1.0"/>
+            <joint name="finger_joint2"/>
+        </actuator>
+
         <!-- TODO: ask mech / electro if the know bollad pull constant, or directly if they know max rpm of thruster -->
         <actuator name="Thruster1" type="thruster">
             <link name="Base"/>
