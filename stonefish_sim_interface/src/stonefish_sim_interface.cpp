@@ -4,6 +4,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <cmath>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
 
 StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
     : Node("stonefish_sim_interface", options) {
@@ -78,6 +79,25 @@ StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
     dvl_altitude_pub_ = this->create_publisher<vortex_msgs::msg::DVLAltitude>(
         dvl_altitude_topic, qos_sensor_data);
 
+    auto gripper_servos_topic =
+        this->declare_parameter<std::string>("topics.gripper_servos", "");
+
+    if (gripper_servos_topic.empty()) {
+        spdlog::warn(
+            "Parameter 'topics.gripper_servos' is empty. "
+            "Gripper servo forwarding disabled.");
+    } else {
+        gripper_sub_ = this->create_subscription<sensor_msgs::msg::JointState>(
+            gripper_servos_topic, qos_sensor_data,
+            std::bind(&StonefishSimInterface::gripper_callback, this,
+                      std::placeholders::_1));
+
+        stonefish_servo_pub_ =
+            this->create_publisher<sensor_msgs::msg::JointState>(
+                "stonefish/servos", rclcpp::QoS(10).reliable());
+    }
+
+    drone_name_ = this->declare_parameter<std::string>("drone", "orca");
     mock_odom_ = this->declare_parameter<bool>("mock_odom");
     tf_name_prefix_ = this->declare_parameter<std::string>("tf_name_prefix");
     if (mock_odom_) {
@@ -206,6 +226,26 @@ void StonefishSimInterface::sonar_info_callback(
     vortex_sonar_msg.vertical_fov = sonar_msg->vertical_fov;
 
     sonar_info_vortex_pub_->publish(vortex_sonar_msg);
+}
+
+void StonefishSimInterface::gripper_callback(
+    const sensor_msgs::msg::JointState::SharedPtr msg) {
+    if (drone_name_ == "moby") {
+        // Moby finger joints are prismatic ish (0-0.05m range).
+        // Scale finger velocities so the joystick's -1/0/1 values
+        // produce reasonable linear speeds.
+        constexpr double prismatic_scale = 0.033;
+        auto scaled_msg = *msg;
+        for (size_t i = 0; i < scaled_msg.name.size(); ++i) {
+            if (i < scaled_msg.velocity.size() &&
+                scaled_msg.name[i].find("finger") != std::string::npos) {
+                scaled_msg.velocity[i] *= prismatic_scale;
+            }
+        }
+        stonefish_servo_pub_->publish(scaled_msg);
+    } else {
+        stonefish_servo_pub_->publish(*msg);
+    }
 }
 
 int main(int argc, char* argv[]) {

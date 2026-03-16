@@ -10,6 +10,7 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/publisher.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <stonefish_ros2/msg/dvl.hpp>
@@ -31,6 +32,7 @@ class StonefishSimInterface : public rclcpp::Node {
     void dvl_callback(const stonefish_ros2::msg::DVL::SharedPtr dvl_msg);
     void sonar_info_callback(
         const stonefish_ros2::msg::SonarInfo::SharedPtr sonar_msg);
+    void gripper_callback(const sensor_msgs::msg::JointState::SharedPtr msg);
 
     rclcpp::Subscription<vortex_msgs::msg::ThrusterForces>::SharedPtr
         drone_thruster_sub_;
@@ -56,8 +58,13 @@ class StonefishSimInterface : public rclcpp::Node {
     rclcpp::Publisher<vortex_msgs::msg::SonarInfo>::SharedPtr
         sonar_info_vortex_pub_;
 
+    rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr gripper_sub_;
+    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr
+        stonefish_servo_pub_;
+
     bool mock_odom_{false};
     std::string tf_name_prefix_;
+    std::string drone_name_;
 };
 
 #endif  // STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_

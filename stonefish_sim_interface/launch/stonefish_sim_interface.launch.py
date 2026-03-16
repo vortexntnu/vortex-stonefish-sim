@@ -60,6 +60,7 @@ def launch_setup(context, *args, **kwargs):
                 {"use_sim_time": True},
                 {"mock_odom": mock_odom},
                 {"tf_name_prefix": namespace},
+                {"drone": drone},
                 drone_params,
             ],
             remappings=remappings,
