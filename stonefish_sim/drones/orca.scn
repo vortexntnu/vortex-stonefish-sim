@@ -18,7 +18,7 @@
             <cg xyz="-0.06 0.0 0.01" rpy="0.0 0.0 0.0"/>
         </base_link>
 
-        <link name="Shoulder" type="model" physics="submerged">
+        <link name="shoulder" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/gripper_shoulder_mesh.obj" scale="1.0"/>
                 <origin rpy="-1.57 0.0 0" xyz="0.0 0.0 0.0"/>
@@ -32,20 +32,20 @@
             <mass value="2.8"/>
         </link>
 
-        <joint name="Shoulder_joint" type="revolute">
+        <joint name="shoulder_joint" type="revolute">
             <parent name="Base"/>
-            <child name="Shoulder"/>
+            <child name="shoulder"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.31 -0.02 0.16"/>
             <axis xyz="0.0 1.0 0.0"/>
             <limits min="-1.57" max="0.3"/>
         </joint>
 
-        <actuator name="Shoulder_servo" type="servo">
+        <actuator name="shoulder_servo" type="servo">
             <controller position_gain="1.35" velocity_gain="1.0" max_torque="3.0"/>
-            <joint name="Shoulder_joint"/>
+            <joint name="shoulder_joint"/>
         </actuator>
 
-        <link name="Arm" type="model" physics="submerged">
+        <link name="arm" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/gripper_arm_mesh.obj" scale="1.0"/>
                 <origin rpy="-1.57 0.0 0" xyz="0.0 0.0 0.0"/>
@@ -59,19 +59,19 @@
             <mass value="0.6"/>
         </link>
 
-        <joint name="Arm_joint" type="revolute">
-            <parent name="Shoulder"/>
-            <child name="Arm"/>
+        <joint name="arm_joint" type="revolute">
+            <parent name="shoulder"/>
+            <child name="arm"/>
             <origin rpy="0.0 0.0 3.14" xyz="0.1 0.02 -0.1"/>
             <axis xyz="1.0 0.0 0.0"/>
         </joint>
 
-        <actuator name="Arm_servo" type="servo">
+        <actuator name="arm_servo" type="servo">
             <controller position_gain="1.2" velocity_gain="1.0" max_torque="10.0"/>
-            <joint name="Arm_joint"/>
+            <joint name="arm_joint"/>
         </actuator>
 
-        <link name="Finger1" type="model" physics="submerged">
+        <link name="finger1" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/gripper_finger_mesh.obj" scale="1.0"/>
                 <origin rpy="-1.57 0.0 0" xyz="0.0 0.0 0.0"/>
@@ -85,20 +85,20 @@
             <mass value="0.1"/>
         </link>
 
-        <joint name="Finger_joint1" type="revolute">
-            <parent name="Arm"/>
-            <child name="Finger1"/>
+        <joint name="finger_joint1" type="revolute">
+            <parent name="arm"/>
+            <child name="finger1"/>
             <origin xyz="-0.15 0 0" rpy="0 -1.57 3.14"/>
             <axis xyz="0.0 1.0 0.0"/>
             <limits min="0.0" max="1.57"/>
         </joint>
 
-        <actuator name="Finger_servo1" type="servo">
+        <actuator name="finger_servo1" type="servo">
             <controller position_gain="0.2" velocity_gain="1.0" max_torque="1.0"/>
-            <joint name="Finger_joint1"/>
+            <joint name="finger_joint1"/>
         </actuator>
 
-        <link name="Finger2" type="model" physics="submerged">
+        <link name="finger2" type="model" physics="submerged">
             <physical>
                 <mesh filename="orca/gripper_finger_mesh.obj" scale="1.0"/>
                 <origin rpy="-1.57 0.0 0" xyz="0.0 0.0 0.0"/>
@@ -112,17 +112,17 @@
             <mass value="0.1"/>
         </link>
 
-        <joint name="Finger_joint2" type="revolute">
-            <parent name="Arm"/>
-            <child name="Finger2"/>
+        <joint name="finger_joint2" type="revolute">
+            <parent name="arm"/>
+            <child name="finger2"/>
             <origin xyz="-0.15 0 0" rpy="0 1.57 0"/>
             <axis xyz="0.0 1.0 0.0"/>
             <limits min="0.0" max="1.57"/>
         </joint>
 
-        <actuator name="Finger_servo2" type="servo">
+        <actuator name="finger_servo2" type="servo">
             <controller position_gain="0.2" velocity_gain="1.0" max_torque="1.0"/>
-            <joint name="Finger_joint2"/>
+            <joint name="finger_joint2"/>
         </actuator>
 
         <actuator name="Thruster1" type="thruster">
