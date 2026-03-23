@@ -211,6 +211,10 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         scenario_config=merged_config,
     )
 
+    keyboard_joy_enabled = (
+        LaunchConfiguration("keyboard_joy").perform(context).lower() == "true"
+    )
+
     joy_node = Node(
         package="joy",
         executable="joy_node",
@@ -227,7 +231,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         ],
     )
 
-    return [
+    nodes = [
         thrust_allocator_launch,
         joystick_interface_launch,
         operation_mode_manager_launch,
@@ -235,6 +239,21 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         sim_node,
         joy_node,
     ]
+
+    if keyboard_joy_enabled:
+        keyboard_joy_launch = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                path.join(
+                    get_package_share_directory("keyboard_joy"),
+                    "launch",
+                    "keyboard_joy_node.launch.py",
+                )
+            ),
+            launch_arguments=common_launch_args,
+        )
+        nodes.append(keyboard_joy_launch)
+
+    return nodes
 
 
 def generate_launch_description():
@@ -300,6 +319,11 @@ def generate_launch_description():
                 "scenario_config_override",
                 default_value="",
                 description="Path to override scenario config YAML",
+            ),
+            DeclareLaunchArgument(
+                "keyboard_joy",
+                default_value="false",
+                description="Launch keyboard joy node (true/false)",
             ),
         ]
         + declare_drone_and_namespace_args()
