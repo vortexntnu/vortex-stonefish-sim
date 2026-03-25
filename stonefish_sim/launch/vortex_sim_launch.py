@@ -126,6 +126,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
     mock_odom = LaunchConfiguration("mock_odom").perform(context)
     scenario_val = LaunchConfiguration("scenario").perform(context)
     override_path = LaunchConfiguration("scenario_config_override").perform(context)
+    solver_type = LaunchConfiguration("solver_type").perform(context)
 
     common_launch_args = {
         "drone": drone,
@@ -140,7 +141,11 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
                 "thrust_allocator_auv.launch.py",
             )
         ),
-        launch_arguments=common_launch_args,
+        launch_arguments={
+            "drone": drone,
+            "namespace": namespace,
+            "solver_type": solver_type,
+        }.items(),
     )
 
     joystick_interface_launch = IncludeLaunchDescription(
@@ -325,6 +330,11 @@ def generate_launch_description():
                 "keyboard_joy",
                 default_value="false",
                 description="Launch keyboard joy node (true/false)",
+            ),
+            DeclareLaunchArgument(
+                "solver_type",
+                default_value="qp",
+                description="Thrust allocator solver type (available: pseudoinverse, qp)",
             ),
         ]
         + declare_drone_and_namespace_args()
