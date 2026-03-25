@@ -34,6 +34,7 @@ gpu_scenarios = [
 ]
 
 no_gpu_scenarios = [
+    "nautilus_no_gpu",
     "orca_no_gpu",
     "freya_no_gpu",
 ]
