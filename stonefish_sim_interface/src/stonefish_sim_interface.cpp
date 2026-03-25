@@ -230,8 +230,8 @@ void StonefishSimInterface::sonar_info_callback(
 
 void StonefishSimInterface::gripper_callback(
     const sensor_msgs::msg::JointState::SharedPtr msg) {
-    if (drone_name_ == "moby") {
-        // Moby finger joints are prismatic ish (0-0.05m range).
+    if (drone_name_ == "nautilus") {
+        // nautilus finger joints are prismatic ish (0-0.05m range).
         // Scale finger velocities so the joystick's -1/0/1 values
         // produce reasonable linear speeds.
         constexpr double prismatic_scale = 0.033;

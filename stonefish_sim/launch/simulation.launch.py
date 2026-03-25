@@ -22,7 +22,7 @@ gpu_scenarios = [
     "tacc",
 ]
 no_gpu_scenarios = [
-    "moby_no_gpu",
+    "nautilus_no_gpu",
     "orca_no_gpu",
     "freya_no_gpu",
 ]
