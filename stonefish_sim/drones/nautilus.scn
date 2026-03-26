@@ -19,14 +19,17 @@
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
             <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
-            <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <cg xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
         </base_link>
 
         <!-- Gripper -->
-        <link name="shoulder" type="model" physics="submerged">
+        <link name="shoulder" type="model" physics="surface" buoyancy="false">
             <physical>
                 <mesh filename="nautilus/gripper_shoulder_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <inertia xyz="0.0 0.0 0.0"/>
+                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_shoulder_collision.obj" scale="1.0"/>
@@ -34,7 +37,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="Grey"/>
-            <mass value="2.8"/>
+            <mass value="0.000001"/>
         </link>
 
         <joint name="shoulder_joint" type="fixed">
@@ -43,10 +46,13 @@
             <origin rpy="0.0 0.0 0.0" xyz="0.282589 0.07822 0.115803"/>
         </joint>
 
-        <link name="arm" type="model" physics="submerged">
+        <link name="arm" type="model" physics="surface" buoyancy="false">
             <physical>
                 <mesh filename="nautilus/gripper_arm_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <inertia xyz="0.0 0.0 0.0"/>
+                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_arm_collision.obj" scale="1.0"/>
@@ -54,7 +60,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="Grey"/>
-            <mass value="0.6"/>
+            <mass value="0.000001"/>
         </link>
 
         <joint name="arm_joint" type="revolute">
@@ -69,10 +75,13 @@
             <joint name="arm_joint"/>
         </actuator>
 
-        <link name="finger1" type="model" physics="submerged">
+        <link name="finger1" type="model" physics="surface" buoyancy="false">
             <physical>
                 <mesh filename="nautilus/gripper_finger_left_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <inertia xyz="0.0 0.0 0.0"/>
+                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_finger_left_collision.obj" scale="1.0"/>
@@ -80,7 +89,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="White"/>
-            <mass value="0.1"/>
+            <mass value="0.000001"/>
         </link>
 
         <joint name="finger_joint1" type="prismatic">
@@ -96,10 +105,13 @@
             <joint name="finger_joint1"/>
         </actuator>
 
-        <link name="finger2" type="model" physics="submerged">
+        <link name="finger2" type="model" physics="surface" buoyancy="false">
             <physical>
                 <mesh filename="nautilus/gripper_finger_right_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <inertia xyz="0.0 0.0 0.0"/>
+                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_finger_right_collision.obj" scale="1.0"/>
@@ -107,7 +119,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="White"/>
-            <mass value="0.1"/>
+            <mass value="0.000001"/>
         </link>
 
         <joint name="finger_joint2" type="prismatic">
