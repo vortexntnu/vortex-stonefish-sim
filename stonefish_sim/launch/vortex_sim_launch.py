@@ -94,7 +94,7 @@ def get_sim_node(
         args = [sim_data, scenario_file, sim_rate, win_x, win_y, rend_qual]
     elif scenario_val not in no_gpu_scenarios:
         scenario_file = PathJoinSubstitution(
-            [stonefish_dir, "scenarios", TextSubstitution(text="orca_no_gpu.scn")]
+            [stonefish_dir, "scenarios", TextSubstitution(text=f"{drone}_no_gpu.scn")]
         )
         exec_name = "stonefish_simulator_nogpu"
         args = [sim_data, scenario_file, sim_rate]
