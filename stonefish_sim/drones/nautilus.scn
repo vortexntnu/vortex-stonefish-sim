@@ -18,8 +18,8 @@
             <!-- TODO: find more accurate constants for nautilus -->
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
-            <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
-            <cg xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
+            <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.3 0.3 0.3"/>
+            <cg xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
         </base_link>
 
         <!-- Gripper -->
@@ -138,7 +138,7 @@
         <!-- TODO: ask mech / electro if the know bollad pull constant, or directly if they know max rpm of thruster -->
         <actuator name="Thruster1" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.4139 0.3130 0.0217" rpy="0 0 -0.7853981634"/>
+            <origin xyz="0.450 0.305 0.0217" rpy="0 0 -0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -156,7 +156,7 @@
 
         <actuator name="Thruster2" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.140 0.313 0.0217" rpy="0 -1.570796327 0"/>
+            <origin xyz="0.240 0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -174,7 +174,7 @@
 
         <actuator name="Thruster3" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.1639 0.313 0.0217" rpy="0 -1.570796327 0"/>
+            <origin xyz="-0.230 0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -192,7 +192,7 @@
 
         <actuator name="Thruster4" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.4139 0.313 0.0217" rpy="0 0 -2.356194490"/>
+            <origin xyz="-0.438 0.305 0.0217" rpy="0 0 -2.356194490"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -210,7 +210,7 @@
 
         <actuator name="Thruster5" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.4139 -0.313 0.0217" rpy="0 0 2.356194490"/>
+            <origin xyz="-0.438 -0.305 0.0217" rpy="0 0 2.356194490"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -228,7 +228,7 @@
 
         <actuator name="Thruster6" type="thruster">
             <link name="Base"/>
-            <origin xyz="-0.1639 -0.313 0.0217" rpy="0 -1.570796327 0"/>
+            <origin xyz="-0.230 -0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -246,7 +246,7 @@
 
         <actuator name="Thruster7" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.140 -0.313 0.0217" rpy="0 -1.570796327 0"/>
+            <origin xyz="0.240 -0.313 0.0217" rpy="0 -1.570796327 0"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
@@ -264,7 +264,7 @@
 
         <actuator name="Thruster8" type="thruster">
             <link name="Base"/>
-            <origin xyz="0.4139 -0.313 0.0217" rpy="0 0 0.7853981634"/>
+            <origin xyz="0.450 -0.305 0.0217" rpy="0 0 0.7853981634"/>
             <specs max_setpoint="100.0" inverted_setpoint="false" normalized_setpoint="false"/>
             <propeller diameter="0.075" right="true">
                 <mesh filename="orca/bluerov2_propccw.obj" scale="1.0"/>
