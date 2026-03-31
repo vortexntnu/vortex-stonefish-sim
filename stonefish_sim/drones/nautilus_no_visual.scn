@@ -193,6 +193,15 @@
             <ros_publisher topic="/nautilus/dvl/sim"/>
         </sensor>
 
+        <sensor name="pressure_sensor_link" rate="1.0" type="pressure">
+            <range pressure="100000.0"/>
+            <noise pressure="0.1"/>
+            <history samples="1"/>
+            <origin xyz="-0.130 0.003 0.2414" rpy="0.0 0.0 0.0"/>
+            <link name="Base"/>
+            <ros_publisher topic="/nautilus/pressure_sensor"/>
+        </sensor>
+
         <!-- Drone starting pose from launch file -->
         <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
 
