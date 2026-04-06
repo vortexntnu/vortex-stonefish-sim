@@ -7,16 +7,19 @@ from auv_setup.launch_arg_common import (
 )
 from launch import LaunchContext, LaunchDescription
 from launch.actions import (
+    DeclareLaunchArgument,
     IncludeLaunchDescription,
     OpaqueFunction,
     SetEnvironmentVariable,
 )
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
 def launch_setup(context: LaunchContext, *args, **kwargs):
     drone, namespace = resolve_drone_and_namespace(context)
+    orientation_mode = LaunchConfiguration("orientation_mode").perform(context)
 
     common_launch_args = {
         "drone": drone,
@@ -42,7 +45,11 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
                 "joystick_interface_auv.launch.py",
             )
         ),
-        launch_arguments=common_launch_args,
+        launch_arguments={
+            "drone": drone,
+            "namespace": namespace,
+            "orientation_mode": orientation_mode,
+        }.items(),
     )
 
     operation_mode_manager_launch = IncludeLaunchDescription(
@@ -106,6 +113,11 @@ def generate_launch_description():
     return LaunchDescription(
         declare_drone_and_namespace_args()
         + [
+            DeclareLaunchArgument(
+                "orientation_mode",
+                default_value="euler",
+                description="Reference orientation representation passed to joystick interface: 'euler' or 'quat'",
+            ),
             set_env_var,
             set_warn_color,
             OpaqueFunction(function=launch_setup),
