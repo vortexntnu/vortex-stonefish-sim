@@ -43,7 +43,7 @@
         <joint name="shoulder_joint" type="fixed">
             <parent name="Base"/>
             <child name="shoulder"/>
-            <origin rpy="0.0 0.0 0.0" xyz="0.282589 0.07822 0.115803"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.282589 0.028 0.115803"/>
         </joint>
 
         <link name="arm" type="model" physics="surface" buoyancy="false">
@@ -308,7 +308,7 @@
 
         <sensor name="downwards_camera_optical" type="camera" rate="20.0">
         <link name="Base"/>
-        <origin rpy="0.0 0.0 1.57079632679" xyz="0.297865 -0.085021 0.161036"/>
+        <origin rpy="0.0 0.0 1.57079632679" xyz="0.297865 -0.158 0.161036"/>
         <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
         <ros_publisher topic="/nautilus/down_camera"/>
     </sensor>
