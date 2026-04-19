@@ -46,11 +46,11 @@
     <link name="valve1_turnable" type="model" physics="submerged">
       <physical>
         <mesh filename="object_files/valve_turnable_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </physical>
       <visual>
         <mesh filename="object_files/valve_turnable.obj" scale="1.0"/>
-        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
       <material name="Steel"/><look name="Orange"/>
     </link>
@@ -98,11 +98,11 @@
     <link name="valve2_turnable" type="model" physics="submerged">
       <physical>
         <mesh filename="object_files/valve_turnable_mesh.obj" scale="1.0"/>
-        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </physical>
       <visual>
         <mesh filename="object_files/valve_turnable.obj" scale="1.0"/>
-        <origin rpy="-1.57 0 1.57" xyz="0 0 0.1"/>
+        <origin rpy="-1.57 0 1.57" xyz="0 0 0"/>
       </visual>
       <material name="Steel"/><look name="Orange"/>
     </link>
