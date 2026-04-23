@@ -40,27 +40,62 @@ no_gpu_scenarios = [
 ]
 
 
-def load_scenario_config(scenario_val):
-    config_path = os.path.join(
-        get_package_share_directory("stonefish_sim"),
-        "config",
-        f"{scenario_val}_config.yaml",
-    )
+def load_base_config() -> dict:
+    """Load default_config.yaml then all files in config/defaults/ as the base."""
+    config_dir = os.path.join(get_package_share_directory("stonefish_sim"), "config")
 
-    if not os.path.exists(config_path):
-        print(
-            f"Warning: Scenario config not found for scenario '{scenario_val}'. Using default config."
-        )
-        config_path = os.path.join(
-            get_package_share_directory("stonefish_sim"),
-            "config",
-            "default_config.yaml",
-        )
+    base_path = os.path.join(config_dir, "default_config.yaml")
+    with open(base_path) as f:
+        config = yaml.safe_load(f) or {}
 
-    with open(config_path) as f:
-        config = yaml.safe_load(f)
+    defaults_dir = os.path.join(config_dir, "defaults")
+    if os.path.isdir(defaults_dir):
+        for filename in sorted(os.listdir(defaults_dir)):
+            if filename.endswith(".yaml"):
+                with open(os.path.join(defaults_dir, filename)) as f:
+                    config.update(yaml.safe_load(f) or {})
 
     return config
+
+
+def apply_overrides(base: dict, overrides: dict, source: str) -> dict:
+    """Merge overrides onto base, raising on unknown keys (catches typos)."""
+    unknown = [k for k in overrides if k not in base]
+    if unknown:
+        raise RuntimeError(
+            f"[stonefish_sim] Unknown keys in {source} "
+            f"(not defined in any defaults file): {unknown}\n"
+            f"Fix the typo or add the key to the appropriate config/defaults/*.yaml file first."
+        )
+    return {**base, **overrides}
+
+
+def load_scenario_config(scenario_val):
+    config = load_base_config()
+
+    if scenario_val != "default":
+        scenario_path = os.path.join(
+            get_package_share_directory("stonefish_sim"),
+            "config",
+            f"{scenario_val}_config.yaml",
+        )
+        if os.path.exists(scenario_path):
+            with open(scenario_path) as f:
+                overrides = yaml.safe_load(f) or {}
+            config = apply_overrides(config, overrides, f"'{scenario_val}_config.yaml'")
+        else:
+            print(
+                f"Warning: Scenario config not found for scenario '{scenario_val}'. Using default config."
+            )
+
+    return config
+
+
+def log_effective_config(config: dict, source: str):
+    print(f"\n[stonefish_sim] Effective scenario config (source: {source}):")
+    for k, v in sorted(config.items()):
+        print(f"  {k}: {v}")
+    print()
 
 
 def get_sim_node(
@@ -185,13 +220,18 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         }.items(),
     )
 
+    if scenario_val in gpu_scenarios + no_gpu_scenarios:
+        scenario_config = load_scenario_config(scenario_val)
+        config_source = f"scenario: {scenario_val}"
+    else:
+        scenario_config = load_base_config()
+        config_source = "defaults only"
+
     if override_path and os.path.exists(override_path):
         with open(override_path) as f:
-            scenario_config = yaml.safe_load(f)
-    elif scenario_val in gpu_scenarios + no_gpu_scenarios:
-        scenario_config = load_scenario_config(scenario_val)
-    else:
-        scenario_config = {}
+            overrides = yaml.safe_load(f) or {}
+        scenario_config = apply_overrides(scenario_config, overrides, f"override file '{override_path}'")
+        config_source += f" + override: {override_path}"
 
     if (
         "drone_position" in scenario_config
@@ -209,6 +249,8 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         **scenario_config,
         "drone_file": f"{drone}.scn",
     }
+
+    log_effective_config(merged_config, config_source)
 
     sim_node = get_sim_node(
         context=context,

@@ -342,9 +342,9 @@
         </sensor>
 
         <sensor name="sonar_link" type="fls">
-            <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
-            <settings range_min="0.5" range_max="10.0" gain="1.1"/>
-            <noise multiplicative="0.01" additive="0.02"/>
+            <specs beams="$(param fls_beams)" bins="$(param fls_bins)" horizontal_fov="$(param fls_horizontal_fov)" vertical_fov="$(param fls_vertical_fov)"/>
+            <settings range_min="$(param fls_range_min)" range_max="$(param fls_range_max)" gain="$(param fls_gain)"/>
+            <noise multiplicative="$(param fls_noise_multiplicative)" additive="$(param fls_noise_additive)"/>
             <display colormap="hot"/>
             <origin xyz="0.271721 0.0 -0.203397" rpy="1.57 0.0 1.57"/>
             <link name="Base"/>

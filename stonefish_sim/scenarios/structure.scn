@@ -30,7 +30,7 @@
 
   <include file="$(find stonefish_sim)/objects/tacc_seafloor.scn"/>
 
-  <include file="$(find stonefish_sim)/objects/structure.scn"/>
+  <include file="$(find stonefish_sim)/objects/structure_valve_servo.scn"/>
 
 
 </scenario>
