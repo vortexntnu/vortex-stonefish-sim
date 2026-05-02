@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<scenario>
+
+    <looks>
+        <look name="seafloor_box_rocks"   gray="0.8" roughness="0.9" metalness="0.0"
+              texture="object_files/seafloor_box/rocks_ground_09_Diffuse.png"/>
+        <look name="seafloor_box_cliff01" gray="0.8" roughness="0.8" metalness="0.0"
+              texture="object_files/seafloor_box/coastal_cliff_01_diff.png"/>
+        <look name="seafloor_box_cliff04" gray="0.8" roughness="0.8" metalness="0.0"
+              texture="object_files/seafloor_box/coastal_cliff_04_diff.png"/>
+    </looks>
+
+    <static name="box_seabed" type="model">
+        <physical>
+            <mesh filename="object_files/seafloor_box/seabed.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/seafloor_box/seabed.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="seafloor_box_rocks"/>
+        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+    </static>
+
+    <static name="box_east_wall" type="model">
+        <physical>
+            <mesh filename="object_files/seafloor_box/east_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/seafloor_box/east_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="seafloor_box_cliff01"/>
+        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+    </static>
+
+    <static name="box_north_wall" type="model">
+        <physical>
+            <mesh filename="object_files/seafloor_box/north_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/seafloor_box/north_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="seafloor_box_cliff04"/>
+        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+    </static>
+
+    <static name="box_south_wall" type="model">
+        <physical>
+            <mesh filename="object_files/seafloor_box/south_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/seafloor_box/south_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="seafloor_box_cliff04"/>
+        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+    </static>
+
+    <static name="box_west_wall" type="model">
+        <physical>
+            <mesh filename="object_files/seafloor_box/west_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/seafloor_box/west_wall.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="seafloor_box_cliff01"/>
+        <world_transform xyz="0.0 0.0 0.0" rpy="-1.57 0.0 0.0"/>
+    </static>
+
+</scenario>

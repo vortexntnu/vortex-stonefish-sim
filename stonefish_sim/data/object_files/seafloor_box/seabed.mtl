@@ -1,0 +1,12 @@
+# Blender 5.1.1 MTL File: 'stonefish_env.blend'
+# www.blender.org
+
+newmtl rocks_ground_09
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd -s 3 3 3.0000124 rocks_ground_09_Diffuse.png
+map_Ns -s 3 3 3.0000124 rocks_ground_09_Rough.png

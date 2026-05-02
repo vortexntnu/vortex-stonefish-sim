@@ -1,3 +1,4 @@
 drone_position: "0.0 0.0 0.0"
 drone_orientation: "0.0 0.0 0.0"
 orca_orientation: "-1.57 0.0 0.0"
+water_jerlow: "0.20"
