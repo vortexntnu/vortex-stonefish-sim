@@ -31,7 +31,7 @@ gpu_scenarios = [
     "freya_demo",
     "orca_freya_demo",
     "tacc",
-    "box",
+    "cave",
 ]
 
 no_gpu_scenarios = [
