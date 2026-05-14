@@ -350,12 +350,12 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "window_res_x",
-                default_value="1920",
+                default_value="940",
                 description="Render window width",
             ),
             DeclareLaunchArgument(
                 "window_res_y",
-                default_value="1080",
+                default_value="940",
                 description="Render window height",
             ),
             DeclareLaunchArgument(

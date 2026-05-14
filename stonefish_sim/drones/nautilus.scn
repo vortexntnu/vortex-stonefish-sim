@@ -23,13 +23,10 @@
         </base_link>
 
         <!-- Gripper -->
-        <link name="shoulder" type="model" physics="surface" buoyancy="false">
+        <link name="shoulder" type="model" physics="submerged">
             <physical>
                 <mesh filename="nautilus/gripper_shoulder_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-                <inertia xyz="0.0 0.0 0.0"/>
-                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_shoulder_collision.obj" scale="1.0"/>
@@ -37,7 +34,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="Grey"/>
-            <mass value="0.000001"/>
+            <mass value="2.8"/>
         </link>
 
         <joint name="shoulder_joint" type="fixed">
@@ -46,13 +43,12 @@
             <origin rpy="0.0 0.0 0.0" xyz="0.282589 0.028 0.115803"/>
         </joint>
 
-        <link name="arm" type="model" physics="surface" buoyancy="false">
+        
+
+        <link name="arm" type="model" physics="submerged">
             <physical>
                 <mesh filename="nautilus/gripper_arm_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-                <inertia xyz="0.0 0.0 0.0"/>
-                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_arm_collision.obj" scale="1.0"/>
@@ -60,7 +56,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="Grey"/>
-            <mass value="0.000001"/>
+            <mass value="0.6"/>
         </link>
 
         <joint name="arm_joint" type="revolute">
@@ -75,13 +71,10 @@
             <joint name="arm_joint"/>
         </actuator>
 
-        <link name="finger1" type="model" physics="surface" buoyancy="false">
+        <link name="finger1" type="model" physics="submerged">
             <physical>
                 <mesh filename="nautilus/gripper_finger_left_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-                <inertia xyz="0.0 0.0 0.0"/>
-                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_finger_left_collision.obj" scale="1.0"/>
@@ -89,7 +82,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="White"/>
-            <mass value="0.000001"/>
+            <mass value="0.1"/>
         </link>
 
         <joint name="finger_joint1" type="prismatic">
@@ -105,13 +98,10 @@
             <joint name="finger_joint1"/>
         </actuator>
 
-        <link name="finger2" type="model" physics="surface" buoyancy="false">
+        <link name="finger2" type="model" physics="submerged">
             <physical>
                 <mesh filename="nautilus/gripper_finger_right_collision.obj" scale="1.0"/>
                 <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-                <inertia xyz="0.0 0.0 0.0"/>
-                <cg xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-                <hydrodynamics viscous_drag="0.0 0.0 0.0" quadratic_drag="0.0 0.0 0.0"/>
             </physical>
             <visual>
                 <mesh filename="nautilus/gripper_finger_right_collision.obj" scale="1.0"/>
@@ -119,7 +109,7 @@
             </visual>
             <material name="Neutral"/>
             <look name="White"/>
-            <mass value="0.000001"/>
+            <mass value="0.1"/>
         </link>
 
         <joint name="finger_joint2" type="prismatic">
@@ -134,6 +124,27 @@
             <controller position_gain="0.2" velocity_gain="1.0" max_torque="1.0"/>
             <joint name="finger_joint2"/>
         </actuator>
+
+        <!-- Virtual reference frame at the centre of the gripper jaw opening -->
+        <link name="grip_point" type="box">
+            <dimensions xyz="0.001 0.001 0.001"/>
+            <material name="Neutral"/>
+            <look name="Grey"/>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        </link>
+
+        <joint name="grip_point" type="fixed">
+            <parent name="shoulder"/>
+            <child name="grip_point"/>
+            <origin xyz="0.2505 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        </joint>
+
+        <sensor name="grip_point_camera" type="camera" rate="5.0">
+            <link name="shoulder"/>
+            <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.2505 0.0 0.0"/>
+            <specs resolution_x="320" resolution_y="240" horizontal_fov="90.0"/>
+            <ros_publisher topic="/nautilus/grip_camera"/>
+        </sensor>
 
         <!-- TODO: ask mech / electro if the know bollad pull constant, or directly if they know max rpm of thruster -->
         <actuator name="Thruster1" type="thruster">
@@ -150,7 +161,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -168,7 +179,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -186,7 +197,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -204,7 +215,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -222,7 +233,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -240,7 +251,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -258,7 +269,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -276,7 +287,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -319,6 +330,13 @@
         <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
         <ros_publisher topic="/nautilus/depth_camera"/>
     </sensor>
+
+    <sensor name="segmentation_camera_front" type="segmentation" rate="20.0">
+            <link name="Base"/>
+            <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
+            <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
+            <ros_publisher topic="/nautilus/segmentation_cam"/>
+        </sensor>
 
     <sensor name="front_camera_color_optical" type="camera" rate="20.0">
         <link name="Base"/>
