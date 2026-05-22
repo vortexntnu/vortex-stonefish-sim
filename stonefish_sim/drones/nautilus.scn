@@ -301,7 +301,7 @@
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
             <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
             <history samples="1"/>
-            <origin rpy="0.0 0.0 0.0" xyz="-0.130 0.003 0.2414"/>
+            <origin rpy="0.0 0.0 3.14159" xyz="-0.130 0.003 0.2414"/>
             <link name="Base"/>
             <ros_publisher topic="/nautilus/dvl/sim"/>
         </sensor>
@@ -337,11 +337,11 @@
             <ros_publisher topic="/nautilus/fls_image"/>
         </sensor>
 
-        <sensor name="pressure_sensor_link" rate="1.0" type="pressure">
+        <sensor name="pressure_sensor_link" rate="10.0" type="pressure">
             <range pressure="100000.0"/>
-            <noise pressure="0.1"/>
+            <noise pressure="200.0"/>
             <history samples="1"/>
-            <origin xyz="-0.130 0.003 0.2414" rpy="0.0 0.0 0.0"/>
+            <origin xyz="-0.035 -0.115 -0.095" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
             <ros_publisher topic="/nautilus/pressure_sensor"/>
         </sensor>
