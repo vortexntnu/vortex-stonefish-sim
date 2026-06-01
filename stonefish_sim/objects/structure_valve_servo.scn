@@ -108,9 +108,17 @@
       <parent name="valve1_frame"/>
       <child name="valve1_turnable"/>
       <axis xyz="0 1 0"/>
-      <limits min="0.0" max="1.57"/>
+      <limits min="-1.57" max="0.0"/>
+      <damping value="0.5"/>
       <origin xyz="1.196441 1.42144 1.807916" rpy="0.0 0.0 1.57"/>
     </joint>
+
+    <actuator name="valve1_servo" type="servo">
+      <controller position_gain="1.0" velocity_gain="2.0" max_torque="2.0"/>
+      <joint name="valve1_joint"/>
+    </actuator>
+
+    <ros_subscriber servos="/valve1/servos"/>
 
     <world_transform
       xyz="$(param structure_position)"
@@ -153,9 +161,17 @@
       <parent name="valve2_frame"/>
       <child name="valve2_turnable"/>
       <axis xyz="0 1 0"/>
-      <limits min="0.0" max="1.57"/>
+      <limits min="-1.57" max="0.0"/>
+      <damping value="0.5"/>
       <origin xyz="0.665 0.95140878 1.76872493" rpy="0.0 0.0 0.0"/>
     </joint>
+
+    <actuator name="valve2_servo" type="servo">
+      <controller position_gain="1.0" velocity_gain="2.0" max_torque="2.0"/>
+      <joint name="valve2_joint"/>
+    </actuator>
+
+    <ros_subscriber servos="/valve2/servos"/>
 
     <world_transform
       xyz="$(param structure_position)"
