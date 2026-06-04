@@ -326,21 +326,21 @@
 
     <sensor name="front_camera_depth_optical" type="depthcamera" rate="20.0">
         <link name="Base"/>
-        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
+        <origin rpy="1.30912966 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
         <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
         <ros_publisher topic="/nautilus/depth_camera"/>
     </sensor>
 
     <sensor name="segmentation_camera_front" type="segmentation" rate="20.0">
             <link name="Base"/>
-            <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
+            <origin rpy="1.30912966 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
             <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
             <ros_publisher topic="/nautilus/segmentation_cam"/>
         </sensor>
 
     <sensor name="front_camera_color_optical" type="camera" rate="20.0">
         <link name="Base"/>
-        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
+        <origin rpy="1.30912966 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
         <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
         <ros_publisher topic="/nautilus/front_camera"/>
     </sensor>
