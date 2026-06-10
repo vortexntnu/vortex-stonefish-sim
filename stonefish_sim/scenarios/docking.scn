@@ -35,6 +35,7 @@
 
   <include file="$(find stonefish_sim)/objects/dock.scn"/>
   <include file="$(find stonefish_sim)/objects/pool.scn"/>
+  <include file="$(find stonefish_sim)/objects/pool_details.scn"/>
   <include file="$(find stonefish_sim)/drones/gripper.scn"/>
 
 </scenario>
