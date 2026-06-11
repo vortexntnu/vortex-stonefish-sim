@@ -11,7 +11,7 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
     </visual>
     <material name="Neutral"/>
-    <look name="Brown"/>
+    <look name="rocks"/>
     <world_transform xyz="0.0 0.0 3.0" rpy="1.57 0.0 0.0"/>
   </static>
 </scenario>
