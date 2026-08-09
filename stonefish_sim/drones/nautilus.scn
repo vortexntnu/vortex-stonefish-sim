@@ -297,7 +297,7 @@
 
         <sensor name="dvl_link" rate="5.0" type="dvl">
             <specs beam_angle="30.0" beam_positive_z="true"/>
-            <range velocity="10.0 10.0 5.0" altitude_min="0.5" altitude_max="50.0"/>
+            <range velocity="10.0 10.0 5.0" altitude_min="0.2" altitude_max="50.0"/>
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
             <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
             <history samples="1"/>
@@ -329,8 +329,8 @@
 
         <sensor name="sonar_link" type="fls">
             <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
-            <settings range_min="0.5" range_max="10.0" gain="1.1"/>
-            <noise multiplicative="0.01" additive="0.02"/>
+            <settings range_min="0.5" range_max="25.0" gain="0.3"/>
+            <noise multiplicative="0.1" additive="0.1"/>
             <display colormap="hot"/>
             <origin xyz="0.271721 0.0 -0.203397" rpy="1.57 0.0 1.57"/>
             <link name="Base"/>
@@ -345,6 +345,34 @@
             <link name="Base"/>
             <ros_publisher topic="/nautilus/pressure_sensor"/>
         </sensor>
+
+        <light name="Spot">
+            <specs radius="0.02" cone_angle="40.0" illuminance="10000.0"/>
+            <color temperature="5600.0"/>
+            <origin xyz="0.27 0.25 -0.17" rpy="0.0 1.57 0.0"/>
+            <link name="Base"/>
+        </light>
+
+        <light name="Spot">
+            <specs radius="0.02" cone_angle="40.0" illuminance="10000.0"/>
+            <color temperature="5600.0"/>
+            <origin xyz="0.27 -0.25 -0.17" rpy="0.0 1.57 0.0"/>
+            <link name="Base"/>
+        </light>
+
+        <light name="Spot">
+            <specs radius="0.02" cone_angle="60.0" illuminance="3000.0"/>
+            <color temperature="5600.0"/>
+            <origin xyz="0.27 0.25 0.17" rpy="0.0 0.0 0.0"/>
+            <link name="Base"/>
+        </light>
+
+        <light name="Spot">
+            <specs radius="0.02" cone_angle="60.0" illuminance="3000.0"/>
+            <color temperature="5600.0"/>
+            <origin xyz="0.27 -0.25 0.17" rpy="0.0 0.0 0.0"/>
+            <link name="Base"/>
+        </light>
 
         <!-- Drone starting pose from launch file -->
         <world_transform xyz="$(param nautilus_position)" rpy="$(param nautilus_orientation)"/>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<scenario>
+
+    <looks>
+        <look name="cave_rocks" gray="0.8" roughness="0.9" metalness="0.0"
+              texture="object_files/cave/rocks_ground_09_Diffuse.png"/>
+    </looks>
+
+    <static name="cave" type="model">
+        <physical>
+            <mesh filename="object_files/cave/cave.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </physical>
+        <visual>
+            <mesh filename="object_files/cave/cave.obj" scale="1.0"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </visual>
+        <material name="Neutral"/>
+        <look name="cave_rocks"/>
+        <world_transform xyz="0.0 0.0 4.5" rpy="0.0 0.0 0.0"/>
+    </static>
+
+</scenario>
