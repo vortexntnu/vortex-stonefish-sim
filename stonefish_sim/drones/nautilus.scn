@@ -18,7 +18,9 @@
             <!-- TODO: find more accurate constants for nautilus -->
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
-            <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
+	    <hydrodynamics
+    		viscous_drag="0.01 0.10 0.10"
+    		quadratic_drag="0.04 0.10 0.10"/>
             <cg xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
         </base_link>
 

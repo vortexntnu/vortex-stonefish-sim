@@ -22,6 +22,34 @@ from launch.substitutions import (
 )
 from launch_ros.actions import Node
 
+def get_screen_resolution():
+    """Return (width, height) of the primary display, falling back to 1080p."""
+    # Method 1: xrandr (X11)
+    try:
+        import subprocess
+        out = subprocess.check_output(["xrandr"], stderr=subprocess.DEVNULL).decode()
+        for line in out.splitlines():
+            if "*" in line:                      # the active mode is marked with *
+                res = line.split()[0]            # e.g. "1920x1080"
+                w, h = res.split("x")
+                return int(w), int(h)
+    except Exception:
+        pass
+
+    # Method 2: Python's tkinter (works on X11 and some Wayland setups)
+    try:
+        import tkinter
+        root = tkinter.Tk()
+        w = root.winfo_screenwidth()
+        h = root.winfo_screenheight()
+        root.destroy()
+        return w, h
+    except Exception:
+        pass
+
+    # Fallback
+    return 1920, 1080
+
 gpu_scenarios = [
     "default",
     "docking",
@@ -81,14 +109,22 @@ def get_sim_node(
 
     sim_data = LaunchConfiguration("simulation_data")
     sim_rate = LaunchConfiguration("simulation_rate")
-    win_x = LaunchConfiguration("window_res_x")
-    win_y = LaunchConfiguration("window_res_y")
+    win_x_arg = LaunchConfiguration("window_res_x").perform(context)
+    win_y_arg = LaunchConfiguration("window_res_y").perform(context)
     rend_qual = LaunchConfiguration("rendering_quality")
 
     stonefish_dir = get_package_share_directory("stonefish_sim")
     scenario_file = PathJoinSubstitution(
         [stonefish_dir, "scenarios", TextSubstitution(text=f"{scenario_val}.scn")]
     )
+    
+    if win_x_arg == "auto" or win_y_arg == "auto":
+        screen_w, screen_h = get_screen_resolution()
+        win_x = TextSubstitution(text=str(screen_w))
+        win_y = TextSubstitution(text=str(screen_h))
+    else:
+        win_x = LaunchConfiguration("window_res_x")
+        win_y = LaunchConfiguration("window_res_y")
 
     if rendering_enabled:
         exec_name = "stonefish_simulator"
@@ -309,12 +345,12 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "window_res_x",
-                default_value="1280",
+                default_value="auto",
                 description="Render window width",
             ),
             DeclareLaunchArgument(
                 "window_res_y",
-                default_value="720",
+                default_value="auto",
                 description="Render window height",
             ),
             DeclareLaunchArgument(
