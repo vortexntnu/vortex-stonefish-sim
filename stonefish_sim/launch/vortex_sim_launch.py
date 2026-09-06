@@ -31,6 +31,7 @@ gpu_scenarios = [
     "freya_demo",
     "orca_freya_demo",
     "tacc",
+    "robosub",
 ]
 
 no_gpu_scenarios = [

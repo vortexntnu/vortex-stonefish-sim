@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<scenario>
+  <!-- RoboSub 2026 competition course.
+       Geometry extracted from the MathWorks "RoboSub Virtual Environment" (UE 5.3)
+       and converted to OBJ (see data/object_files/robosub/).
+       Course layout follows the RoboSub 2026 Team Handbook, section 3.2.
+       World frame: X forward (down the course), Y right, Z down.
+       Water surface at Z = 0, pool floor at Z ~ 3.43. -->
+
+  <environment>
+    <ned latitude="33.685" longitude="-117.826"/> <!-- Woollett Aquatics Center, Irvine CA -->
+    <ocean>
+        <water density="1000.0" jerlov="$(param water_jerlow)"/>
+        <waves height="0.0"/>
+        <particles enabled="true"/>
+        <current type="uniform">
+            <velocity xyz="0.0 0.0 0.0"/>
+        </current>
+    </ocean>
+    <atmosphere>
+        <sun azimuth="-40.0" elevation="55.0"/>
+    </atmosphere>
+  </environment>
+
+  <include file="$(find stonefish_sim)/metadata/materials.scn"/>
+  <include file="$(find stonefish_sim)/metadata/looks.scn"/>
+
+  <include file="$(find stonefish_sim)/drones/$(param drone_file)"/>
+
+  <include file="$(find stonefish_sim)/objects/robosub_course.scn"/>
+
+</scenario>
