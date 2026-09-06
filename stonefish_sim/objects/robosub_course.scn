@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <scenario>
 
-  <!-- RoboSub 2026 course - extracted from the MathWorks RoboSub UE env,
-       laid out per RoboSub 2026 Team Handbook section 3.2.
-       Frame: X forward, Y right, Z down; water surface Z=0; floor Z~3.43. -->
+  <!-- RoboSub meshes, INSPECTION layout (grid in front of spawn).
+       Frame: X fwd, Y right, Z down; surface Z=0, floor Z~3.43.
+       Parked objects centred at Z=1.4.  See data/object_files/robosub/README.md -->
 
   <static name="pool_basin" type="model">
     <physical>
@@ -12,62 +12,6 @@
     </physical>
     <visual>
       <mesh filename="object_files/robosub/Pool_PoolPlane.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Concrete"/>
-    <look name="White"/>
-    <world_transform xyz="0 0 0" rpy="0 0 0"/>
-  </static>
-
-  <static name="pool_stairs_n" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Concrete"/>
-    <look name="White"/>
-    <world_transform xyz="0 0 0" rpy="0 0 0"/>
-  </static>
-
-  <static name="pool_stairs_s" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Concrete"/>
-    <look name="White"/>
-    <world_transform xyz="0 0 0" rpy="0 0 0"/>
-  </static>
-
-  <static name="pool_billboard_e" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Concrete"/>
-    <look name="White"/>
-    <world_transform xyz="0 0 0" rpy="0 0 0"/>
-  </static>
-
-  <static name="pool_billboard_w" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="1.0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </visual>
     <material name="Concrete"/>
@@ -86,21 +30,7 @@
     </visual>
     <material name="Neutral"/>
     <look name="RoboGate"/>
-    <world_transform xyz="5.0 0.0 0.9" rpy="0 0 0.0"/>
-  </static>
-
-  <static name="path_marker_1" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
-      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
-      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="RoboOrange"/>
-    <world_transform xyz="7.5 0.5 3.41" rpy="0 0 -0.2"/>
+    <world_transform xyz="4.0 -3.0 1.4" rpy="0 0 1.5708"/>
   </static>
 
   <static name="slalom" type="model">
@@ -114,63 +44,7 @@
     </visual>
     <material name="Neutral"/>
     <look name="RoboPipe"/>
-    <world_transform xyz="14.0 -2.0 1.6" rpy="0 0 0.0"/>
-  </static>
-
-  <static name="path_marker_2" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
-      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
-      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="RoboOrange"/>
-    <world_transform xyz="17.0 -1.7 3.41" rpy="0 0 0.34"/>
-  </static>
-
-  <static name="bins" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/robosub_box.obj" scale="1.0"/>
-      <origin xyz="-0.2724 -0.0251 -0.1754" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/robosub_box.obj" scale="1.0"/>
-      <origin xyz="-0.2724 -0.0251 -0.1754" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="White"/>
-    <world_transform xyz="24.0 1.5 2.88" rpy="0 0 0.0"/>
-  </static>
-
-  <static name="torpedo_board" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/SM_torpedo26.obj" scale="1.0"/>
-      <origin xyz="0.0014 -0.0049 -0.3017" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/SM_torpedo26.obj" scale="1.0"/>
-      <origin xyz="0.0014 -0.0049 -0.3017" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="RoboBoardRepair"/>
-    <world_transform xyz="31.0 -1.0 2.4" rpy="0 0 -1.2"/>
-  </static>
-
-  <static name="torpedo_img_rescue" type="model">
-    <physical>
-      <mesh filename="object_files/robosub/task1_rescue.obj" scale="1.0"/>
-      <origin xyz="1.5379 -1.8221 0.6482" rpy="0.0 0.0 0.0"/>
-    </physical>
-    <visual>
-      <mesh filename="object_files/robosub/task1_rescue.obj" scale="1.0"/>
-      <origin xyz="1.5379 -1.8221 0.6482" rpy="0.0 0.0 0.0"/>
-    </visual>
-    <material name="Neutral"/>
-    <look name="RoboBoardRescue"/>
-    <world_transform xyz="24.6 1.5 2.5300000000000002" rpy="0 0 0.0"/>
+    <world_transform xyz="9.0 -3.0 1.4" rpy="0 0 0.0"/>
   </static>
 
   <static name="octagon" type="model">
@@ -184,7 +58,133 @@
     </visual>
     <material name="Neutral"/>
     <look name="RoboOrange"/>
-    <world_transform xyz="30.0 4.0 0.1" rpy="0 0 0.0"/>
+    <world_transform xyz="13.5 -3.0 1.4" rpy="1.5708 0 0"/>
+  </static>
+
+  <static name="path_marker" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
+      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/pathmarker.obj" scale="1.0"/>
+      <origin xyz="-0.0000 -0.0000 -0.0000" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="RoboOrange"/>
+    <world_transform xyz="16.5 -3.0 1.4" rpy="1.5708 0 0"/>
+  </static>
+
+  <static name="torpedo_board" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/SM_torpedo26.obj" scale="1.0"/>
+      <origin xyz="0.0014 -0.0049 -0.3017" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/SM_torpedo26.obj" scale="1.0"/>
+      <origin xyz="0.0014 -0.0049 -0.3017" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="RoboBoardRepair"/>
+    <world_transform xyz="4.0 0.0 1.4" rpy="0 0 1.5708"/>
+  </static>
+
+  <static name="bins" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/robosub_box.obj" scale="1.0"/>
+      <origin xyz="-0.2724 -0.0251 -0.1754" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/robosub_box.obj" scale="1.0"/>
+      <origin xyz="-0.2724 -0.0251 -0.1754" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="7.0 0.0 1.4" rpy="0 0 0.0"/>
+  </static>
+
+  <static name="task_img_repair" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/task1_repair.obj" scale="1.0"/>
+      <origin xyz="0.5988 -1.8825 0.5893" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/task1_repair.obj" scale="1.0"/>
+      <origin xyz="0.5988 -1.8825 0.5893" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="RoboBoardRepair"/>
+    <world_transform xyz="10.0 0.0 1.4" rpy="0 0 1.5708"/>
+  </static>
+
+  <static name="task_img_rescue" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/task1_rescue.obj" scale="1.0"/>
+      <origin xyz="1.5379 -1.8221 0.6482" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/task1_rescue.obj" scale="1.0"/>
+      <origin xyz="1.5379 -1.8221 0.6482" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="RoboBoardRescue"/>
+    <world_transform xyz="12.0 0.0 1.4" rpy="0 0 1.5708"/>
+  </static>
+
+  <static name="billboard_1" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="0.1"/>
+      <origin xyz="-4.3534 -0.0000 0.5500" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="0.1"/>
+      <origin xyz="-4.3534 -0.0000 0.5500" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="4.0 3.0 1.4" rpy="0 0 0.0"/>
+  </static>
+
+  <static name="billboard_2" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="0.1"/>
+      <origin xyz="4.3534 -0.0000 0.5500" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="0.1"/>
+      <origin xyz="4.3534 -0.0000 0.5500" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="6.0 3.0 1.4" rpy="0 0 0.0"/>
+  </static>
+
+  <static name="staircase_1" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="0.06"/>
+      <origin xyz="-0.0000 -1.7875 0.1650" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="0.06"/>
+      <origin xyz="-0.0000 -1.7875 0.1650" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="10.0 3.0 1.4" rpy="0 0 0.0"/>
+  </static>
+
+  <static name="staircase_2" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="0.06"/>
+      <origin xyz="-0.0000 1.7875 0.1650" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="0.06"/>
+      <origin xyz="-0.0000 1.7875 0.1650" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="15.0 3.0 1.4" rpy="0 0 0.0"/>
   </static>
 
 </scenario>

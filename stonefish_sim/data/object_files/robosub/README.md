@@ -33,7 +33,16 @@ to centre task elements on their body frame).
 | `task1_repair`, `task1_rescue` | role image plates | 0.30 × 0.30 |
 | `octagon` | Task 5 octagon surface marker | 2.54 dia |
 
-## Layout — approximate
+## Layout — inspection grid (current)
+
+`robosub_course.scn` currently parks every mesh in a **compact grid ~4-17 m in
+front of the drone spawn**, all centred at depth Z = 1.4, so each can be checked
+for scale / orientation / material. This is *not* the competition layout - once
+the meshes look right it gets spread out per the handbook.
+
+Regenerate with `tools/gen_robosub_scn.py`.
+
+## Competition layout — approximate
 
 Placement in `robosub_course.scn` follows the **RoboSub 2026 Team Handbook §3.2**
 (Start → Gate → Slalom → Bins → Torpedoes → Octagon, staggered so no three
