@@ -150,7 +150,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                    <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -168,7 +168,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -186,7 +186,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -204,7 +204,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -222,7 +222,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -240,7 +240,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -258,7 +258,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
@@ -276,7 +276,7 @@
             </rotor_dynamics>
             <thrust_model type="linear_interpolation">
                 <input value="-100.0 -50.0 0.0 50.0 100.0"/>
-                <output value="-100.0 -50.0 0.0 50.0 100.0"/>
+                <output value="-200.0 -100.0 0.0 100.0 200.0"/>
             </thrust_model>
         </actuator>
 
