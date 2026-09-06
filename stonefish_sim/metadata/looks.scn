@@ -21,5 +21,12 @@
             <look name="pipe" gray="0.5" roughness="0.4" metalness="0.5" texture="object_files/pipe2.png"/>
             <look name="Silver" gray="0.8" roughness="0.15" metalness="0.9"/>
             <look name="Blue" rgb="0.1 0.35 0.9" roughness="0.8" metalness="0.0" reflectivity="0.05"/>
+
+            <!-- RoboSub course -->
+            <look name="RoboGate" rgb="0.85 0.05 0.05" roughness="0.6"/>
+            <look name="RoboOrange" rgb="1.0 0.35 0.0" roughness="0.7"/>
+            <look name="RoboPipe" rgb="0.9 0.9 0.9" roughness="0.5"/>
+            <look name="RoboBoardRepair" gray="1.0" roughness="0.6" texture="object_files/robosub/Task1_SurveyRepair.png"/>
+            <look name="RoboBoardRescue" gray="1.0" roughness="0.6" texture="object_files/robosub/Task1_SearchRescue.png"/>
         </looks>
     </scenario>
