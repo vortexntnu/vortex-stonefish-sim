@@ -1,3 +1,4 @@
+import importlib.util
 import os
 from os import path
 
@@ -206,6 +207,23 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
     ):
         scenario_config[f"{drone}_orientation"] = scenario_config["drone_orientation"]
 
+    if scenario_val == "robosub":
+        # robosub is the only scenario whose config isn't a static YAML file:
+        # its role images (metadata/robosub_icons.json, built by
+        # tools/import_robosub_course.py) get reshuffled every launch. See
+        # launch/robosub_icons.py for what varies and why.
+        icons_path = os.path.join(
+            get_package_share_directory("stonefish_sim"), "launch", "robosub_icons.py"
+        )
+        spec = importlib.util.spec_from_file_location("robosub_icons", icons_path)
+        robosub_icons = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(robosub_icons)
+        scenario_config.update(
+            robosub_icons.icon_parameters(
+                LaunchConfiguration("robosub_icon_seed").perform(context)
+            )
+        )
+
     merged_config = {
         **scenario_config,
         "drone_file": f"{drone}.scn",
@@ -282,6 +300,15 @@ def generate_launch_description():
                 "rendering",
                 default_value="true",
                 description="Enable GPU rendering (true/false)",
+            ),
+            DeclareLaunchArgument(
+                "robosub_icon_seed",
+                default_value="",
+                description=(
+                    "Seed for the RoboSub role-image randomization. Empty means a "
+                    "fresh draw each run; pass the seed printed by a previous run "
+                    "to reproduce its course layout."
+                ),
             ),
             DeclareLaunchArgument(
                 "scenario",
