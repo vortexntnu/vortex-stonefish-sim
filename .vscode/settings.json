@@ -1,0 +1,27 @@
+{
+    "ROS2.distro": "humble",
+    "python.autoComplete.extraPaths": [
+        "/home/anbit-adhi/ros2_ws/install/vortex_utils_ros/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/vortex_utils/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/vortex_msgs/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/stonefish_ros2/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/build/keyboard_joy",
+        "/home/anbit-adhi/ros2_ws/install/keyboard_joy/lib/python3.10/site-packages",
+        "/home/anbit-adhi/ros2_ws/install/joystick_interface_auv/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/auv_setup/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/anbit-adhi/ros2_ws/install/vortex_utils_ros/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/vortex_utils/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/vortex_msgs/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/stonefish_ros2/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/build/keyboard_joy",
+        "/home/anbit-adhi/ros2_ws/install/keyboard_joy/lib/python3.10/site-packages",
+        "/home/anbit-adhi/ros2_ws/install/joystick_interface_auv/local/lib/python3.10/dist-packages",
+        "/home/anbit-adhi/ros2_ws/install/auv_setup/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

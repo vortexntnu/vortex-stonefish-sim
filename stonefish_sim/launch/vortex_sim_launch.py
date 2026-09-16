@@ -183,12 +183,24 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         }.items(),
     )
 
+    controller = LaunchConfiguration("controller").perform(context)
+    if controller == "flightstick":
+        interface_package = "flightstick_interface_auv"
+        # The Logitech Extreme 3D Pro needs a different deadzone per axis: its
+        # twist rests off-centre and wants a generous band, while the throttle
+        # lever wants none at all. joy_node only has one global value, so it is
+        # disabled here and applied per axis inside the interface node.
+        joy_deadzone = 0.0
+    else:
+        interface_package = "joystick_interface_auv"
+        joy_deadzone = 0.15
+
     joystick_interface_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             path.join(
-                get_package_share_directory("joystick_interface_auv"),
+                get_package_share_directory(interface_package),
                 "launch",
-                "joystick_interface_auv.launch.py",
+                f"{interface_package}.launch.py",
             )
         ),
         launch_arguments=common_launch_args,
@@ -270,7 +282,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         output="screen",
         parameters=[
             {
-                "deadzone": 0.15,
+                "deadzone": joy_deadzone,
                 "autorepeat_rate": 100.0,
             }
         ],
@@ -372,6 +384,12 @@ def generate_launch_description():
                 "keyboard_joy",
                 default_value="false",
                 description="Launch keyboard joy node (true/false)",
+            ),
+            DeclareLaunchArgument(
+                "controller",
+                default_value="xbox",
+                description="Topside controller: 'xbox' (joystick_interface_auv) or 'flightstick' (flightstick_interface_auv, Logitech Extreme 3D Pro)",
+                choices=["xbox", "flightstick"],
             ),
             DeclareLaunchArgument(
                 "solver_type",
