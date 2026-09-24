@@ -62,16 +62,20 @@ OCTAGON_SURFACE_LIFT = POOL_FLOOR_Z - 1.8
 # applied as a rigid rotate-about-own-centroid-then-translate on top of whatever
 # pose the layout OBJ already has.  Kept separate from PLACEMENT/ELEMENT_ORDER so
 # it is obvious any entry here is a deliberate, tracked departure from the
-# source file.  Empty: every element's pose is currently trusted as-authored in
-# robosub_course_layout_COMBINED.obj.  (torpedo_board's pose went through
-# several rounds of manual correction against earlier, since-superseded export
-# revisions - all abandoned once a fresh export baked the right pose in
-# directly.  If a future export regresses an element's pose, add an entry here
-# rather than editing vertices by hand, and derive the fix from the obj file's
-# own geometry - never from a render: Stonefish's free-look camera does not
-# point along drone_orientation, so a screenshot is not reliable evidence for
-# which way an element is actually facing.)
-POSE_OVERRIDE = {}
+# source file.  If a future export regresses an element's pose, add an entry
+# here rather than editing vertices by hand, and derive the fix from the obj
+# file's own geometry - never from a render: Stonefish's free-look camera does
+# not point along drone_orientation, so a screenshot is not reliable evidence
+# for which way an element is actually facing.
+#
+# slalom: the export lays each WHITE-RED-WHITE set along the course (world X),
+# so the vehicle would drive along the pipes instead of through the sets.
+# Turned 90 deg to the left (world +X -> -Y; +90 deg about the Blender Z-up
+# axis) about its own vertex centroid, which stays where it was: each set now
+# lies across the course and the three sets follow each other along X.
+POSE_OVERRIDE = {
+    "slalom": (1.997449, 6.141378, 90.0),
+}
 
 # Elements whose icon-slot decal needs its face winding reversed, because the
 # export authored it facing into the element instead of out of it.  Empty
@@ -580,6 +584,22 @@ def apply_pose_override(layout: Obj, elem: str, target_x: float, target_y: float
         rx = c * (x - cx) - s * (y - cy) + cx + dx
         ry = s * (x - cx) + c * (y - cy) + cy + dy
         layout.v[i] = f"v {rx:.6f} {ry:.6f} {z:.6f}"
+    # Turn the normals with the geometry. They are appended as new entries
+    # (the layout may share normals between objects) and the faces repointed.
+    new_n: dict[int, int] = {}
+    for (obj, _), faces in layout.faces.items():
+        if obj != elem:
+            continue
+        for f in faces:
+            for k, (v, t, n) in enumerate(f):
+                if n is None:
+                    continue
+                if n not in new_n:
+                    nx, ny, nz = (float(c) for c in layout.vn[n].split()[1:4])
+                    layout.vn.append(
+                        f"vn {c * nx - s * ny:.6f} {s * nx + c * ny:.6f} {nz:.6f}")
+                    new_n[n] = len(layout.vn) - 1
+                f[k] = (v, t, new_n[n])
     print(f"  override: {elem:20s} rotated {dyaw_deg:.1f} deg about own centroid, "
           f"moved to blender ({target_x:.3f}, {target_y:.3f})")
 
