@@ -19,7 +19,7 @@
             <mass value="53.7"/>
             <inertia xyz="11.06 23.11 26.24"/>
             <hydrodynamics viscous_drag="0.15 0.4 0.4" quadratic_drag="0.2 0.2 0.2"/>
-            <cg xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
+            <cg xyz="0.0 0.0 0.025" rpy="0.0 0.0 0.0"/>
         </base_link>
 
         <!-- Gripper -->
