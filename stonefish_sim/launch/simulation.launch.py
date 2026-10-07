@@ -45,8 +45,20 @@ def load_scenario_config(scenario_val):
             "default_config.yaml",
         )
 
+    # Start from config/defaults/*.yaml (e.g. fls.yaml) so params referenced by
+    # every drone .scn are always set; the scenario config overrides them.
+    config = {}
+    defaults_dir = os.path.join(
+        get_package_share_directory("stonefish_sim"), "config", "defaults"
+    )
+    if os.path.isdir(defaults_dir):
+        for filename in sorted(os.listdir(defaults_dir)):
+            if filename.endswith(".yaml"):
+                with open(os.path.join(defaults_dir, filename)) as f:
+                    config.update(yaml.safe_load(f) or {})
+
     with open(config_path) as f:
-        config = yaml.safe_load(f)
+        config.update(yaml.safe_load(f) or {})
 
     return config
 
