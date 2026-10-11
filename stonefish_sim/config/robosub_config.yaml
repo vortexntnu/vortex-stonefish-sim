@@ -3,5 +3,5 @@
 # the gate and lined up with its centre.
 drone_position: "0.0 0.0 2.6"
 drone_orientation: "0.0 0.0 0.0"
-orca_orientation: "-1.57 0.0 0.0"
+orca_orientation: "-1.57 0.0 1.57"
 water_jerlow: "0.20"
