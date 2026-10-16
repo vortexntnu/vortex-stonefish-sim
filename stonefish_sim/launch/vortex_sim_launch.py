@@ -242,7 +242,9 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
     if override_path and os.path.exists(override_path):
         with open(override_path) as f:
             overrides = yaml.safe_load(f) or {}
-        scenario_config = apply_overrides(scenario_config, overrides, f"override file '{override_path}'")
+        scenario_config = apply_overrides(
+            scenario_config, overrides, f"override file '{override_path}'"
+        )
         config_source += f" + override: {override_path}"
 
     if (
@@ -362,12 +364,12 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "window_res_x",
-                default_value="1280",
+                default_value="2560",
                 description="Render window width",
             ),
             DeclareLaunchArgument(
                 "window_res_y",
-                default_value="720",
+                default_value="1440",
                 description="Render window height",
             ),
             DeclareLaunchArgument(
