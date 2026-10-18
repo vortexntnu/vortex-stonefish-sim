@@ -34,5 +34,10 @@
 
   <include file="$(find stonefish_sim)/objects/robosub_venue.scn"/>
   <include file="$(find stonefish_sim)/objects/robosub_course.scn"/>
+  <include file="$(find stonefish_sim)/objects/robosub_landmarks.scn"/>
+
+  <!-- Course landmarks as vortex_msgs/LandmarkArray (replaces robosub_dummy_publisher).
+       landmarks_topic / landmarks_frame_id are set by the launch files from the drone's namespace. -->
+  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0"/>
 
 </scenario>

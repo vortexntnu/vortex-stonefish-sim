@@ -25,8 +25,45 @@ import random
 from ament_index_python.packages import get_package_share_directory
 
 
+# Landmark subtype (vortex_msgs/LandmarkSubtype) shown by each role image, for the
+# $(param robosub_landmark_<slot>) subtypes in objects/robosub_landmarks.scn.
+ROLE_LANDMARK_SUBTYPE = {
+    "Task1_SearchRescue.png": "GATE_SEARCH_RESCUE",
+    "Task1_SurveyRepair.png": "GATE_SURVEY_REPAIR",
+    "Task3_Blood.png": "BIN_SEARCH_RESCUE",
+    "Task3_Fire.png": "BIN_SURVEY_REPAIR",
+    "Task5_Repair.png": "OCTAGON_IMAGE_REPAIR",
+    "Task5_Rescue.png": "OCTAGON_IMAGE_RESCUE",
+    "Task5_Search.png": "OCTAGON_IMAGE_SEARCH",
+    "Task5_Survey.png": "OCTAGON_IMAGE_SURVEY",
+    "Task5_RedCross.png": "TABLE_BASKET_SEARCH_RESCUE",
+    "Task5_Warning.png": "TABLE_BASKET_SURVEY_REPAIR",
+    "Task5_BandAid.png": "TABLE_ITEM_BANDAID",
+    "Task5_Electric.png": "TABLE_ITEM_ELECTRIC",
+    "Task5_NutBolt.png": "TABLE_ITEM_NUTBOLT",
+    "Task5_Pill.png": "TABLE_ITEM_PILL",
+}
+
+# Torpedo icon centres per board version, in the frame of torpedo_board__icon_torpedo_board
+# ($(param robosub_landmark_torpedo_<icon>_point) in objects/robosub_landmarks.scn).
+TORPEDO_ICON_POINTS = {
+    "Task4_ver1.png": {
+        "fire": "-3.8400 13.0430 1.0920",
+        "firetruck": "-3.4480 13.0430 1.0710",
+        "blood": "-3.4150 13.0430 0.8200",
+        "ambulance": "-3.8160 13.0430 0.6760",
+    },
+    "Task4_ver2.png": {
+        "blood": "-3.8440 13.0430 1.1000",
+        "ambulance": "-3.4560 13.0430 1.0820",
+        "fire": "-3.4210 13.0430 0.8220",
+        "firetruck": "-3.8170 13.0430 0.6950",
+    },
+}
+
+
 def icon_parameters(seed=None):
-    """Return {parameter name: texture path} for one run.
+    """Return {parameter name: texture path or landmark value} for one run.
 
     `seed` may be an int, a string, or None/"" for a fresh random draw.  Pass a
     seed to reproduce a previous course layout exactly.
@@ -59,6 +96,11 @@ def icon_parameters(seed=None):
             picks = pool
         for slot, tex in zip(slots, picks):
             params[f"robosub_icon_{slot}"] = f"{tex_dir}/{tex}"
+            if tex in ROLE_LANDMARK_SUBTYPE:
+                params[f"robosub_landmark_{slot}"] = ROLE_LANDMARK_SUBTYPE[tex]
+            if tex in TORPEDO_ICON_POINTS:
+                for icon, point in TORPEDO_ICON_POINTS[tex].items():
+                    params[f"robosub_landmark_torpedo_{icon}_point"] = point
             summary.append(f"    {slot:24s} {tex}")
         summary.append("")
 

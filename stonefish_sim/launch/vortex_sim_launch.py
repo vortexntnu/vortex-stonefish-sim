@@ -227,6 +227,9 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
     merged_config = {
         **scenario_config,
         "drone_file": f"{drone}.scn",
+        # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
+        "landmarks_topic": f"/{namespace}/landmarks",
+        "landmarks_frame_id": f"{namespace}/odom",
     }
 
     sim_node = get_sim_node(

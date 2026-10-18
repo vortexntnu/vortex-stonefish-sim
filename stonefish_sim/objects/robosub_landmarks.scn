@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<scenario>
+  <!-- Landmarks of the RoboSub course, published by stonefish_ros2 as vortex_msgs/LandmarkArray
+       (see <ros_landmarks> in scenarios/robosub.scn). Replaces robosub_dummy_publisher; positions
+       are the same, measured from the course meshes.
+
+       <landmark object="..." type="..." subtype="..." point="x y z" normal="x y z"/>
+         object   a <static>/<dynamic> name; the landmark follows it when it moves
+         point    in the object's frame (course statics use world_transform "4.0 -1.57 3.432"
+                  / "pi 0 pi/2", the octagon "4.0 -1.57 1.8"); omit for the centre of the object
+         normal   in the object's frame; set to publish the yaw of a surface (torpedo board)
+       Role subtypes ($(param robosub_landmark_<slot>)) and the torpedo icon points are drawn by
+       launch/robosub_icons.py with the same seed as the role images. -->
+
+  <landmark object="gate__icon_gate_1" type="GATE" subtype="$(param robosub_landmark_gate_1)" point="2.3410 -0.0230 1.1590"/>
+  <landmark object="gate__icon_gate_2" type="GATE" subtype="$(param robosub_landmark_gate_2)" point="0.7820 -0.0230 1.1590"/>
+  <!-- slalom row 0 -->
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="0.3300 4.1440 0.8080"/>
+  <landmark object="slalom__red" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="1.9150 4.1010 0.8080"/>
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="3.4280 4.1440 0.8080"/>
+  <!-- slalom row 1 -->
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="0.9250 6.1480 0.8080"/>
+  <landmark object="slalom__red" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="2.5100 6.1050 0.8080"/>
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="4.0240 6.1480 0.8080"/>
+  <!-- slalom row 2 -->
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="-0.0750 8.1510 0.8080"/>
+  <landmark object="slalom__red" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="1.5100 8.1070 0.8080"/>
+  <landmark object="slalom__pvc_white" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="3.0240 8.1510 0.8080"/>
+  <!-- torpedo board (icon points depend on the board version drawn by robosub_icons.py) -->
+  <landmark object="torpedo_board__white" type="TORPEDO_BOARD" subtype="TORPEDO_BOARD_WHOLE" point="-3.6340 13.0430 0.8780" normal="0.0000 -1.0000 0.0000"/>
+  <landmark object="torpedo_board__icon_torpedo_board" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRE" point="$(param robosub_landmark_torpedo_fire_point)"/>
+  <landmark object="torpedo_board__icon_torpedo_board" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_BLOOD" point="$(param robosub_landmark_torpedo_blood_point)"/>
+  <landmark object="torpedo_board__icon_torpedo_board" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRETRUCK" point="$(param robosub_landmark_torpedo_firetruck_point)"/>
+  <landmark object="torpedo_board__icon_torpedo_board" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_AMBULANCE" point="$(param robosub_landmark_torpedo_ambulance_point)"/>
+  <!-- bins: rig, each bin from the front, and the role image on each bin floor (down camera) -->
+  <landmark object="bins_pipeline__white" type="BIN" subtype="BIN_STRUCTURE" point="5.7760 12.5440 0.2800"/>
+  <landmark object="bin_1__rgb_ebebeb" type="BIN" subtype="BIN_UNCLASSIFIED" point="5.8040 13.0590 0.6660"/>
+  <landmark object="bin_1__icon_bin_1" type="BIN" subtype="$(param robosub_landmark_bin_1)" point="5.8040 13.0590 0.5270"/>
+  <landmark object="bin_2__rgb_ebebeb" type="BIN" subtype="BIN_UNCLASSIFIED" point="5.2920 12.5590 0.5970"/>
+  <landmark object="bin_2__icon_bin_2" type="BIN" subtype="$(param robosub_landmark_bin_2)" point="5.2920 12.5590 0.4580"/>
+  <landmark object="bin_3__rgb_ebebeb" type="BIN" subtype="BIN_UNCLASSIFIED" point="6.3070 12.5600 0.4280"/>
+  <landmark object="bin_3__icon_bin_3" type="BIN" subtype="$(param robosub_landmark_bin_3)" point="6.3070 12.5600 0.2890"/>
+  <landmark object="bin_4__rgb_ebebeb" type="BIN" subtype="BIN_UNCLASSIFIED" point="5.7910 12.0480 0.3950"/>
+  <landmark object="bin_4__icon_bin_4" type="BIN" subtype="$(param robosub_landmark_bin_4)" point="5.7910 12.0480 0.2550"/>
+  <!-- octagon at the surface and its four image plates -->
+  <landmark object="octagon__white" type="OCTAGON" subtype="OCTAGON_WHOLE" point="1.6840 15.2540 1.8000"/>
+  <landmark object="octagon__icon_octagon_1" type="OCTAGON" subtype="$(param robosub_landmark_octagon_1)" point="1.6830 16.5500 1.5570"/>
+  <landmark object="octagon__icon_octagon_2" type="OCTAGON" subtype="$(param robosub_landmark_octagon_2)" point="2.6000 14.3370 1.5570"/>
+  <landmark object="octagon__icon_octagon_3" type="OCTAGON" subtype="$(param robosub_landmark_octagon_3)" point="0.3870 15.2540 1.5570"/>
+  <landmark object="octagon__icon_octagon_4" type="OCTAGON" subtype="$(param robosub_landmark_octagon_4)" point="2.6000 16.1710 1.5570"/>
+  <!-- table, its baskets and the items on it (down camera) -->
+  <landmark object="restore_table__white" type="TABLE" subtype="TABLE_WHOLE" point="1.6830 15.2540 0.7150"/>
+  <landmark object="restore_table__icon_restore_table_1" type="TABLE" subtype="$(param robosub_landmark_restore_table_1)" point="2.0760 15.2640 0.6880"/>
+  <landmark object="restore_table__icon_restore_table_2" type="TABLE" subtype="$(param robosub_landmark_restore_table_2)" point="1.2880 15.2650 0.6880"/>
+  <landmark object="restore_jar_1" type="TABLE" subtype="$(param robosub_landmark_restore_jar_1)" point="0.0000 0.0000 0.0260"/>
+  <landmark object="restore_jar_2" type="TABLE" subtype="$(param robosub_landmark_restore_jar_2)" point="0.0000 0.0000 0.0260"/>
+  <landmark object="restore_container_1" type="TABLE" subtype="$(param robosub_landmark_restore_container_1)" point="0.0000 0.0000 0.0140"/>
+  <landmark object="restore_container_2" type="TABLE" subtype="$(param robosub_landmark_restore_container_2)" point="0.0000 0.0000 0.0140"/>
+</scenario>

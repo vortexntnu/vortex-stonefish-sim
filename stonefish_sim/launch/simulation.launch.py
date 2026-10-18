@@ -139,6 +139,9 @@ def launch_setup(context, *args, **kwargs):
 
     drone_config = {
         "drone_file": f"{drone}.scn",
+        # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
+        "landmarks_topic": f"/{namespace}/landmarks",
+        "landmarks_frame_id": f"{namespace}/odom",
     }
 
     if scenario_val == "robosub":
