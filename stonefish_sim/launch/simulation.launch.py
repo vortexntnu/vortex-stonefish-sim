@@ -143,6 +143,7 @@ def launch_setup(context, *args, **kwargs):
         "landmarks_frame_id": f"{namespace}/odom",
         "landmarks_front_camera": f"{drone}/front_camera_optical",
         "landmarks_down_camera": f"{drone}/downwards_camera_optical",
+        "waypoint_topic": f"/{namespace}/debug/waypoint",
     }
 
 
