@@ -252,7 +252,8 @@ void StonefishSimInterface::publish_magnetometer(
 
     std::normal_distribution<double> noise(0.0, magnetometer_noise_std_);
     tf2::Vector3 field =
-        tf2::quatRotate(ned_to_sensor.inverse(), magnetometer_earth_field_ned_) +
+        tf2::quatRotate(ned_to_sensor.inverse(),
+                        magnetometer_earth_field_ned_) +
         magnetometer_hard_iron_ +
         tf2::Vector3(noise(noise_generator_), noise(noise_generator_),
                      noise(noise_generator_));
