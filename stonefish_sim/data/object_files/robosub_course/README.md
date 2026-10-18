@@ -11,7 +11,7 @@ tools/import_robosub_course.py <path-to>/Stonefish_Export \
 The `--extra-textures` folder is optional but recommended: the handbook says two
 versions of the torpedo board exist, and the Stonefish export ships only
 `Task4_ver2.png`. `Task4_ver1.png` lives in the RoboNation task-design tree, and
-without it the board cannot be randomized (the importer says so and carries on).
+without it the board can only show version 2 (the importer says so and carries on).
 
 ## Source: the layout OBJ, not the placement table
 
@@ -75,12 +75,10 @@ same 36 131 vertices as the per-element files summed, so nothing is lost.
 6. **Emits looks** into `metadata/robosub_looks.scn`, deduplicated across
    elements by texture path or by `Kd` colour — except role images, which become
    per-slot looks (below).
-7. **Creates icon slots.** Every swappable role image gets its own uniquely
-   named look whose texture is `$(param robosub_icon_<slot>)`, plus a manifest
-   in `metadata/robosub_icons.json` describing what may be shuffled into it.
-   This is why `bin_1`…`bin_4` are separate elements rather than part of
-   `bins_pipeline`: two bins showing the same image still need separate looks,
-   or they could not be shuffled apart.
+7. **Creates icon slots.** Every role image gets its own uniquely named look
+   (`robo_icon_<slot>`), so the image a slot shows can be changed in
+   `metadata/robosub_looks.scn` without touching the meshes. This is why
+   `bin_1`…`bin_4` are separate elements rather than part of `bins_pipeline`.
 
 ## Generated outputs
 
@@ -91,7 +89,6 @@ same 36 131 vertices as the per-element files summed, so nothing is lost.
 | `textures/*.png` | every PNG referenced by the MTLs |
 | `../../../objects/robosub_course.scn` | the course bodies |
 | `../../../metadata/robosub_looks.scn` | the looks |
-| `../../../metadata/robosub_icons.json` | which role images may be randomized |
 
 ## Resulting world placement
 
@@ -110,30 +107,27 @@ Depth is Z (down-positive, water surface 0, pool floor 3.432).
 | restore_jar_1 / _2 | 22.13 | -0.01 / 0.23 | 2.63 |
 | restore_container_1 / _2 | 22.37 | -0.01 / 0.23 | 2.64 |
 
-## Role-image randomization
+## Role images
 
-Every run draws a fresh arrangement of the role images (27 648 distinct course
-layouts). `launch/robosub_icons.py` shuffles each group in
-`metadata/robosub_icons.json` and passes the result as `robosub_icon_<slot>`
-parameters, which stonefish_ros2 substitutes into the `texture=` attributes.
-Nothing is rewritten on disk.
+The course is fixed: no seed and no randomization. Each slot's image is set in
+`metadata/robosub_looks.scn`, and `objects/robosub_landmarks.scn` gives the
+landmark subtype each slot shows (they must agree when you change an image):
 
-```bash
-ros2 launch stonefish_sim vortex_sim_launch.py scenario:=robosub
-# [robosub] icon seed 1617792965 (reproduce with robosub_icon_seed:=1617792965)
+| slot | image |
+|---|---|
+| gate_1 / gate_2 | Search & Rescue / Survey & Repair |
+| bin_1, bin_2 / bin_3, bin_4 | Blood / Fire |
+| torpedo_board | version 1 |
+| octagon_1 … _4 | Repair, Rescue, Search, Survey |
+| restore_table_1 / _2 | Red Cross / Warning |
+| restore_jar_1, _2, restore_container_1, _2 | Band-Aid, Electric, Nut & Bolt, Pill |
 
-ros2 launch stonefish_sim vortex_sim_launch.py scenario:=robosub robosub_icon_seed:=42
-```
-
-Every run prints its seed; passing that seed back reproduces the layout exactly.
-To pin one image, override its parameter via `scenario_config_override`.
-
-### What varies, and what must not
+### Other valid layouts (if you change images by hand)
 
 The handbook fixes *which* images exist and *how many* of each, and leaves only
-their placement open. So each group is a **permutation of a fixed pool**, never
-an independent per-slot draw — you always get exactly one Survey & Repair gate
-side, exactly two 🔥 bins and two 🩸 bins, exactly one of each octagon plate.
+their placement open. When changing images, keep each group a **permutation of
+its pool** — exactly one Survey & Repair gate side, exactly two 🔥 bins and two
+🩸 bins, exactly one of each octagon plate.
 
 | group | handbook | slots | arrangements | rule |
 |---|---|---|---|---|
@@ -144,11 +138,11 @@ side, exactly two 🔥 bins and two 🩸 bins, exactly one of each octagon plate
 | `basket_floors` | §3.2.6 | 2 | 2 | "⚠️ at the bottom of the Survey & Repair basket, ⛑️ at the bottom of Search & Rescue" — which edge is unspecified |
 | `table_items` | §3.2.6 | 4 | 24 | "two different items for each role: 🔩 and 🔌; 💊 and 🩹" — one each, table positions unspecified |
 
-**Deliberately never randomized**, because the handbook pins them down as
+**Never change these**, because the handbook pins them down as
 navigation cues:
 
 - The gate's corrugated panel pattern — **RED upper-right / BLACK lower-right**,
-  BLACK upper-left / RED lower-left ("Red, Right, Above", §3.2.2). Randomizing
+  BLACK upper-left / RED lower-left ("Red, Right, Above", §3.2.2). Changing
   this would break gate-side identification.
 - The slalom's **White / Red / White** pipe colours (§3.2.3).
 - The red gate divider.
@@ -157,12 +151,12 @@ navigation cues:
 
 ### Not modelled
 
-Two randomization-adjacent things in the handbook have no geometry yet, so
-nothing here covers them:
+Two per-run variables in the handbook have no geometry yet, so nothing here
+covers them:
 
 - **Task 3 magnetic lights** (§3.2.4): "at the start of a run, the light will be
   turned on signaling the need for repair or rescue". Which bins are lit is a
-  per-run variable that belongs in this system once the lights exist.
+  per-run variable for when the lights exist.
 - **Task 1 coin flips** (§3.2.1): starting heading, and role assignment when no
   visual indicator is available. These affect the *vehicle*, not the course.
 
