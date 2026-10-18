@@ -213,6 +213,8 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
         "landmarks_topic": f"/{namespace}/landmarks",
         "landmarks_frame_id": f"{namespace}/odom",
+        "landmarks_front_camera": f"{drone}/front_camera_optical",
+        "landmarks_down_camera": f"{drone}/downwards_camera_optical",
     }
 
     sim_node = get_sim_node(

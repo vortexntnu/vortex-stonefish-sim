@@ -33,7 +33,9 @@
   <include file="$(find stonefish_sim)/objects/robosub_landmarks.scn"/>
 
   <!-- Course landmarks as vortex_msgs/LandmarkArray (replaces robosub_dummy_publisher).
-       landmarks_topic / landmarks_frame_id are set by the launch files from the drone's namespace. -->
-  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0"/>
+       profile: none, realistic, unstable or erratic detection errors (also in the editor panel).
+       The topic, frame and cameras are set by the launch files from the drone. -->
+  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="none"
+                 front_camera="$(param landmarks_front_camera)" down_camera="$(param landmarks_down_camera)"/>
 
 </scenario>
