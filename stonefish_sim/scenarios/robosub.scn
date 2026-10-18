@@ -1,15 +1,12 @@
 <?xml version="1.0"?>
 <scenario>
-  <!-- RoboSub 2026 competition course.
-       Course elements: Blender export of the RoboNation CAD / 2026 Team Handbook
-       models, imported by tools/import_robosub_course.py into
-       data/object_files/robosub_course/.  Poses come from the export's
-       robosub_course_layout_COMBINED.obj, which is the authority for the layout
-       (the STONEFISH_SETUP.md placement table disagrees with it).
-       Venue shell (pool basin + decor): MathWorks "RoboSub Virtual Environment"
-       (UE 5.3), see data/object_files/robosub/README.md.
-       World frame: X forward (down the course), Y right, Z down.
-       Water surface at Z = 0, pool floor at Z ~ 3.43. -->
+  <!-- RoboSub 2026 competition course: the pool and course of the Unity simulator
+       (auv-sim-unity RoboSub2026.unity), exported with Tools/Vortex/Export Course to
+       Stonefish into data/object_files/robosub_course/, objects/robosub_course.scn,
+       metadata/robosub_looks.scn and objects/robosub_landmarks.scn.
+       World frame (= Vortex odom): origin at Orca's start on the surface, X down the
+       course, Y right, Z down. 25 x 50 m pool, floor at Z = 2.1.
+       Edit it in the simulator: press E. -->
 
   <environment>
     <ned latitude="33.685" longitude="-117.826"/> <!-- Woollett Aquatics Center, Irvine CA -->
@@ -32,7 +29,6 @@
 
   <include file="$(find stonefish_sim)/drones/$(param drone_file)"/>
 
-  <include file="$(find stonefish_sim)/objects/robosub_venue.scn"/>
   <include file="$(find stonefish_sim)/objects/robosub_course.scn"/>
   <include file="$(find stonefish_sim)/objects/robosub_landmarks.scn"/>
 

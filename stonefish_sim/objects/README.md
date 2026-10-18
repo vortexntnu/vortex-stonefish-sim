@@ -4,7 +4,9 @@ This directory holds custom tasks to be imported into the scenarios.
 
 ## RoboSub
 
-- `robosub_venue.scn` — pool basin + venue decor (hand-written).
-- `robosub_course.scn` — the RoboSub 2026 course elements. **Generated** by
-  `tools/import_robosub_course.py`; edit that script, not this file.
-  See `data/object_files/robosub_course/README.md`.
+- `robosub_course.scn` — the pool and RoboSub 2026 course, exported from the Unity
+  simulator (`auv-sim-unity`, Tools/Vortex/Export Course to Stonefish).
+- `robosub_landmarks.scn` — the course landmarks the simulator publishes.
+
+Move objects and landmarks in the simulator (press E, then Save), or re-export
+from Unity. See `data/object_files/robosub_course/README.md`.
