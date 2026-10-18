@@ -1,6 +1,7 @@
 #ifndef STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
 #define STONEFISH_SIM_INTERFACE__STONEFISH_SIM_INTERFACE_HPP_
 
+#include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/pose_stamped.hpp>
@@ -10,7 +11,9 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/publisher.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <random>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <sensor_msgs/msg/magnetic_field.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <stonefish_ros2/msg/dvl.hpp>
@@ -33,6 +36,8 @@ class StonefishSimInterface : public rclcpp::Node {
     void sonar_info_callback(
         const stonefish_ros2::msg::SonarInfo::SharedPtr sonar_msg);
     void gripper_callback(const sensor_msgs::msg::JointState::SharedPtr msg);
+
+    void publish_magnetometer(const nav_msgs::msg::Odometry& odom_msg);
 
     rclcpp::Subscription<vortex_msgs::msg::ThrusterForces>::SharedPtr
         drone_thruster_sub_;
@@ -61,6 +66,15 @@ class StonefishSimInterface : public rclcpp::Node {
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr gripper_sub_;
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr
         stonefish_servo_pub_;
+
+    rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr
+        magnetometer_pub_;
+    tf2::Vector3 magnetometer_earth_field_ned_;
+    tf2::Vector3 magnetometer_hard_iron_;
+    tf2::Quaternion magnetometer_base_to_sensor_;
+    double magnetometer_noise_std_;
+    std::string magnetometer_frame_;
+    std::mt19937 noise_generator_;
 
     bool mock_odom_{false};
     std::string tf_name_prefix_;

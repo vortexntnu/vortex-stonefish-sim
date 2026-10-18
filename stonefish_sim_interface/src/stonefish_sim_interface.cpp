@@ -5,6 +5,7 @@
 #include <cmath>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <vector>
 
 StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
     : Node("stonefish_sim_interface", options) {
@@ -97,9 +98,51 @@ StonefishSimInterface::StonefishSimInterface(const rclcpp::NodeOptions& options)
                 "stonefish/servos", rclcpp::QoS(10).reliable());
     }
 
+    std::string magnetometer_topic =
+        this->declare_parameter<std::string>("topics.magnetometer", "");
+
+    if (magnetometer_topic.empty()) {
+        spdlog::warn(
+            "Parameter 'topics.magnetometer' is empty. "
+            "Magnetometer will not be published.");
+    } else {
+        // The magnetometer is the one in the Nucleus, so it is in the dvl
+        // frame. The parameters are the truth of the sim, the filter has its
+        // own.
+        std::vector<double> earth_field_ned =
+            this->declare_parameter<std::vector<double>>(
+                "magnetometer.earth_field_ned");
+        if (earth_field_ned.size() != 3)
+            throw std::runtime_error("Invalid earth_field_ned size");
+        magnetometer_earth_field_ned_ = tf2::Vector3(
+            earth_field_ned[0], earth_field_ned[1], earth_field_ned[2]);
+
+        std::vector<double> hard_iron =
+            this->declare_parameter<std::vector<double>>(
+                "magnetometer.hard_iron");
+        if (hard_iron.size() != 3)
+            throw std::runtime_error("Invalid hard_iron size");
+        magnetometer_hard_iron_ =
+            tf2::Vector3(hard_iron[0], hard_iron[1], hard_iron[2]);
+
+        double sensor_yaw =
+            this->declare_parameter<double>("magnetometer.sensor_yaw");
+        magnetometer_base_to_sensor_.setRPY(0.0, 0.0, sensor_yaw);
+
+        magnetometer_noise_std_ =
+            this->declare_parameter<double>("magnetometer.noise_std");
+        noise_generator_.seed(
+            this->declare_parameter<int>("magnetometer.noise_seed"));
+
+        magnetometer_pub_ =
+            this->create_publisher<sensor_msgs::msg::MagneticField>(
+                magnetometer_topic, qos_sensor_data);
+    }
+
     drone_name_ = this->declare_parameter<std::string>("drone", "orca");
     mock_odom_ = this->declare_parameter<bool>("mock_odom");
     tf_name_prefix_ = this->declare_parameter<std::string>("tf_name_prefix");
+    magnetometer_frame_ = tf_name_prefix_ + "/dvl_link";
     if (mock_odom_) {
         odom_tf_pub_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
         spdlog::info(
@@ -164,6 +207,7 @@ void StonefishSimInterface::odom_callback(
 
     pose_pub_->publish(posestamped_msg);
     twist_pub_->publish(twist_msg);
+    publish_magnetometer(*odom_msg);
 
     if (mock_odom_) {
         geometry_msgs::msg::TransformStamped transform_stamped;
@@ -192,6 +236,38 @@ void StonefishSimInterface::odom_callback(
 
         odom_tf_pub_->sendTransform(transform_stamped);
     }
+}
+
+void StonefishSimInterface::publish_magnetometer(
+    const nav_msgs::msg::Odometry& odom_msg) {
+    if (!magnetometer_pub_) {
+        return;
+    }
+
+    // the odometry orientation is base_link in NED
+    const auto& orientation = odom_msg.pose.pose.orientation;
+    tf2::Quaternion ned_to_base(orientation.x, orientation.y, orientation.z,
+                                orientation.w);
+    tf2::Quaternion ned_to_sensor = ned_to_base * magnetometer_base_to_sensor_;
+
+    std::normal_distribution<double> noise(0.0, magnetometer_noise_std_);
+    tf2::Vector3 field =
+        tf2::quatRotate(ned_to_sensor.inverse(), magnetometer_earth_field_ned_) +
+        magnetometer_hard_iron_ +
+        tf2::Vector3(noise(noise_generator_), noise(noise_generator_),
+                     noise(noise_generator_));
+
+    sensor_msgs::msg::MagneticField magnetometer_msg;
+    magnetometer_msg.header.stamp = odom_msg.header.stamp;
+    magnetometer_msg.header.frame_id = magnetometer_frame_;
+    magnetometer_msg.magnetic_field.x = field.x();
+    magnetometer_msg.magnetic_field.y = field.y();
+    magnetometer_msg.magnetic_field.z = field.z();
+    double variance = magnetometer_noise_std_ * magnetometer_noise_std_;
+    magnetometer_msg.magnetic_field_covariance[0] = variance;
+    magnetometer_msg.magnetic_field_covariance[4] = variance;
+    magnetometer_msg.magnetic_field_covariance[8] = variance;
+    magnetometer_pub_->publish(magnetometer_msg);
 }
 
 void StonefishSimInterface::dvl_callback(
