@@ -215,7 +215,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         "landmarks_frame_id": f"{namespace}/odom",
         "landmarks_front_camera": f"{drone}/front_camera_optical",
         "landmarks_down_camera": f"{drone}/downwards_camera_optical",
-        "waypoint_topic": f"/{namespace}/debug/waypoint",
+        "waypoint_topic": f"/{namespace}/current_waypoint",
     }
 
     sim_node = get_sim_node(
