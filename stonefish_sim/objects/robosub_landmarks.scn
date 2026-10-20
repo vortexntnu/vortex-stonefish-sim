@@ -1,44 +1,44 @@
 <?xml version="1.0"?>
 <scenario>
-  <!-- Landmarks of the course (exported from the Unity VortexLandmark components). Points are in
-       the world frame; the bodies have identity transforms, so they are also in the object frame. -->
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="13.1420 8.0027 1.3232"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SEARCH_RESCUE" point="13.1390 8.0055 1.4433" camera="down"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="12.3580 8.1527 1.6351"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="5.5620 2.1160 1.2000"/>
-  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_WHOLE" point="20.4979 4.8917 0.0000"/>
-  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_AMBULANCE" point="15.4726 0.1356 1.3460"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SURVEY_REPAIR" point="12.9060 7.5010 1.5600" camera="down"/>
-  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_SURVEY" point="20.4979 3.5417 0.1780"/>
-  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRETRUCK" point="15.8553 0.0612 0.9590"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="12.9080 7.4997 1.4435"/>
-  <landmark object="gate__blackmat" type="GATE" subtype="GATE_SEARCH_RESCUE" point="3.4027 0.5541 0.2294"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="9.9294 1.8663 1.2000"/>
-  <landmark object="lane_marker_1__orangemat" type="PATH_MARKER" subtype="PATH_MARKER_WHOLE" point="10.3500 2.1500 2.1000" camera="down"/>
-  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_RESCUE" point="21.8479 4.8917 0.1780"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_NUTBOLT" point="20.2303 4.9821 1.3379" camera="down"/>
-  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_BLOOD" point="15.8870 0.0550 1.2122"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_BASKET_SEARCH_RESCUE" point="20.3200 5.2105 1.3602" camera="down"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="8.2422 0.6709 1.2000"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SEARCH_RESCUE" point="12.0700 7.6680 1.8014" camera="down"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_BANDAID" point="20.4715 4.7853 1.3568" camera="down"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="7.7142 2.0749 1.2000"/>
-  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_SEARCH" point="20.4979 6.2417 0.1780"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_BASKET_SURVEY_REPAIR" point="20.3200 4.4080 1.3602" camera="down"/>
-  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_REPAIR" point="19.1479 4.8917 0.1780"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="6.6180 -0.6920 1.2000"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_PILL" point="20.2179 4.7465 1.3379" camera="down"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_ELECTRIC" point="20.3574 4.8718 1.3568" camera="down"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_STRUCTURE" point="12.5815 7.8262 1.6583"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SURVEY_REPAIR" point="12.3609 8.1491 1.7560" camera="down"/>
-  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRE" point="15.4523 0.1395 0.9261"/>
-  <landmark object="gate__blackmat" type="GATE" subtype="GATE_SURVEY_REPAIR" point="3.8782 -1.2203 0.2294"/>
-  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="12.0703 7.6621 1.6790"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="9.4015 3.2703 1.2000"/>
-  <landmark object="lane_marker__orangemat" type="PATH_MARKER" subtype="PATH_MARKER_WHOLE" point="4.2110 -0.1500 2.0950" camera="down"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="6.0900 0.7120 1.2000"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="10.4574 0.4622 1.2000"/>
-  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_WHOLE" point="20.3200 4.8100 1.3066"/>
-  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="7.1863 3.4789 1.2000"/>
-  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_BOARD_WHOLE" point="15.6785 0.2336 1.4494" normal="0.1908 0.9816 0.0000"/>
+  <!-- Landmarks of the course (exported from the Unity VortexLandmark components). Points and
+       normals are in the object's own frame (X = Unity forward, Y right, Z down). -->
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SEARCH_RESCUE" point="1.3650 0.1885 -0.6567" camera="down"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SURVEY_REPAIR" point="1.1320 -0.3160 -0.5400" camera="down"/>
+  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_WHOLE" point="0.0000 0.0000 0.0000"/>
+  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRETRUCK" point="-0.0020 -0.1983 -1.1410"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_WHOLE" point="0.0000 0.0000 -0.7934"/>
+  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_BOARD_WHOLE" point="0.1335 0.0081 -0.6506" normal="1.0000 0.0000 0.0000"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="2.0000 2.2040 -0.9000"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_BANDAID" point="0.1515 -0.0247 -0.7432" camera="down"/>
+  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_FIRE" point="-0.0020 0.2122 -1.1739"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="0.0000 -1.5000 -0.9000"/>
+  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_SURVEY" point="1.3500 0.0000 0.1780"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_NUTBOLT" point="-0.0897 0.1721 -0.7621" camera="down"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="0.5840 0.3357 -0.4649"/>
+  <landmark object="gate__blackmat" type="GATE" subtype="GATE_SURVEY_REPAIR" point="0.0000 0.9010 0.2294"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_PILL" point="-0.1021 -0.0636 -0.7621" camera="down"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_STRUCTURE" point="0.8075 0.0092 -0.4417"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="2.0000 0.7040 -0.9000"/>
+  <landmark object="lane_marker__orangemat" type="PATH_MARKER" subtype="PATH_MARKER_WHOLE" point="0.0000 0.0000 0.0000" camera="down"/>
+  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_BLOOD" point="-0.0020 -0.2306 -0.8878"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="4.0000 -0.2710 -0.9000"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_RED" point="0.0000 0.0000 -0.9000"/>
+  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_RESCUE" point="0.0000 1.3500 0.1780"/>
+  <landmark object="board__board_1" type="TORPEDO_BOARD" subtype="TORPEDO_ICON_AMBULANCE" point="-0.0020 0.1916 -0.7540"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="1.1340 -0.3173 -0.6565"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_BASKET_SURVEY_REPAIR" point="0.0000 -0.4020 -0.7398" camera="down"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_ITEM_ELECTRIC" point="0.0374 0.0618 -0.7432" camera="down"/>
+  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_SEARCH" point="-1.3500 0.0000 0.1780"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="0.0000 1.5000 -0.9000"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SURVEY_REPAIR" point="0.5869 0.3321 -0.3440" camera="down"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="4.0000 1.2290 -0.9000"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="0.2963 -0.1549 -0.4210"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="4.0000 -1.7710 -0.9000"/>
+  <landmark object="octagon__blackmat" type="OCTAGON" subtype="OCTAGON_IMAGE_REPAIR" point="0.0000 -1.3500 0.1780"/>
+  <landmark object="gate__blackmat" type="GATE" subtype="GATE_SEARCH_RESCUE" point="0.0000 -0.9360 0.2294"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_UNCLASSIFIED" point="1.3680 0.1857 -0.7768"/>
+  <landmark object="lane_marker_1__orangemat" type="PATH_MARKER" subtype="PATH_MARKER_WHOLE" point="0.0000 0.0000 0.0000" camera="down"/>
+  <landmark object="table__bandaid" type="TABLE" subtype="TABLE_BASKET_SEARCH_RESCUE" point="0.0000 0.4005 -0.7398" camera="down"/>
+  <landmark object="bin_structure__blood" type="BIN" subtype="BIN_SEARCH_RESCUE" point="0.2960 -0.1490 -0.2986" camera="down"/>
+  <landmark object="slalom_triple__blackmat" type="SLALOM_PIPE" subtype="SLALOM_PIPE_WHITE" point="2.0000 -0.7960 -0.9000"/>
 </scenario>
