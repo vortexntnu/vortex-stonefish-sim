@@ -40,5 +40,6 @@
 
   <!-- The waypoint the vehicle is going to (waypoint_manager's current_waypoint), drawn in the 3D view only -->
   <ros_waypoint topic="$(param waypoint_topic)"/>
+  <ros_landmark_frames map_frame="$(param landmarks_map_frame)" world_frame="$(param landmarks_frame_id)"/>
 
 </scenario>
