@@ -285,9 +285,9 @@
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <ros_publisher topic="/nautilus/odom"/>
         </sensor>
-
-        <sensor name="imu_link" rate="20.0" type="imu">
-            <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
+        
+        <sensor name="imu_link" rate="200.0" type="imu">
+            <range angular_velocity="10.0 10.0 5.0" linear_acceleration="40.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
             <history samples="1"/>
             <origin xyz="-0.1 -0.001 0.085" rpy="0.0 0.0 0.0"/>
