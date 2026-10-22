@@ -1,0 +1,7 @@
+# Orca starts where the AUV starts in the Unity RoboSub2026 scene: the origin of the
+# world (odom) frame, 1 m deep, facing down the course (+X). The gate is 3.6 m ahead
+# with its opening between 0.05 and 1.27 m depth.
+drone_position: "0.0 0.0 1.0"
+drone_orientation: "0.0 0.0 0.0"
+orca_orientation: "-1.57 0.0 1.57"
+water_jerlow: "0.20"

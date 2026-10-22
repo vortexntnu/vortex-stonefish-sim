@@ -21,5 +21,7 @@
             <look name="pipe" gray="0.5" roughness="0.4" metalness="0.5" texture="object_files/pipe2.png"/>
             <look name="Silver" gray="0.8" roughness="0.15" metalness="0.9"/>
             <look name="Blue" rgb="0.1 0.35 0.9" roughness="0.8" metalness="0.0" reflectivity="0.05"/>
+
+            <!-- RoboSub course looks live in metadata/robosub_looks.scn (generated). -->
         </looks>
     </scenario>
