@@ -95,12 +95,12 @@ note "workspace: $WS"
 
 is_sf() { [[ -f "$1/CMakeLists.txt" ]] && grep -q "project(Stonefish" "$1/CMakeLists.txt"; }
 if [[ -z "$SF" ]]; then
-    for c in ~/stonefish ~/Stonefish "$WS/../stonefish" ~/src/stonefish ~/git/stonefish ~/repos/stonefish; do
+    for c in "$WS/src/stonefish" "$WS/src/Stonefish" ~/stonefish ~/Stonefish "$WS/../stonefish" ~/src/stonefish ~/git/stonefish ~/repos/stonefish; do
         is_sf "$c" && { SF="$c"; break; }
     done
 fi
 if [[ -z "$SF" ]]; then
-    found="$(find ~ -maxdepth 4 -name CMakeLists.txt -path '*tonefish*' -not -path '*/build/*' 2>/dev/null |
+    found="$(find ~ -maxdepth 6 -name CMakeLists.txt -path '*tonefish*' -not -path '*/build/*' 2>/dev/null |
              while read -r f; do d="$(dirname "$f")"; is_sf "$d" && echo "$d" && break; done || true)"
     SF="$found"
 fi
@@ -270,6 +270,12 @@ step "Building the simulator packages in $WS"
 if $SF_REBUILT || ! grep -qsxE "Stonefish_DIR:[A-Z]+=$PREFIX/lib/cmake/Stonefish" "$WS/build/stonefish_ros2/CMakeCache.txt"; then
     note "clean build of stonefish_ros2"
     run rm -rf "$WS/build/stonefish_ros2" "$WS/install/stonefish_ros2"
+fi
+# A Stonefish in src/ gets built by colcon into install/Stonefish, which comes before $PREFIX:
+# remove that copy so stonefish_ros2 uses the one installed above
+if [[ -d "$WS/install/Stonefish" ]]; then
+    note "removing the workspace's own Stonefish build (install/Stonefish)"
+    run rm -rf "$WS/build/Stonefish" "$WS/install/Stonefish"
 fi
 (
     cd "$WS"
