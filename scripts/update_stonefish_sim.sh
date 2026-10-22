@@ -216,6 +216,19 @@ done
 
 $SKIP_BUILD && { step "Repos updated (--skip-build)"; exit 0; }
 
+# --- ROS dependencies (e.g. PCL for stonefish_ros2) --------------------------------------
+
+step "Installing the ROS dependencies of the simulator packages"
+command -v rosdep >/dev/null || run sudo apt-get install -y python3-rosdep
+[[ -d /etc/ros/rosdep/sources.list.d ]] || run sudo rosdep init
+run rosdep update -q
+(
+    set +u # ROS setup files use unset variables
+    source /opt/ros/humble/setup.bash
+    run rosdep install -y --ignore-src --rosdistro humble --from-paths \
+        "$WS/src/stonefish_ros2" "$WS/src/vortex-stonefish-sim" "$WS/src/vortex-msgs" "$WS/src/vortex-utils"
+)
+
 # --- Stonefish ---------------------------------------------------------------------------
 
 CMAKE_ARGS=()
