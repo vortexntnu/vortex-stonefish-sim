@@ -1,10 +1,11 @@
 #!/bin/bash
 # Set up or update the Stonefish simulator stack: Stonefish 1.6 with the scene editor, the
-# workspace repos on the right branches, and a build of the simulator packages.
+# simulator's repos on main, and a build of the simulator packages. The mission stack (vortex-auv,
+# vortex-cv) is not touched.
 #
 # Safe to run again: repos that are up to date are left alone, and Stonefish is only rebuilt
 # when its source changed. First time, without the repo:
-#   bash <(curl -fsSL https://raw.githubusercontent.com/vortexntnu/vortex-stonefish-sim/feat/scene-landmarks/scripts/update_stonefish_sim.sh)
+#   bash <(curl -fsSL https://raw.githubusercontent.com/vortexntnu/vortex-stonefish-sim/main/scripts/update_stonefish_sim.sh)
 
 set -euo pipefail
 
@@ -34,14 +35,12 @@ EOF
 
 # Repo in src/ and the branch it must be on
 REPOS=(
-    "stonefish_ros2:feat/scene-editor"
-    "vortex-stonefish-sim:feat/scene-landmarks"
-    "vortex-auv:rework/landmark-server"
-    "vortex-cv:rework/landmark-server"
-    "vortex-msgs:rework/landmark-server"
-    "vortex-utils:feat/waypoint-manager-reference-filter"
+    "stonefish_ros2:main"
+    "vortex-stonefish-sim:main"
+    "vortex-msgs:main"
+    "vortex-utils:main"
 )
-STONEFISH_BRANCH="feat/stonefish-1.6-scene-editor"
+STONEFISH_BRANCH="main"
 STONEFISH_VERSION="1.6.0"
 GITHUB="vortexntnu"
 
@@ -187,6 +186,7 @@ update_repo() {
         [[ "$(git -C "$dir" branch --show-current)" != "$branch" ]] && run git -C "$dir" checkout -q "$branch"
     else
         run git -C "$dir" checkout -q -b "$branch" --track "$remote/$branch"
+        $DRY && return
     fi
     local local_ref remote_ref
     local_ref="$(git -C "$dir" rev-parse "refs/heads/$branch")"
@@ -258,22 +258,20 @@ if $SF_REBUILT || ! grep -qsxE "Stonefish_DIR:[A-Z]+=$PREFIX/lib/cmake/Stonefish
     note "clean build of stonefish_ros2"
     run rm -rf "$WS/build/stonefish_ros2" "$WS/install/stonefish_ros2"
 fi
-BUILD="$WS/src/vortex-cv/perception_setup/scripts/build_robosub_sim.sh"
-[[ -x "$BUILD" ]] || die "$BUILD is missing"
 (
     cd "$WS"
     set +u # ROS setup files use unset variables
-    if (( ${#CMAKE_ARGS[@]} )); then
-        run nice -n 10 "$BUILD" --jobs "$JOBS" -- --cmake-args "${CMAKE_ARGS[@]}"
-    else
-        run nice -n 10 "$BUILD" --jobs "$JOBS"
-    fi
+    source /opt/ros/humble/setup.bash
+    export MAKEFLAGS="-j$JOBS"
+    run nice -n 10 colcon build --symlink-install --parallel-workers "$JOBS" \
+        --packages-up-to stonefish_sim stonefish_sim_interface \
+        ${CMAKE_ARGS[@]:+--cmake-args "${CMAKE_ARGS[@]}"}
 )
 
 step "Done"
 cat <<EOF
     source $WS/install/setup.bash
-    cd $WS && src/vortex-cv/perception_setup/scripts/tmux_robosub_sim.sh --drone orca [--spawn slalom]
+    ros2 launch stonefish_sim vortex_sim_launch.py scenario:=robosub [drone:=orca] [spawn:=slalom]
 
     In the simulator window: Tab = scene editor (Q/W/E, Ctrl+S saves), "Debug view" for the waypoint
     and the landmark server's frames. Run this script again to update.
