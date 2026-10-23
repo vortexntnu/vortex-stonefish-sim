@@ -36,6 +36,9 @@ These are the relevant ROS 2 packages for simulation.
 - [Vortex Stonefish Sim package](https://github.com/vortexntnu/vortex-stonefish-sim) (Required)
 - [Stonefish Interface package](https://github.com/vortexntnu/vortex-stonefish-interface) (Optional)
 
+## Simulated magnetometer
+Stonefish has no magnetometer, so `stonefish_sim_interface` publishes one on `nucleus/mag`. It is made from the true attitude, a fixed earth field, a hard iron offset and noise, set in `stonefish_sim_interface/config/magnetometer.yaml`. See the UKF README for how it is used.
+
 ## Usage
 
 Launch a scenario:

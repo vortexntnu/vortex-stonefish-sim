@@ -280,7 +280,7 @@
             </thrust_model>
         </actuator>
 
-        <sensor name="odom" type="odometry" rate="5.0">
+        <sensor name="odom" type="odometry" rate="10.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <ros_publisher topic="/nautilus/odom"/>
