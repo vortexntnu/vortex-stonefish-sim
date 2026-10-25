@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<scenario>
+    <robot name="gripper" fixed="false" self_collisions="false">
+        <base_link name="Base" type="compound" physics="submerged">
+            <external_part name="Base" type="model" physics="submerged">
+                <physical>
+                    <mesh filename="orca/gripper_arm_mesh.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="orca/gripper_arm.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Rough"/>
+                <look name="Gray"/>
+                <mass value="0.5"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+            <external_part name="gripper_finger_1" type="model" physics="submerged">
+                <physical>
+                    <mesh filename="orca/gripper_finger_mesh.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="orca/gripper_finger.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Rough"/>
+                <look name="Gray"/>
+                <mass value="0.1"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="1.57 -1.8 3.14"/>
+            </external_part>
+            <external_part name="gripper_finger_2" type="model" physics="submerged">
+                <physical>
+                    <mesh filename="orca/gripper_finger_mesh.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="orca/gripper_finger.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Rough"/>
+                <look name="Gray"/>
+                <mass value="0.1"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="-1.57 1.8 3.14"/>
+            </external_part>
+
+
+        </base_link>
+        <world_transform xyz="2.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+    </robot>
+</scenario>

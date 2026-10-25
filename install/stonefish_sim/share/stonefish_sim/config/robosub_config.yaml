@@ -1,0 +1,7 @@
+# The gate stands on the pool floor (Z = 3.432) and is 1.364 m tall, so its
+# opening spans Z 2.07-3.43.  Spawn the drone inside that band, 4 m in front of
+# the gate and lined up with its centre.
+drone_position: "0.0 0.0 2.6"
+drone_orientation: "0.0 0.0 0.0"
+orca_orientation: "-1.57 0.0 1.57"
+water_jerlow: "0.20"

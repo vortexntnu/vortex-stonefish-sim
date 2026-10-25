@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<scenario>
+    <robot name="camera_rig" fixed="true" self_collisions="false">
+        <base_link name="Base" type="sphere" physics="surface">
+                <dimensions radius="0.2"/>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <material name="Steel"/>
+                <look name="Green"/>
+            </base_link>
+
+        <sensor name="front_camera" type="camera" rate="60.0">
+			<link name="Base"/>
+			<origin rpy="1.571 0.0 1.571" xyz="0.0 0.0 0.0"/>
+			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+			<ros_publisher topic="/front_camera"/>
+		</sensor>
+        <sensor name="segmentation_camera_front" type="segmentation" rate="10.0">
+            <link name="Base"/>
+            <origin rpy="1.571 0.0 1.571" xyz="0.0 0.0 0.0"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/front_camera_seg"/>
+        </sensor>
+        <!-- <sensor name="down_camera" type="camera" rate="13.0">
+			<link name="Base"/>
+			<origin rpy="0.0 0.0 1.571" xyz="0.0 0.0 0.0"/>
+			<specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+			<ros_publisher topic="/down_camera"/>
+		</sensor>
+        <sensor name="segmentation_camera_down" type="segmentation" rate="13.0">
+            <link name="Base"/>
+            <origin rpy="0.0 0.0 1.571" xyz="0.0 0.0 0.0"/>
+            <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+            <ros_publisher topic="/segmentation_cam_down"/>
+        </sensor> -->
+        <!-- <sensor name="Dcam" rate="5.0" type="depthcamera">
+            <specs resolution_x="800" resolution_y="600" horizontal_fov="90.0" depth_min="0.4" depth_max="10.0"/>
+            <noise depth="0.01"/>
+            <origin rpy="1.57 0.0 1.57" xyz="0.0 0.0 0.0"/>
+            <link name="Base"/>
+            <ros_publisher topic="/depth_camera"/>
+        </sensor> -->
+
+        <sensor name="odom" type="odometry" rate="100.0">
+            <link name="Base"/>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <noise position="0.00" velocity="0.00" angle="0.00" angular_velocity="0.00"/>
+            <ros_publisher topic="/odom"/>
+        </sensor>
+
+
+        <!-- Drone starting pose from launch file -->
+        <world_transform xyz="$(param drone_position)" rpy="$(param drone_orientation)"/>
+
+    </robot>
+</scenario>

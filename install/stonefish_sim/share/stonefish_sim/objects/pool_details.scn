@@ -1,0 +1,595 @@
+<?xml version="1.0"?>
+<scenario>
+
+  <!-- ============================================================ -->
+  <!-- White rope: smooth sine path toward back wall / ladder 2     -->
+  <!-- 7 segments sampled from a true parametric sine curve         -->
+  <!-- ============================================================ -->
+  <static name="rope_w1" type="box">
+    <dimensions xyz="0.025 0.389 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="0.077 7.579 3.99" rpy="0.0 0.0 -0.407"/>
+  </static>
+
+  <static name="rope_w2" type="box">
+    <dimensions xyz="0.025 0.477 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-0.005 7.936 3.99" rpy="0.0 0.0 0.726"/>
+  </static>
+
+  <static name="rope_w3" type="box">
+    <dimensions xyz="0.025 0.972 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-0.615 8.293 3.99" rpy="0.0 0.0 1.195"/>
+  </static>
+
+  <static name="rope_w4" type="box">
+    <dimensions xyz="0.025 1.220 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-1.650 8.650 3.99" rpy="0.0 0.0 1.273"/>
+  </static>
+
+  <static name="rope_w5" type="box">
+    <dimensions xyz="0.025 0.972 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-2.685 9.008 3.99" rpy="0.0 0.0 1.195"/>
+  </static>
+
+  <static name="rope_w6" type="box">
+    <dimensions xyz="0.025 0.477 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.296 9.364 3.99" rpy="0.0 0.0 0.726"/>
+  </static>
+
+  <static name="rope_w7" type="box">
+    <dimensions xyz="0.025 0.389 0.025"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.377 9.721 3.99" rpy="0.0 0.0 -0.407"/>
+  </static>
+
+  <!-- White rope vertical section up back wall, beside ladder 2 -->
+  <static name="rope_w_wall" type="box">
+    <dimensions xyz="0.025 0.025 3.7"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.30 9.90 2.15" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Blue rope: smooth sine path toward right long wall (x=+4)    -->
+  <!-- 7 segments sampled from a true parametric sine curve         -->
+  <!-- ============================================================ -->
+  <static name="rope_b1" type="box">
+    <dimensions xyz="0.025 0.777 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="0.557 7.591 3.99" rpy="0.0 0.0 -0.723"/>
+  </static>
+
+  <static name="rope_b2" type="box">
+    <dimensions xyz="0.025 0.527 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="1.071 7.938 3.99" rpy="0.0 0.0 -1.359"/>
+  </static>
+
+  <static name="rope_b3" type="box">
+    <dimensions xyz="0.025 0.700 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="1.586 7.756 3.99" rpy="0.0 0.0 -2.317"/>
+  </static>
+
+  <static name="rope_b4" type="box">
+    <dimensions xyz="0.025 0.899 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="2.100 7.150 3.99" rpy="0.0 0.0 -2.533"/>
+  </static>
+
+  <static name="rope_b5" type="box">
+    <dimensions xyz="0.025 0.700 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="2.614 6.543 3.99" rpy="0.0 0.0 -2.317"/>
+  </static>
+
+  <static name="rope_b6" type="box">
+    <dimensions xyz="0.025 0.527 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="3.128 6.361 3.99" rpy="0.0 0.0 -1.359"/>
+  </static>
+
+  <static name="rope_b7" type="box">
+    <dimensions xyz="0.025 0.777 0.025"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="3.643 6.708 3.99" rpy="0.0 0.0 -0.723"/>
+  </static>
+
+  <!-- Blue rope vertical section up right long wall -->
+  <static name="rope_b_wall" type="box">
+    <dimensions xyz="0.025 0.025 3.7"/>
+    <material name="Neutral"/>
+    <look name="Blue"/>
+    <world_transform xyz="3.90 7.00 2.15" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Ladder 1 — right long wall (x=4), back-right corner (y≈9)   -->
+  <!-- Silver color                                                  -->
+  <!-- ============================================================ -->
+  <static name="ladder1_rail_a" type="box">
+    <dimensions xyz="0.05 0.05 3.7"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.6 2.05" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rail_b" type="box">
+    <dimensions xyz="0.05 0.05 3.7"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 9.2 2.05" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_1" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 0.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_2" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 0.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_3" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 1.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_4" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 1.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_5" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 2.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_6" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 2.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_7" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 3.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder1_rung_8" type="box">
+    <dimensions xyz="0.04 0.7 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="3.92 8.9 3.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Ladder 2 — back short wall (y=10), back-left corner (x≈-3)  -->
+  <!-- ============================================================ -->
+  <static name="ladder2_rail_a" type="box">
+    <dimensions xyz="0.05 0.05 3.7"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.0 9.92 2.05" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rail_b" type="box">
+    <dimensions xyz="0.05 0.05 3.7"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.6 9.92 2.05" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_1" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 0.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_2" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 0.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_3" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 1.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_4" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 1.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_5" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 2.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_6" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 2.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_7" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 3.3" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="ladder2_rung_8" type="box">
+    <dimensions xyz="0.7 0.04 0.04"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-3.3 9.92 3.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Silver drain covers on pool floor, each with a white border  -->
+  <!-- White ring sits at floor level, silver disk just above it    -->
+  <!-- ============================================================ -->
+  <static name="drain_1_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="2.5 0.5 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_1" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="2.5 0.5 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="drain_2_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-2.5 0.5 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_2" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-2.5 0.5 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="drain_3_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="2.5 3.0 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_3" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="2.5 3.0 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="drain_4_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-2.5 3.0 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_4" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-2.5 3.0 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="drain_5_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="2.5 7.75 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_5" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="2.5 7.75 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="drain_6_white" type="cylinder">
+    <dimensions radius="0.12" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-2.5 7.75 4.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="drain_6" type="cylinder">
+    <dimensions radius="0.08" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Silver"/>
+    <world_transform xyz="-2.5 7.75 3.993" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Wall markers: flat black circle with white rim               -->
+  <!-- White ring (larger) flush to wall, black disk in front       -->
+  <!-- ============================================================ -->
+
+  <!-- Right wall (x=4) -->
+  <static name="bumper_right_1_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="3.995 1.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_right_1_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="3.975 1.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <static name="bumper_right_2_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="3.995 4.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_right_2_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="3.975 4.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <static name="bumper_right_3_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="3.995 6.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_right_3_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="3.975 6.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <!-- Left wall (x=-4) -->
+  <static name="bumper_left_1_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.995 1.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_left_1_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-3.975 1.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <static name="bumper_left_2_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.995 4.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_left_2_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-3.975 4.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <static name="bumper_left_3_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.995 8.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+  <static name="bumper_left_3_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-3.975 8.5 1.5" rpy="0.0 1.57 0.0"/>
+  </static>
+
+  <!-- Front wall (y=-4) -->
+  <static name="bumper_front_1_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="2.0 -3.995 2.0" rpy="1.57 0.0 0.0"/>
+  </static>
+  <static name="bumper_front_1_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="2.0 -3.975 2.0" rpy="1.57 0.0 0.0"/>
+  </static>
+
+  <static name="bumper_front_2_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-2.0 -3.995 2.0" rpy="1.57 0.0 0.0"/>
+  </static>
+  <static name="bumper_front_2_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-2.0 -3.975 2.0" rpy="1.57 0.0 0.0"/>
+  </static>
+
+  <!-- ============================================================ -->
+  <!-- Black square plates with white border, at varied elevations  -->
+  <!-- White box flush to wall, black box slightly in front         -->
+  <!-- ============================================================ -->
+
+  <!-- Right wall (x=4) — two plates at different depths -->
+  <static name="plate_right_1_white" type="box">
+    <dimensions xyz="0.02 0.18 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="3.985 -1.0 3.5" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_right_1" type="box">
+    <dimensions xyz="0.02 0.13 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="3.970 -1.0 3.5" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="plate_right_2_white" type="box">
+    <dimensions xyz="0.02 0.18 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="3.985 5.5 2.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_right_2" type="box">
+    <dimensions xyz="0.02 0.13 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="3.970 5.5 2.0" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- Left wall (x=-4) -->
+  <static name="plate_left_1_white" type="box">
+    <dimensions xyz="0.02 0.18 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.985 2.5 3.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_left_1" type="box">
+    <dimensions xyz="0.02 0.13 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-3.970 2.5 3.0" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="plate_left_2_white" type="box">
+    <dimensions xyz="0.02 0.18 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-3.985 7.0 1.5" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_left_2" type="box">
+    <dimensions xyz="0.02 0.13 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-3.970 7.0 1.5" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- Front wall (y=-4) -->
+  <static name="plate_front_1_white" type="box">
+    <dimensions xyz="0.18 0.02 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="1.5 -3.985 2.5" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_front_1" type="box">
+    <dimensions xyz="0.13 0.02 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="1.5 -3.970 2.5" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <static name="plate_front_2_white" type="box">
+    <dimensions xyz="0.18 0.02 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-1.5 -3.985 1.8" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_front_2" type="box">
+    <dimensions xyz="0.13 0.02 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-1.5 -3.970 1.8" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- Back wall (y=10) — one square plate + one circle marker -->
+  <static name="plate_back_1_white" type="box">
+    <dimensions xyz="0.18 0.02 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="1.5 9.985 2.0" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_back_1" type="box">
+    <dimensions xyz="0.13 0.02 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="1.5 9.970 2.0" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- Back wall extra square, centred between the other two and higher up -->
+  <static name="plate_back_2_white" type="box">
+    <dimensions xyz="0.18 0.02 0.18"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="0.0 9.985 1.2" rpy="0.0 0.0 0.0"/>
+  </static>
+  <static name="plate_back_2" type="box">
+    <dimensions xyz="0.13 0.02 0.13"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="0.0 9.970 1.2" rpy="0.0 0.0 0.0"/>
+  </static>
+
+  <!-- Back wall circle marker (replaces second square) -->
+  <static name="bumper_back_white" type="cylinder">
+    <dimensions radius="0.17" height="0.01"/>
+    <material name="Neutral"/>
+    <look name="White"/>
+    <world_transform xyz="-1.5 9.995 2.8" rpy="1.57 0.0 0.0"/>
+  </static>
+  <static name="bumper_back_black" type="cylinder">
+    <dimensions radius="0.12" height="0.015"/>
+    <material name="Neutral"/>
+    <look name="Black"/>
+    <world_transform xyz="-1.5 9.975 2.8" rpy="1.57 0.0 0.0"/>
+  </static>
+
+</scenario>

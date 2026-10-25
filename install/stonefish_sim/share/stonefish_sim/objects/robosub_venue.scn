@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<scenario>
+
+  <!-- Woollett-style venue shell for the RoboSub scenario: pool basin plus
+       decor.  Geometry from the MathWorks RoboSub Virtual Environment
+       (see data/object_files/robosub/README.md) - kept as-is; only the course
+       elements themselves were replaced by the Blender export.
+       Frame: X fwd, Y right, Z down; water surface Z=0, pool floor Z=3.432.
+       The decor meshes carry their own world offsets, so they are placed at
+       the world origin with those offsets applied in <origin>. -->
+
+  <static name="pool_basin" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_PoolPlane.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_PoolPlane.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="0 0 0" rpy="0 0 0"/>
+  </static>
+
+  <static name="billboard_1" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_BillBoard1.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="0 0 0" rpy="0 0 0"/>
+  </static>
+
+  <static name="billboard_2" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_BillBoard2.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="0 0 0" rpy="0 0 0"/>
+  </static>
+
+  <static name="staircase_1" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_Staircase1.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="0 0 0" rpy="0 0 0"/>
+  </static>
+
+  <static name="staircase_2" type="model">
+    <physical>
+      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub/Pool_Staircase2.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Concrete"/>
+    <look name="White"/>
+    <world_transform xyz="0 0 0" rpy="0 0 0"/>
+  </static>
+
+</scenario>

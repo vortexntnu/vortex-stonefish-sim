@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<scenario>
+  <environment>
+    <ned latitude="63.446827" longitude="10.421906"/>
+    <ocean>
+        <water density="1031.0" jerlov="0.20"/>
+        <waves height="0.0"/>
+        <particles enabled="true"/>
+        <current type="uniform">
+            <velocity xyz="0.1 0.1 0.1"/>
+        </current>
+    </ocean>
+    <atmosphere>
+        <sun azimuth="-88.0" elevation="20.0"/>
+    </atmosphere>
+  </environment>
+
+  <include file="$(find stonefish_sim)/metadata/materials.scn"/>
+  <include file="$(find stonefish_sim)/metadata/looks.scn"/>
+
+  <include file="$(find stonefish_sim)/drones/orca.scn"/>
+  <include file="$(find stonefish_sim)/drones/cyberfish.scn"/>
+
+</scenario>

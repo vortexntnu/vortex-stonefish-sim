@@ -1,0 +1,8 @@
+# Spawns near the far end of the course, where Tasks 3-5 cluster (torpedo
+# board, bins, octagon + Restore table) so all of them are in view at once
+# without having to run the gate/slalom first. See robosub_config.yaml for the
+# default (gate) spawn.
+drone_position: "15.0 0.0 2.0"
+drone_orientation: "0.0 0.0 0.0"
+orca_orientation: "-1.57 0.0 0.0"
+water_jerlow: "0.20"

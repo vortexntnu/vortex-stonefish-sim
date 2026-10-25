@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sim Stand Program
+Comment=Open ROS2 YOLO nodes in Terminator
+Exec=gnome-terminal -- bash -c "bash ros2_ws/launch_drone_sim.sh; exec bash"
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;

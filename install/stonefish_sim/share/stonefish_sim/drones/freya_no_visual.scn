@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<scenario>
+    <robot name="Freya" fixed="false" self_collisions="false">
+        <base_link name="Base" type="compound" physics="floating">
+            <external_part name="Base" type="model" physics="surface">
+                <physical>
+                    <mesh filename="freya/body.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/freya_simple.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="30.5"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+            <external_part name="Pontoon1" type="model" physics="floating" buoyant="true">
+                <physical>
+                    <mesh filename="freya/pontoon.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/pontoon.obj" scale="0.01"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="25.25"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+            <external_part name="Pontoon2" type="model" physics="floating" buoyant="true">
+                <physical>
+                    <mesh filename="freya/pontoon2.obj" scale="1.0"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </physical>
+                <visual>
+                    <mesh filename="freya/pontoon2.obj" scale="0.01"/>
+                    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                </visual>
+                <material name="Neutral"/>
+                <look name="Gray"/>
+                <mass value="25.25"/>
+                <compound_transform xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            </external_part>
+        </base_link>
+
+        <actuator name="Thruster1" type="thruster">
+            <link name="Base"/>
+            <origin rpy="0 -0.78 0" xyz="0.7 0.2 -0.625"/>
+            <specs max_setpoint="50.0" inverted_setpoint="false" normalized_setpoint="false"/>
+            <propeller diameter="0.18" right="true">
+                <mesh filename="orca/bluerov2_propccw.obj" scale="2.0"/>
+                <material name="robot_material"/>
+                <look name="Grey"/>
+            </propeller>
+            <rotor_dynamics type="zero_order"/>
+            <thrust_model type="linear_interpolation">
+                <input value="-40.0 -20.0 0.0 20.0 40.0"/>
+                <output value="-40.0 -20.0 0.0 20.0 40.0"/>
+            </thrust_model>
+        </actuator>
+
+
+        <actuator name="Thruster2" type="thruster">
+            <link name="Base"/>
+            <origin rpy="0 0.78 0" xyz="-0.7 0.2 -0.625"/>
+            <specs max_setpoint="50.0" inverted_setpoint="false" normalized_setpoint="false"/>
+            <propeller diameter="0.18" right="true">
+                <mesh filename="orca/bluerov2_propccw.obj" scale="2.0"/>
+                <material name="robot_material"/>
+                <look name="Grey"/>
+            </propeller>
+            <rotor_dynamics type="zero_order"/>
+            <thrust_model type="linear_interpolation">
+                <input value="-40.0 -20.0 0.0 20.0 40.0"/>
+                <output value="-40.0 -20.0 0.0 20.0 40.0"/>
+            </thrust_model>
+        </actuator>
+
+        <actuator name="Thruster3" type="thruster">
+            <link name="Base"/>
+            <origin rpy="0 -0.78 0" xyz="-0.7 0.2 0.625"/>
+            <specs max_setpoint="50.0" inverted_setpoint="false" normalized_setpoint="false"/>
+            <propeller diameter="0.18" right="true">
+                <mesh filename="orca/bluerov2_propccw.obj" scale="2.0"/>
+                <material name="robot_material"/>
+                <look name="Grey"/>
+            </propeller>
+            <rotor_dynamics type="zero_order"/>
+            <thrust_model type="linear_interpolation">
+                <input value="-40.0 -20.0 0.0 20.0 40.0"/>
+                <output value="-40.0 -20.0 0.0 20.0 40.0"/>
+            </thrust_model>
+        </actuator>
+
+        <actuator name="Thruster4" type="thruster">
+            <link name="Base"/>
+            <origin rpy="0 0.78 0" xyz="0.7 0.2 0.625"/>
+            <specs max_setpoint="50.0" inverted_setpoint="false" normalized_setpoint="false"/>
+            <propeller diameter="0.18" right="true">
+                <mesh filename="orca/bluerov2_propccw.obj" scale="2.0"/>
+                <material name="robot_material"/>
+                <look name="Grey"/>
+            </propeller>
+            <rotor_dynamics type="zero_order"/>
+            <thrust_model type="linear_interpolation">
+                <input value="-40.0 -20.0 0.0 20.0 40.0"/>
+                <output value="-40.0 -20.0 0.0 20.0 40.0"/>
+            </thrust_model>
+        </actuator>
+
+        <sensor name="odom" type="odometry" rate="10.0">
+            <link name="Base"/>
+            <origin rpy="-1.57 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <ros_publisher topic="/seapath/odom/ned"/>
+        </sensor>
+
+        <world_transform xyz="2.0 0.0 0.05" rpy="1.57 0.0 0.0"/>
+
+        <ros_subscriber thrusters="/freya/thruster_forces"/>
+    </robot>
+</scenario>

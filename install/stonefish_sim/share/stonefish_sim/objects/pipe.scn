@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<scenario>
+  <variables>
+    <aruco_z_offset>-0.11</aruco_z_offset>
+  </variables>
+
+  <robot name="pipeline_new" fixed="true" self_collisions="false">
+    <base_link name="pipe_base" type="model" physics="submerged">
+      <physical>
+        <mesh filename="object_files/pipe2.obj" scale="1.0"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </physical>
+      <visual>
+        <mesh filename="object_files/pipe2.obj" scale="1.0"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+      <material name="Neutral"/>
+      <look name="pipe"/>
+    </base_link>
+
+    <link name="aruco_01" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="0.0 -1.0 -0.11" rpy="0.0 0.0 0.0"/>
+    </link>
+    <joint name="aruco_01_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_02" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="2.0 -3.0 -0.11" rpy="0.0 0.0 0.0"/>
+    </link>
+    <joint name="aruco_02_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_02"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_03" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="1.0 -5.0 -0.11" rpy="0.0 0.0 0.775"/>
+    </link>
+    <joint name="aruco_03_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_03"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_04" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="0.0 -7.5 -0.11" rpy="0.0 0.0 0.0"/>
+    </link>
+    <joint name="aruco_04_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_04"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_05" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="0.0 -13.0 -0.11" rpy="0.0 0.0 0.0"/>
+    </link>
+    <joint name="aruco_05_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_05"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aruco_06" type="box">
+      <dimensions xyz="0.15 0.15 0.002"/>
+      <material name="Neutral"/>
+      <look name="Aruco19" uv_mode="1"/>
+      <origin xyz="-3.0 -10.5 -0.11" rpy="0.0 0.0 0.0"/>
+    </link>
+    <joint name="aruco_06_joint" type="fixed">
+      <parent name="pipe_base"/>
+      <child name="aruco_06"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <world_transform xyz="$(param pipeline_position)" rpy="$(param pipeline_orientation)"/>
+  </robot>
+</scenario>
