@@ -93,7 +93,21 @@
         </link>
 
         <joint name="finger_joint1" type="prismatic">
-            <parent name="arm"/>
+    
+    <sensor name="front_camera_depth_optical" type="depthcamera" rate="20.0">
+        <link name="Base"/>
+        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
+        <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
+        <ros_publisher topic="/nautilus/depth_camera"/>
+    </sensor>
+
+    <sensor name="front_camera_color_optical" type="camera" rate="20.0">
+        <link name="Base"/>
+        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
+        <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
+        <ros_publisher topic="/nautilus/front_camera"/>
+    </sensor>
+        <parent name="arm"/>
             <child name="finger1"/>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <axis xyz="0.70711 0.70711 0.0"/>
@@ -123,7 +137,21 @@
         </link>
 
         <joint name="finger_joint2" type="prismatic">
-            <parent name="arm"/>
+    
+    <sensor name="front_camera_depth_optical" type="depthcamera" rate="20.0">
+        <link name="Base"/>
+        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
+        <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
+        <ros_publisher topic="/nautilus/depth_camera"/>
+    </sensor>
+
+    <sensor name="front_camera_color_optical" type="camera" rate="20.0">
+        <link name="Base"/>
+        <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
+        <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
+        <ros_publisher topic="/nautilus/front_camera"/>
+    </sensor>
+        <parent name="arm"/>
             <child name="finger2"/>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <axis xyz="0.70711 -0.70711 0.0"/>
@@ -309,21 +337,21 @@
         <sensor name="downwards_camera_optical" type="camera" rate="20.0">
         <link name="Base"/>
         <origin rpy="0.0 0.0 1.57079632679" xyz="0.297865 -0.158 0.161036"/>
-        <specs resolution_x="1440" resolution_y="1080" horizontal_fov="90.0"/>
+        <specs resolution_x="720" resolution_y="540" horizontal_fov="90.0"/>
         <ros_publisher topic="/nautilus/down_camera"/>
     </sensor>
 
     <sensor name="front_camera_depth_optical" type="depthcamera" rate="20.0">
         <link name="Base"/>
         <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
-        <specs resolution_x="640" resolution_y="480" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
+        <specs resolution_x="1" resolution_y="1" horizontal_fov="69.0" depth_min="0.2" depth_max="10.0"/>
         <ros_publisher topic="/nautilus/depth_camera"/>
     </sensor>
 
     <sensor name="front_camera_color_optical" type="camera" rate="20.0">
         <link name="Base"/>
         <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 0.0115 -0.037895"/>
-        <specs resolution_x="1920" resolution_y="1080" horizontal_fov="69.0"/>
+        <specs resolution_x="1" resolution_y="1" horizontal_fov="69.0"/>
         <ros_publisher topic="/nautilus/front_camera"/>
     </sensor>
 
