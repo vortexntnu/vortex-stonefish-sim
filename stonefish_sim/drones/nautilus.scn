@@ -340,7 +340,7 @@
         <specs resolution_x="720" resolution_y="540" horizontal_fov="90.0"/>
         <ros_publisher topic="/nautilus/down_camera"/>
     </sensor>
-
+        <!-- commented out for testing 
     <sensor name="front_camera_depth_optical" type="depthcamera" rate="20.0">
         <link name="Base"/>
         <origin rpy="1.57079632679 0.0 1.57079632679" xyz="0.37477 -0.0475 -0.037895"/>
@@ -354,7 +354,7 @@
         <specs resolution_x="1" resolution_y="1" horizontal_fov="69.0"/>
         <ros_publisher topic="/nautilus/front_camera"/>
     </sensor>
-
+-->
         <sensor name="sonar_link" type="fls">
             <specs beams="512" bins="500" horizontal_fov="120.0" vertical_fov="30.0"/>
             <settings range_min="0.5" range_max="10.0" gain="1.1"/>
