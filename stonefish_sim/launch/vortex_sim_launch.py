@@ -213,12 +213,15 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
         "landmarks_topic": f"/{namespace}/landmarks",
         "landmarks_frame_id": f"{namespace}/odom",
         "landmarks_map_frame": f"{namespace}/map",
-        "landmarks_front_camera": f"{drone}/front_camera_optical",
+        "landmarks_front_camera": f"{drone}/front_camera_color_optical"  # the colour camera of the RealSense
+        if drone.startswith("nautilus")
+        else f"{drone}/front_camera_optical",
         "landmarks_down_camera": f"{drone}/downwards_camera_optical",
         "waypoint_topic": f"/{namespace}/current_waypoint",
         # <spawn name=""> of the scenario to start at, and where the sim writes the landmark
         # server's premap from the <prior> tags (in the frame of that start)
         "spawn": LaunchConfiguration("spawn").perform(context),
+        "landmarks_profile": LaunchConfiguration("landmarks_profile").perform(context),
         "premap_out": f"/tmp/{namespace}_sim_premap.yaml",
     }
 
@@ -342,6 +345,11 @@ def generate_launch_description():
                 "spawn",
                 default_value="",
                 description="Spawn point of the scenario to start at, e.g. slalom (default: the drone position)",
+            ),
+            DeclareLaunchArgument(
+                "landmarks_profile",
+                default_value="none",
+                description="Detection errors of the scene landmarks: none, realistic, unstable or erratic",
             ),
             DeclareLaunchArgument(
                 "keyboard_joy",

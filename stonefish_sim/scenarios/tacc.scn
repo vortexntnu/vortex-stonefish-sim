@@ -38,7 +38,7 @@
   <!-- Valve landmarks (objects/structure_landmarks.scn) as vortex_msgs/LandmarkArray, like valve_detection
        after valve_subtype_resolver. profile: none, realistic, unstable or erratic (also in the editor panel). -->
   <include file="$(find stonefish_sim)/objects/structure_landmarks.scn"/>
-  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="none"
+  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="$(param landmarks_profile)"
                  front_camera="$(param landmarks_front_camera)" down_camera="$(param landmarks_down_camera)"/>
   <ros_waypoint topic="$(param waypoint_topic)"/>
   <ros_landmark_frames map_frame="$(param landmarks_map_frame)" world_frame="$(param landmarks_frame_id)"/>
