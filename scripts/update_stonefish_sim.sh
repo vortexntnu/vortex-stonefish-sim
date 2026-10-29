@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set up or update the Stonefish simulator stack: Stonefish 1.6 with the scene editor, the
 # simulator's repos on main, and a build of the simulator packages. The mission stack (vortex-auv,
-# vortex-cv) is not touched.
+# vortex-cv) is not touched, unless --branch is given.
 #
 # Safe to run again: repos that are up to date are left alone, and Stonefish is only rebuilt
 # when its source changed. First time, without the repo:
@@ -20,6 +20,9 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
+  --branch <name>     Use this branch in every repo that has it (main where it does not), also
+                      vortex-auv and vortex-cv, and build the mission packages the sim runs,
+                      e.g. --branch rework/landmark-simple to try work that is not merged yet.
   --ws <dir>          ROS 2 workspace (default: found from this script, then ~/ros2_ws).
   --stonefish <dir>   Stonefish source (default: found in the usual places, else cloned to ~/stonefish).
   --prefix <dir>      Install Stonefish here instead of /usr/local (no sudo needed),
@@ -44,6 +47,7 @@ STONEFISH_BRANCH="main"
 STONEFISH_VERSION="1.6.0"
 GITHUB="vortexntnu"
 
+BRANCH=""
 WS=""
 SF=""
 PREFIX="/usr/local"
@@ -54,6 +58,7 @@ SKIP_BUILD=false
 DRY=false
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --branch)         BRANCH="$2"; shift 2 ;;
         --ws)             WS="$2"; shift 2 ;;
         --stonefish)      SF="$2"; shift 2 ;;
         --prefix)         PREFIX="$2"; shift 2 ;;
@@ -128,6 +133,12 @@ note "build jobs: $JOBS"
 
 # --- Check before changing anything -----------------------------------------------------
 
+MISSION_PACKAGES=()
+if [[ -n "$BRANCH" ]]; then
+    REPOS+=("vortex-auv:main" "vortex-cv:main")
+    MISSION_PACKAGES=(landmark_server vortex_bt_nodes robosub_mission robosub_dummy_publisher perception_setup)
+fi
+
 step "Checking for uncommitted changes"
 dirty=()
 for entry in "${REPOS[@]}"; do
@@ -169,6 +180,9 @@ update_repo() {
     local dir="$1" name="$2" branch="$3" remote="origin"
     if [[ ! -d "$dir/.git" ]]; then
         note "cloning $name ($branch)"
+        if [[ -n "$BRANCH" ]] && git ls-remote --exit-code --heads "$URL_BASE/$name.git" "$BRANCH" >/dev/null 2>&1; then
+            branch="$BRANCH"
+        fi
         run git clone -b "$branch" "$URL_BASE/$name.git" "$dir"
         return
     fi
@@ -178,6 +192,9 @@ update_repo() {
         git -C "$dir" remote get-url vortex >/dev/null 2>&1 || run git -C "$dir" remote add vortex "$URL_BASE/stonefish.git"
     fi
     run git -C "$dir" fetch -q "$remote"
+    if [[ -n "$BRANCH" ]] && git -C "$dir" rev-parse -q --verify "$remote/$BRANCH" >/dev/null; then
+        branch="$BRANCH"
+    fi
     if ! git -C "$dir" rev-parse -q --verify "$remote/$branch" >/dev/null; then
         $DRY && { note "$name: would check out $branch"; return; }
         die "$name has no branch $remote/$branch"
@@ -226,7 +243,8 @@ run rosdep update -q
     set +u # ROS setup files use unset variables
     source /opt/ros/humble/setup.bash
     run rosdep install -y --ignore-src --rosdistro humble --from-paths \
-        "$WS/src/stonefish_ros2" "$WS/src/vortex-stonefish-sim" "$WS/src/vortex-msgs" "$WS/src/vortex-utils"
+        "$WS/src/stonefish_ros2" "$WS/src/vortex-stonefish-sim" "$WS/src/vortex-msgs" "$WS/src/vortex-utils" \
+        ${BRANCH:+"$WS/src/vortex-auv/mission" "$WS/src/vortex-cv/mission" "$WS/src/vortex-cv/perception_setup"}
 )
 
 # --- Stonefish ---------------------------------------------------------------------------
@@ -283,7 +301,7 @@ fi
     source /opt/ros/humble/setup.bash
     export MAKEFLAGS="-j$JOBS"
     run nice -n 10 colcon build --symlink-install --parallel-workers "$JOBS" \
-        --packages-up-to stonefish_sim stonefish_sim_interface \
+        --packages-up-to stonefish_sim stonefish_sim_interface ${MISSION_PACKAGES[@]+"${MISSION_PACKAGES[@]}"} \
         ${CMAKE_ARGS[@]:+--cmake-args "${CMAKE_ARGS[@]}"}
 )
 
