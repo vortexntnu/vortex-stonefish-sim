@@ -146,6 +146,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
             "drone": drone,
             "namespace": namespace,
             "solver_type": solver_type,
+            "config_type": "sim",
         }.items(),
     )
 

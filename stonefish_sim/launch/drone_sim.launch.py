@@ -34,7 +34,11 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
                 "thrust_allocator_auv.launch.py",
             )
         ),
-        launch_arguments=common_launch_args,
+        launch_arguments={
+            "drone": drone,
+            "namespace": namespace,
+            "config_type": "sim",
+        }.items(),
     )
 
     joystick_interface_launch = IncludeLaunchDescription(
