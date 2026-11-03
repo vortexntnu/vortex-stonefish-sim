@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<scenario>
+  <!-- RoboSub 2026 competition course: the pool and course of the Unity simulator
+       (auv-sim-unity RoboSub2026.unity), exported with Tools/Vortex/Export Course to
+       Stonefish into data/object_files/robosub_course/, objects/robosub_course.scn,
+       metadata/robosub_looks.scn and objects/robosub_landmarks.scn.
+       World frame (= Vortex odom): origin at Orca's start on the surface, X down the
+       course, Y right, Z down. 25 x 50 m pool, floor at Z = 2.1.
+       Edit it in the simulator: press E. -->
+
+  <environment>
+    <ned latitude="33.685" longitude="-117.826"/> <!-- Woollett Aquatics Center, Irvine CA -->
+    <ocean>
+        <water density="1000.0" jerlov="$(param water_jerlow)"/>
+        <waves height="0.0"/>
+        <particles enabled="true"/>
+        <current type="uniform">
+            <velocity xyz="0.0 0.0 0.0"/>
+        </current>
+    </ocean>
+    <atmosphere>
+        <sun azimuth="-40.0" elevation="55.0"/>
+    </atmosphere>
+  </environment>
+
+  <include file="$(find stonefish_sim)/metadata/materials.scn"/>
+  <include file="$(find stonefish_sim)/metadata/looks.scn"/>
+  <include file="$(find stonefish_sim)/metadata/robosub_looks.scn"/>
+
+  <include file="$(find stonefish_sim)/drones/$(param drone_file)"/>
+
+  <include file="$(find stonefish_sim)/objects/robosub_course.scn"/>
+  <include file="$(find stonefish_sim)/objects/robosub_landmarks.scn"/>
+
+  <!-- Course landmarks as vortex_msgs/LandmarkArray (replaces robosub_dummy_publisher).
+       profile: none, realistic, unstable or erratic detection errors (also in the editor panel).
+       The topic, frame and cameras are set by the launch files from the drone. -->
+  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="none"
+                 front_camera="$(param landmarks_front_camera)" down_camera="$(param landmarks_down_camera)"/>
+
+  <!-- The waypoint the vehicle is going to (waypoint_manager's current_waypoint), drawn in the 3D view only -->
+  <ros_waypoint topic="$(param waypoint_topic)"/>
+  <ros_landmark_frames map_frame="$(param landmarks_map_frame)" world_frame="$(param landmarks_frame_id)"/>
+
+</scenario>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<scenario>
+  <!-- TAC valves, published by the simulator (<ros_landmarks> in the scenario). Attached to the turning
+       link, so the pose follows the handle: Z out of the valve face, X along the handle, like
+       valve_detection. The subtype follows valve_subtype_resolver (|normal z| >= threshold -> HORIZONTAL). -->
+  <landmark object="valve1/valve1_turnable" type="VALVE" subtype="VALVE_VERTICAL" point="0.0000 0.0000 0.0000" rpy="0.0000 -1.5708 1.5708"/>
+  <landmark object="valve2/valve2_turnable" type="VALVE" subtype="VALVE_HORIZONTAL" point="0.0000 0.0000 0.0000" rpy="0.0000 -1.5708 -1.5708"/>
+
+  <!-- Spawn points (spawn:=<name>, tmux --spawn <name>), on their objects so they move with them.
+       pipeline is on the pipe, so it only exists in the TAC scenario. Edit them in the simulator (Tab). -->
+  <spawn name="valve1" object="structure_with_valves_base" point="3.2014 1.4214 1.8063" yaw_deg="180.0"/>
+  <spawn name="valve2" object="structure_with_valves_base" point="0.6654 2.2014 1.7677" yaw_deg="180.0"/>
+  <spawn name="pipeline" object="pipeline_new/pipe_base" point="0.0000 1.5000 -1.5000" yaw_deg="-90.0"/>
+</scenario>

@@ -31,6 +31,7 @@ gpu_scenarios = [
     "freya_demo",
     "orca_freya_demo",
     "tacc",
+    "robosub",
 ]
 
 no_gpu_scenarios = [
@@ -208,6 +209,17 @@ def launch_setup(context: LaunchContext, *args, **kwargs):
     merged_config = {
         **scenario_config,
         "drone_file": f"{drone}.scn",
+        # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
+        "landmarks_topic": f"/{namespace}/landmarks",
+        "landmarks_frame_id": f"{namespace}/odom",
+        "landmarks_map_frame": f"{namespace}/map",
+        "landmarks_front_camera": f"{drone}/front_camera_optical",
+        "landmarks_down_camera": f"{drone}/downwards_camera_optical",
+        "waypoint_topic": f"/{namespace}/current_waypoint",
+        # <spawn name=""> of the scenario to start at, and where the sim writes the landmark
+        # server's premap from the <prior> tags (in the frame of that start)
+        "spawn": LaunchConfiguration("spawn").perform(context),
+        "premap_out": f"/tmp/{namespace}_sim_premap.yaml",
     }
 
     sim_node = get_sim_node(
@@ -325,6 +337,11 @@ def generate_launch_description():
                 "scenario_config_override",
                 default_value="",
                 description="Path to override scenario config YAML",
+            ),
+            DeclareLaunchArgument(
+                "spawn",
+                default_value="",
+                description="Spawn point of the scenario to start at, e.g. slalom (default: the drone position)",
             ),
             DeclareLaunchArgument(
                 "keyboard_joy",
