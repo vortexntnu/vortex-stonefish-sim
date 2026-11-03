@@ -147,7 +147,6 @@ def launch_setup(context, *args, **kwargs):
         "waypoint_topic": f"/{namespace}/current_waypoint",
     }
 
-
     merged_config = {**scenario_config, **drone_config}
 
     return [get_sim_node(context, scenario_config=merged_config)]

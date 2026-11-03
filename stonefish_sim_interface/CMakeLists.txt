@@ -40,6 +40,7 @@ ament_target_dependencies(stonefish_sim_interface
   vortex_msgs
   nav_msgs
   geometry_msgs
+  sensor_msgs
   tf2_ros
   stonefish_ros2
 )
@@ -52,6 +53,7 @@ target_link_libraries(stonefish_sim_interface Eigen3::Eigen)
 
 install(DIRECTORY
     launch
+    config
     DESTINATION share/${PROJECT_NAME})
 
 ament_package()

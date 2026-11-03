@@ -27,6 +27,12 @@ def launch_setup(context, *args, **kwargs):
         f"{drone}.yaml",
     )
 
+    magnetometer_params = os.path.join(
+        get_package_share_directory("stonefish_sim_interface"),
+        "config",
+        "magnetometer.yaml",
+    )
+
     drone_description_launch = os.path.join(
         get_package_share_directory("auv_setup"),
         "launch",
@@ -62,6 +68,7 @@ def launch_setup(context, *args, **kwargs):
                 {"tf_name_prefix": namespace},
                 {"drone": drone},
                 drone_params,
+                magnetometer_params,
             ],
             remappings=remappings,
         ),

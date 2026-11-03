@@ -1,0 +1,11 @@
+/**:
+  stonefish_sim_interface:
+    ros__parameters:
+      magnetometer:
+        # Earth field at the sim site (63.45 N, 10.42 E)
+        earth_field_ned: [1.427e-5, 8.7e-7, 4.96e-5] # [T]
+        # Constant field the vehicle adds, in the sensor frame.
+        hard_iron: [3.0e-7, -2.0e-7, 1.0e-7] # [T]
+        noise_std: 5.0e-8 # [T] datasheet noise of the Nucleus 1000 is 50 nT
+        noise_seed: 42 # fixed so that runs get the same noise
+        sensor_yaw: 3.14159 # [rad] nucleus was mounter 180 degrees rotated on nautilus.
