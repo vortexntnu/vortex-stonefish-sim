@@ -137,6 +137,7 @@ def launch_setup(context, *args, **kwargs):
         scenario_config[f"{drone}_orientation"] = scenario_config["drone_orientation"]
 
     drone_config = {
+        "drone": drone,
         "drone_file": f"{drone}.scn",
         # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
         "landmarks_topic": f"/{namespace}/landmarks",
