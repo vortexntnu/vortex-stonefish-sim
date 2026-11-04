@@ -242,9 +242,14 @@ run rosdep update -q
 (
     set +u # ROS setup files use unset variables
     source /opt/ros/humble/setup.bash
-    run rosdep install -y --ignore-src --rosdistro humble --from-paths \
-        "$WS/src/stonefish_ros2" "$WS/src/vortex-stonefish-sim" "$WS/src/vortex-msgs" "$WS/src/vortex-utils" \
-        ${BRANCH:+"$WS/src/vortex-auv/mission" "$WS/src/vortex-cv/mission" "$WS/src/vortex-cv/perception_setup"}
+    # All of src: the packages depend on each other across the repos. -r: some keys are for
+    # packages the simulator does not build.
+    if [[ -n "$BRANCH" ]]; then
+        run rosdep install -y -r --ignore-src --rosdistro humble --from-paths "$WS/src"
+    else
+        run rosdep install -y --ignore-src --rosdistro humble --from-paths \
+            "$WS/src/stonefish_ros2" "$WS/src/vortex-stonefish-sim" "$WS/src/vortex-msgs" "$WS/src/vortex-utils"
+    fi
 )
 
 # --- Stonefish ---------------------------------------------------------------------------
