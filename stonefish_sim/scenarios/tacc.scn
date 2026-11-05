@@ -4,7 +4,7 @@
     <ned latitude="63.446827" longitude="10.421906"/>
     <ocean>
         <water density="1031.0" jerlov="$(param water_jerlow)"/>
-        <waves height="10.0"/>
+        <waves height="0c.0"/>
         <particles enabled="true"/>
         <current type="uniform">
             <velocity xyz="0.1 0.1 0.0"/>
