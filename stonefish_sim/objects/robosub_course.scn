@@ -75,13 +75,27 @@
     <world_transform xyz="11.24000 9.85000 0.00000" rpy="0.00000 0.00000 -1.57080"/>
   </static>
 
-  <static name="bin_structure__blood" type="model">
+  <static name="bin_structure_1__blood" type="model">
     <physical>
-      <mesh filename="object_files/robosub_course/bin_structure__blood.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_1__blood.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </physical>
     <visual>
-      <mesh filename="object_files/robosub_course/bin_structure__blood.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_1__blood.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="u_blood"/>
+    <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
+  </static>
+
+  <static name="bin_structure_4__blood" type="model">
+    <physical>
+      <mesh filename="object_files/robosub_course/bin_structure_4__blood.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub_course/bin_structure_4__blood.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </visual>
     <material name="Neutral"/>
@@ -117,13 +131,27 @@
     <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
   </static>
 
-  <static name="bin_structure__fire" type="model">
+  <static name="bin_structure_2__fire" type="model">
     <physical>
-      <mesh filename="object_files/robosub_course/bin_structure__fire.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_2__fire.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </physical>
     <visual>
-      <mesh filename="object_files/robosub_course/bin_structure__fire.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_2__fire.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="u_fire"/>
+    <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
+  </static>
+
+  <static name="bin_structure_3__fire" type="model">
+    <physical>
+      <mesh filename="object_files/robosub_course/bin_structure_3__fire.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub_course/bin_structure_3__fire.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </visual>
     <material name="Neutral"/>
