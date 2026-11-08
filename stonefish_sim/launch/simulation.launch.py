@@ -137,16 +137,19 @@ def launch_setup(context, *args, **kwargs):
         scenario_config[f"{drone}_orientation"] = scenario_config["drone_orientation"]
 
     drone_config = {
+        "drone": drone,
         "drone_file": f"{drone}.scn",
         # Scene landmarks (<ros_landmarks> in scenarios/robosub.scn)
         "landmarks_topic": f"/{namespace}/landmarks",
         "landmarks_frame_id": f"{namespace}/odom",
         "landmarks_map_frame": f"{namespace}/map",
-        "landmarks_front_camera": f"{drone}/front_camera_optical",
+        "landmarks_front_camera": f"{drone}/front_camera_color_optical"  # the colour camera of the RealSense
+        if drone.startswith("nautilus")
+        else f"{drone}/front_camera_optical",
         "landmarks_down_camera": f"{drone}/downwards_camera_optical",
+        "landmarks_profile": "none",
         "waypoint_topic": f"/{namespace}/current_waypoint",
     }
-
 
     merged_config = {**scenario_config, **drone_config}
 

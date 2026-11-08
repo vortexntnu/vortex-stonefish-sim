@@ -31,14 +31,21 @@
 
   <include file="$(find stonefish_sim)/objects/robosub_course.scn"/>
   <include file="$(find stonefish_sim)/objects/robosub_landmarks.scn"/>
+  <include file="$(find stonefish_sim)/objects/robosub_launchers.scn"/>
 
   <!-- Course landmarks as vortex_msgs/LandmarkArray (replaces robosub_dummy_publisher).
        profile: none, realistic, unstable or erratic detection errors (also in the editor panel).
        The topic, frame and cameras are set by the launch files from the drone. -->
-  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="none"
+  <ros_landmarks topic="$(param landmarks_topic)" frame_id="$(param landmarks_frame_id)" rate="10.0" profile="$(param landmarks_profile)"
                  front_camera="$(param landmarks_front_camera)" down_camera="$(param landmarks_down_camera)"/>
 
   <!-- The waypoint the vehicle is going to (waypoint_manager's current_waypoint), drawn in the 3D view only -->
+  <!-- Triggers, with no limit on the shots. They leave from the frames in the drone's description. -->
+  <ros_launcher service="/$(param drone)/fire_torpedo" robot="$(param drone)" objects="torpedo" count="6" speed="4.0"
+                base_frame="$(param drone)/base_link" frame="$(param drone)/torpedo_tube"/>
+  <ros_launcher service="/$(param drone)/drop_marker" robot="$(param drone)" objects="marker" count="4" speed="0.0"
+                base_frame="$(param drone)/base_link" frame="$(param drone)/marker_dropper"/>
+
   <ros_waypoint topic="$(param waypoint_topic)"/>
   <ros_landmark_frames map_frame="$(param landmarks_map_frame)" world_frame="$(param landmarks_frame_id)"/>
 

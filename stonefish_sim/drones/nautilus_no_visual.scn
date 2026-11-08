@@ -167,7 +167,7 @@
             </thrust_model>
         </actuator>
 
-        <sensor name="odom" type="odometry" rate="5.0">
+        <sensor name="odom" type="odometry" rate="10.0">
             <link name="Base"/>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <ros_publisher topic="/nautilus/odom"/>
@@ -177,7 +177,7 @@
             <range angular_velocity="10.0 10.0 5.0" linear_acceleration="10.0"/>
             <noise angle="0.1 0.1 0.5" angular_velocity="0.05" yaw_drift="0.001" linear_acceleration="0.1"/>
             <history samples="1"/>
-            <origin xyz="0.0057 0.0 0.0827" rpy="0.0 0.0 0.0"/>
+            <origin xyz="-0.1 -0.001 0.085" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
             <ros_publisher topic="/nautilus/imu/data_raw"/>
         </sensor>
@@ -188,16 +188,16 @@
             <water_layer minimum_layer_size="10.0" boundary_near="10.0" boundary_far="30.0"/>
             <noise velocity_percent= "0.3" velocity="0.1" altitude="0.03" water_velocity_percent="0.1" water_velocity="0.1"/>
             <history samples="1"/>
-            <origin rpy="0.0 0.0 0.0" xyz="-0.130 0.003 0.2414"/>
+            <origin rpy="0.0 0.0 3.14159" xyz="-0.130 0.003 0.2414"/>
             <link name="Base"/>
             <ros_publisher topic="/nautilus/dvl/sim"/>
         </sensor>
 
-        <sensor name="pressure_sensor_link" rate="1.0" type="pressure">
+        <sensor name="pressure_sensor_link" rate="10.0" type="pressure">
             <range pressure="100000.0"/>
-            <noise pressure="0.1"/>
+            <noise pressure="200.0"/>
             <history samples="1"/>
-            <origin xyz="-0.130 0.003 0.2414" rpy="0.0 0.0 0.0"/>
+            <origin xyz="-0.035 -0.115 -0.095" rpy="0.0 0.0 0.0"/>
             <link name="Base"/>
             <ros_publisher topic="/nautilus/pressure_sensor"/>
         </sensor>

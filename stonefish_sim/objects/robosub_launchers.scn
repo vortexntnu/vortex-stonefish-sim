@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<scenario>
+  <!-- What the vehicle fires and drops. See <ros_launcher> in the scenario.
+       A torpedo is a little heavier than water, so it falls slowly, and slim along +X, so it carries. -->
+  <dynamic name="torpedo_0" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="900.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="torpedo_1" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="902.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="torpedo_2" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="904.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="torpedo_3" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="906.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="torpedo_4" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="908.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="torpedo_5" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.15"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 1.5708 0.0"/>
+    <material name="Torpedo"/>
+    <look name="Yellow"/>
+    <hydrodynamics viscous_drag="0.01 0.1 0.1" quadratic_drag="0.04 1.0 1.0"/>
+    <world_transform xyz="910.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="marker_0" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.05"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="Aluminium"/>
+    <look name="Orange"/>
+    <world_transform xyz="920.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="marker_1" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.05"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="Aluminium"/>
+    <look name="Orange"/>
+    <world_transform xyz="922.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="marker_2" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.05"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="Aluminium"/>
+    <look name="Orange"/>
+    <world_transform xyz="924.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+  <dynamic name="marker_3" type="cylinder" physics="submerged">
+    <dimensions radius="0.02" height="0.05"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <material name="Aluminium"/>
+    <look name="Orange"/>
+    <world_transform xyz="926.0 0.0 -100.0" rpy="0.0 0.0 0.0"/>
+  </dynamic>
+</scenario>

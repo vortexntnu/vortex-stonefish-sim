@@ -6,6 +6,7 @@
             <material name="robot_material" density="1000.0" restitution="0.5"/>
             <material name="ma1_material" density="300.0" restitution="0.5"/>
             <material name="Neutral" density="900.0" restitution="0.5"/>
+            <material name="Torpedo" density="1050.0" restitution="0.2"/>
             <material name="Rough" density="1000.0" restitution="0.5"/>
             <material name="Concrete" density="2400.0" restitution="0.3"/>
             <!-- RoboSub Task 5 pickup items: slightly negatively buoyant so they
