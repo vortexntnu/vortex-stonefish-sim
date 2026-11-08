@@ -131,13 +131,56 @@
     <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
   </static>
 
-  <static name="bin_structure__ocean" type="model">
+  <!-- The four ocean meshes are separate objects so each bin has its own ID. -->
+  <static name="bin_structure_1__ocean" type="model">
     <physical>
-      <mesh filename="object_files/robosub_course/bin_structure__ocean.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_1__ocean.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </physical>
     <visual>
-      <mesh filename="object_files/robosub_course/bin_structure__ocean.obj" scale="1.0"/>
+      <mesh filename="object_files/robosub_course/bin_structure_1__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="u_ocean"/>
+    <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
+  </static>
+
+  <static name="bin_structure_2__ocean" type="model">
+    <physical>
+      <mesh filename="object_files/robosub_course/bin_structure_2__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub_course/bin_structure_2__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="u_ocean"/>
+    <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
+  </static>
+
+  <static name="bin_structure_3__ocean" type="model">
+    <physical>
+      <mesh filename="object_files/robosub_course/bin_structure_3__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub_course/bin_structure_3__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+    <material name="Neutral"/>
+    <look name="u_ocean"/>
+    <world_transform xyz="11.77400 7.81700 2.10000" rpy="0.00000 0.00000 0.00000"/>
+  </static>
+
+  <static name="bin_structure_4__ocean" type="model">
+    <physical>
+      <mesh filename="object_files/robosub_course/bin_structure_4__ocean.obj" scale="1.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </physical>
+    <visual>
+      <mesh filename="object_files/robosub_course/bin_structure_4__ocean.obj" scale="1.0"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </visual>
     <material name="Neutral"/>
